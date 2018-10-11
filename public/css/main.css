@@ -2,3 +2,11 @@ body {
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
 }
+
+.quick-links {
+    margin-top: 4em;
+}
+
+.quick-links .card {
+    min-height: 5em;
+}
