@@ -10,7 +10,7 @@
     class LoginController extends AbstractController 
     {
         /**
-        * @Route("/", name="login_view")
+        * @Route("/login", name="login_view")
         */
         public function viewLogin()
         {
