@@ -2,10 +2,49 @@
 
 {% block title %}
 
-   Login | Zing
+    Login | Zing
 {% endblock %}
 
 {% block body %}
-    {% include 'components/navbar.html.twig' %}
+
+    <nav class="navbar is-light is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="">
+                <img src="" width="112" height="28">
+            </a>
+        </div>
+    </nav>
+
+    <div id="login" class="is-halfheight">
+        <div class="login-card">
+
+            <div class="card-title">
+                <h1>Please Sign In</h1>
+            </div>
+
+            <div class="content">
+                <form method="POST" action="#">
+
+                    <input id="email" type="email" name="email" title="email" placeholder="Email" required="required" autofocus="autofocus">
+                    <input id="password" type="password" name="password" title="password" placeholder="Password" required="required">
+
+                    <div class="level options">
+                        <div class="checkbox level-left">
+                            {# <input type="checkbox" id="checkbox" class="regular-checkbox">
+                            <label for="checkbox"></label>
+                            <span>Remember me</span> #}
+                        </div>
+
+                        <div class="level-right">
+                            <a class="btn btn-link" href="#">Sign Up Here</a>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
