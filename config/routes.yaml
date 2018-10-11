@@ -1,3 +1,7 @@
 index:
    path: /
    controller: App\Controller\HomeController::viewHome
+
+login:
+  path: /login
+  controller: App\Controller\LoginController::viewLogin
