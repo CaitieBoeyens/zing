@@ -23,28 +23,9 @@
             </div>
 
             <div class="content">
-                <form method="POST" action="#">
-
-                    <input id="username" type="text" name="username" title="username" placeholder="Username" required="required" autofocus="autofocus">
-                    <input id="email" type="email" name="email" title="email" placeholder="Email" required="required">
-                    <input id="password" type="password" name="password" title="password" placeholder="Password" required="required">
-                    <input id="confirm-password" type="password" name="confirm-password" title="confirm-password" placeholder="Confirm Password" required="required">
-
-                    <div class="level options">
-                        <div class="checkbox level-left">
-                            {# <input type="checkbox" id="checkbox" class="regular-checkbox">
-                            <label for="checkbox"></label>
-                            <span>Remember me</span> #}
-                        </div>
-
-                        <div class="level-right">
-                            <a class="btn btn-link" href="#">Login Here</a>
-                        </div>
-
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Sign up</button>
-                </form>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
