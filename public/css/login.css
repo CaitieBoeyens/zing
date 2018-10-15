@@ -13,7 +13,7 @@
 }
 
 #login .login-card .card-title {
-    background-color: #474F70;
+    background-color: #474f70;
     padding: 2rem;
 }
 
@@ -29,8 +29,7 @@
     padding: 3rem 2.5rem 5rem;
 }
 
-#login .login-card #email,
-#login .login-card #password {
+#login .login-card input {
     display: block;
     width: 100%;
     font-size: 1rem;
@@ -41,16 +40,12 @@
     transition: all 0.5s;
 }
 
-#login .login-card #email:hover,
-#login .login-card #password:hover {
+#login .login-card input:hover {
     border-color: #7a7a7a;
 }
 
-#login .login-card #email:active,
-#login .login-card #password:active,
-#login .login-card #email:focus,
-#login .login-card #password:focus {
-    border-color: #474F70;
+#login .login-card input:active {
+    border-color: #474f70;
 }
 
 #login .login-card .checkbox {
@@ -74,12 +69,12 @@
 #login .login-card button {
     cursor: pointer;
     font-size: 1.2rem;
-    color: #474F70;
+    color: #474f70;
     border-radius: 4rem;
     display: block;
     width: 100%;
     background: transparent;
-    border: 2px solid #474F70;
+    border: 2px solid #474f70;
     padding: 0.9rem 0 1.1rem;
     transition: color 0.5s, border-color 0.5s;
 }
@@ -102,7 +97,7 @@ label {
     display: none;
 }
 
-.regular-checkbox+label {
+.regular-checkbox + label {
     background-color: #fafafa;
     border: 1px solid #dbdbdb;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -111,7 +106,6 @@ label {
     display: inline-block;
     position: relative;
 }
-
 
 input:focus,
 select:focus,
