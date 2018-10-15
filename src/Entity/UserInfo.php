@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
 * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -34,9 +36,22 @@ class UserInfo
     private $password;
 
     /**
-    * @ORM\Column(type="string")
-    */
-    private $avatar;
+     * @ORM\OneToMany(targetEntity="App\Entity\Avatar", mappedBy="person")
+     */
+    private $avatars;
+
+    public function __construct()
+    {
+        $this->avatars = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Avatar[]
+     */
+    public function getAvatars(): Collection
+    {
+        return $this->avatars;
+    }
 
     public function getId(): ?int
     {
