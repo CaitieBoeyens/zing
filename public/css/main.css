@@ -7,6 +7,31 @@ body {
     margin-top: 4em;
 }
 
-.quick-links .card {
-    min-height: 5em;
+.navbar-item img {
+    max-height: 4rem;
+}
+
+.main {
+    margin-top: 4em;
+}
+
+.reply {
+    border-top: 0px !important;
+    border-left: 4px solid #dadada;
+}
+
+.icon {
+    color: #474f70;
+}
+
+.button.is-blue {
+    background-color: #474f70;
+    border-color: transparent;
+    color: #fff;
+}
+
+.button.is-blue.is-inverted {
+    color: #474f70;
+    border-color: transparent;
+    background-color: #fff;
 }
