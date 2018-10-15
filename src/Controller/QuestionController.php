@@ -9,11 +9,11 @@
     class QuestionController extends AbstractController 
     {
         /**
-         * @Route("/askQuestion", name="askQuestion_view)
+         * @Route("/question", name="question_view")
          */
-        public function viewAsk()
+        public function viewQuestion()
         {
-            $view = 'askQuestion.html.twig';
+            $view = 'question.html.twig';
             return $this->render($view);
         }
     }
