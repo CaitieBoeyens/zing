@@ -8,5 +8,13 @@
     
     class QuestionController extends AbstractController 
     {
+        /**
+         * @Route("/question", name="question_view")
+         */
+        public function viewQuestion()
+        {
+            $view = 'question.html.twig';
+            return $this->render($view);
+        }
     }
 ?>
