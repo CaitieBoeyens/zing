@@ -54,7 +54,12 @@
         /**
          * @Route ("signup/img", name="image_upload")
          */
-        public function newAvatar(){}
+        public function newAvatar(){
+
+            $view = 'image.html.twig';
+
+            return $this->render($view);
+        }
 
 
         /**
