@@ -1,70 +1,86 @@
 <?php
 
-    namespace App\Controller;
-    
-    use Symfony\Component\HttpFoundation\Response;
-    use Symfony\Component\HttpFoundation\Request;
-    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-    use Symfony\Component\Routing\Annotation\Route;
-    use App\Entity\UserInfo;
-    use App\Form\UserInfoType;
-    
-    class ProfileController extends AbstractController 
+namespace App\Controller;
+
+use App\Entity\Login;
+use App\Entity\UserInfo;
+use App\Form\LoginInfoType;
+use App\Form\UserInfoType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+
+class ProfileController extends AbstractController
+{
+    /**
+     * @Route("/login", name="login_view")
+     */
+    public function viewLogin(Request $request)
     {
-        /**
-        * @Route("/login", name="login_view")
-        */
-        public function viewLogin()
-        {
-            
-            $view = 'login.html.twig';
 
-            return $this->render($view);
+        $loginInfo = new Login();
+        $form = $this->createForm(LoginInfoType::class, $loginInfo);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+        // $form->getData() holds the submitted values
+            $loginProfile = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($loginInfo);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('profile_success');
         }
 
-        /**
-        * @Route("/signup", name="signup_view")
-        */
-        
-         public function newProfile(Request $request)
-        {
-            $userInfo = new UserInfo();
-            $form = $this->createForm(UserInfoType::class, $userInfo);
-            
-            $form->handleRequest($request);
+        $view = 'login.html.twig';
+        $model = array('form' => $form->createView());
+        return $this->render($view, $model);
+    }
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                // $form->getData() holds the submitted values
-                $userProfile = $form->getData();
+    /**
+     * @Route("/signup", name="signup_view")
+     */
 
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($userInfo);
-                $entityManager->flush();
+    public function newProfile(Request $request)
+    {
+        $userInfo = new UserInfo();
+        $form = $this->createForm(UserInfoType::class, $userInfo);
 
+        $form->handleRequest($request);
 
-                return $this->redirectToRoute('image_upload');
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            $userProfile = $form->getData();
 
-            $view = 'register.html.twig';
-            $model = array('form' => $form->createView());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($userInfo);
+            $entityManager->flush();
 
-            return $this->render($view, $model);
-        }
-
-        /**
-         * @Route ("signup/img", name="image_upload")
-         */
-        public function newAvatar(){}
-
-
-        /**
-        * @Route("/success", name="profile_success")
-        */
-        public function successProfile(Request $request)
-        {
-            $view = 'success.html.twig';
-            $model = array();
-            return $this->render($view, $model);
+            return $this->redirectToRoute('image_upload');
         }
     }
+
+    /**
+     * @Route ("signup/img", name="image_upload")
+     */
+    public function newAvatar(){
+
+        $view = 'image.html.twig';
+
+        return $this->render($view);
+    }
+
+    /**
+     * @Route("/success", name="profile_success")
+     */
+    public function successProfile(Request $request)
+    {
+        $view = 'success.html.twig';
+        $model = array();
+        return $this->render($view, $model);
+    }
+}
+
 ?>
