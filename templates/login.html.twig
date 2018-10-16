@@ -19,24 +19,15 @@
         <div class="login-card">
 
             <div class="card-title">
-                <h1>Please Sign In</h1>
+                <h1>Login</h1>
             </div>
 
             <div class="content">
-                <form method="POST" action="#">
-
-                    <input id="email" type="email" name="email" title="email" placeholder="Email" required="required" autofocus="autofocus">
-                    <input id="password" type="password" name="password" title="password" placeholder="Password" required="required">
-
-                    <div class="level options">
-                        <div class="level-right">
-                            <a class="btn btn-link" href="#">Sign Up Here</a>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
             </div>
+            
         </div>
     </div>
 
