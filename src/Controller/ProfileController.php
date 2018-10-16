@@ -60,6 +60,11 @@ class ProfileController extends AbstractController
 
             return $this->redirectToRoute('image_upload');
         }
+
+        $view = 'register.html.twig';
+
+        $model = array('form' => $form->createView());
+        return $this->render($view, $model);
     }
 
     /**
