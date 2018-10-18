@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,12 +26,22 @@ class Question
     /**
      * @ORM\Column(type="text")
      */
-    private $question;
+    private $body;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="array")
      */
-    private $user_id;
+    private $tags = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="question_id", orphanRemoval=true)
+     */
+    private $responses;
+
+    public function __construct()
+    {
+        $this->responses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -48,26 +60,57 @@ class Question
         return $this;
     }
 
-    public function getQuestion(): ?string
+    public function getTags(): ?array
     {
-        return $this->question;
+        return $this->tags;
     }
 
-    public function setQuestion(string $question): self
+    public function setTags(array $tags): self
     {
-        $this->question = $question;
+        $this->tags = ['DIY'];
 
         return $this;
     }
 
-    public function getUserId(): ?int
+    /**
+     * @return Collection|Response[]
+     */
+    public function getResponses(): Collection
     {
-        return $this->user_id;
+        return $this->responses;
     }
 
-    public function setUserId(int $user_id): self
+    public function addResponse(Response $response): self
     {
-        $this->user_id = $user_id;
+        if (!$this->responses->contains($response)) {
+            $this->responses[] = $response;
+            $response->setQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponse(Response $response): self
+    {
+        if ($this->responses->contains($response)) {
+            $this->responses->removeElement($response);
+            // set the owning side to null (unless already changed)
+            if ($response->getQuestion() === $this) {
+                $response->setQuestion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getBody(): ?string
+    {
+        return $this->body;
+    }
+
+    public function setBody(string $body): self
+    {
+        $this->body = $body;
 
         return $this;
     }

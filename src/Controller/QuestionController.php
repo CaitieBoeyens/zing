@@ -19,8 +19,28 @@
             $question = new Question();
             $form = $this->createForm(QuestionType::class, $question);
             $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()){
+                $question = $form->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($question);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('question_success');
+            }
+
             $view = 'question.html.twig';
             $model = array('form' => $form->createView());
+            return $this->render($view, $model);
+        }
+
+        /**
+         * @Route("/q/success", name="question_success")
+         */
+        public function successQuestion(Request $request)
+        {
+            $view = 'success.html.twig';
+            $model = array();
             return $this->render($view, $model);
         }
     }

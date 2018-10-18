@@ -1,4 +1,5 @@
 <?php
+    // Question form class
     namespace App\Form;
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
@@ -11,8 +12,7 @@
     {
         $builder
             ->add('title', TextType::class)
-            ->add('question', TextareaType::class)
-            ->add('tags', TextType::class)
+            ->add('body', TextareaType::class)
             ->add('submit', SubmitType::class, ['label' => 'Ask']);
         ; }
     }
