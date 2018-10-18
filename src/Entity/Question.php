@@ -17,44 +17,33 @@ class Question
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserInfo")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $user_id;
+    private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $question;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $rating;
-
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $tags = [];
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
+    private $user_id;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUserId(): ?int
+    public function getTitle(): ?string
     {
-        return $this->user_id;
+        return $this->title;
     }
 
-    public function setUserId(int $user_id): self
+    public function setTitle(string $title): self
     {
-        $this->user_id = $user_id;
+        $this->title = $title;
 
         return $this;
     }
@@ -71,38 +60,14 @@ class Question
         return $this;
     }
 
-    public function getRating(): ?int
+    public function getUserId(): ?int
     {
-        return $this->rating;
+        return $this->user_id;
     }
 
-    public function setRating(?int $rating): self
+    public function setUserId(int $user_id): self
     {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    public function getTags(): ?array
-    {
-        return $this->tags;
-    }
-
-    public function setTags(array $tags): self
-    {
-        $this->tags = $tags;
-
-        return $this;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
+        $this->user_id = $user_id;
 
         return $this;
     }
