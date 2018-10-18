@@ -40,9 +40,15 @@ class UserInfo
      */
     private $avatars;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="user_id", orphanRemoval=true)
+     */
+    private $questionsAsked;
+
     public function __construct()
     {
         $this->avatars = new ArrayCollection();
+        $this->questionsAsked = new ArrayCollection();
     }
 
     /**
@@ -102,6 +108,37 @@ class UserInfo
     public function setAvatar(string $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestionsAsked(): Collection
+    {
+        return $this->questionsAsked;
+    }
+
+    public function addQuestionsAsked(Question $questionsAsked): self
+    {
+        if (!$this->questionsAsked->contains($questionsAsked)) {
+            $this->questionsAsked[] = $questionsAsked;
+            $questionsAsked->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionsAsked(Question $questionsAsked): self
+    {
+        if ($this->questionsAsked->contains($questionsAsked)) {
+            $this->questionsAsked->removeElement($questionsAsked);
+            // set the owning side to null (unless already changed)
+            if ($questionsAsked->getUserId() === $this) {
+                $questionsAsked->setUserId(null);
+            }
+        }
 
         return $this;
     }

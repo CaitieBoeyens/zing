@@ -38,6 +38,12 @@ class Question
      */
     private $responses;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserInfo", inversedBy="questionsAsked")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user_id;
+
     public function __construct()
     {
         $this->responses = new ArrayCollection();
@@ -111,6 +117,18 @@ class Question
     public function setBody(string $body): self
     {
         $this->body = $body;
+
+        return $this;
+    }
+
+    public function getUserId(): ?UserInfo
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?UserInfo $user_id): self
+    {
+        $this->user_id = $user_id;
 
         return $this;
     }
