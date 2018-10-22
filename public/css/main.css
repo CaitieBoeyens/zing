@@ -4,6 +4,10 @@ body {
     background: #f7f7f7;
 }
 
+.logo-img {
+    margin: 4em 20% 0;
+}
+
 .quick-links {
     margin-top: 4em;
 }

@@ -40,6 +40,7 @@ class UserProfile implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * * @Assert\NotBlank()
      */
     private $email;
 

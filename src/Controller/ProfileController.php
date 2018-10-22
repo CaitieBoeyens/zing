@@ -108,7 +108,7 @@ class ProfileController extends AbstractController
             $entityManager->persist($avatar);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home_view');
+            return $this->redirectToRoute('profile_success');
         }
 
         $view = 'image.html.twig';
