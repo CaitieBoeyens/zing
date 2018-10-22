@@ -39,10 +39,11 @@ class Question
     private $responses;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserInfo", inversedBy="questionsAsked")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="questionsAsked")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user_id;
+
 
     public function __construct()
     {

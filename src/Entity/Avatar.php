@@ -27,18 +27,21 @@ class Avatar
     private $url;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserInfo", inversedBy="avatar")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="avatar")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $person;
+    private $user_id;
 
-    public function getPerson(): ?Person
+   
+
+    public function getUserId(): ?UserId
     {
-        return $this->person;
+        return $this->user_id;
     }
 
-    public function setPerson(?Person $person): self
+    public function setUserId(?UserId $user_id): self
     {
-        $this->person = $person;
+        $this->user_id = $user_id;
 
         return $this;
     }

@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Login;
-use App\Entity\UserInfo;
+use App\Entity\User;
 use App\Form\LoginInfoType;
-use App\Form\UserInfoType;
+use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,8 +45,8 @@ class ProfileController extends AbstractController
 
     public function newProfile(Request $request)
     {
-        $userInfo = new UserInfo();
-        $form = $this->createForm(UserInfoType::class, $userInfo);
+        $userInfo = new User();
+        $form = $this->createForm(UserType::class, $userInfo);
 
         $form->handleRequest($request);
 

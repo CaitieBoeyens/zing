@@ -8,40 +8,37 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
-* @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+
 */
 
 class UserInfo
 {
     /**
-    * @ORM\Id()
-    * @ORM\GeneratedValue()
-    * @ORM\GeneratedValue(strategy="SEQUENCE")
-    * @ORM\Column(type="integer")
+    
     */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     
      * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
     
     /**
-    * @ORM\Column(type="string", length=255, nullable=true)
+    
     */
     private $username;
 
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Avatar", mappedBy="person")
+     *
      */
     private $avatars;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="user_id", orphanRemoval=true)
+     
      */
     private $questionsAsked;
 
