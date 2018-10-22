@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Login;
-use App\Entity\User;
+use App\Entity\UserProfile;
 use App\Form\LoginInfoType;
-use App\Form\UserType;
+use App\Form\UserProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,8 +46,8 @@ class ProfileController extends AbstractController
 
     public function newProfile(Request $request,  UserPasswordEncoderInterface $passwordEncoder)
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $user = new UserProfile();
+        $form = $this->createForm(UserProfileType::class, $user);
 
         $form->handleRequest($request);
 

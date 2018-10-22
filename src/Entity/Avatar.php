@@ -27,7 +27,7 @@ class Avatar
     private $url;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="avatar")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="avatar")
      * @ORM\JoinColumn(nullable=false)
      */
     private $person;

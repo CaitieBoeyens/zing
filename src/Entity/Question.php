@@ -39,7 +39,7 @@ class Question
     private $responses;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="questionsAsked")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="questionsAsked")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user_id;

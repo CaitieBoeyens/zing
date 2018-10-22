@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class UserProfile implements UserInterface
 {
     /**
      * @ORM\Id()
