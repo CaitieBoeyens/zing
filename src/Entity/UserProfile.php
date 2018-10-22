@@ -59,15 +59,6 @@ class UserProfile implements UserInterface
      */
     private $avatar;
 
-    /**
-     * @ORM\Column(type="string", unique=true)
-     */
-    private $apiToken;
-
-    /**
-    * @ORM\Column(type="json")
-    */
-
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -223,15 +214,4 @@ class UserProfile implements UserInterface
         return $this;
     }
 
-    public function getApiToken(): ?string
-    {
-        return $this->apiToken;
-    }
-
-    public function setApiToken(string $apiToken): self
-    {
-        $this->apiToken = $apiToken;
-
-        return $this;
-    }
 }
