@@ -146,6 +146,8 @@ class ProfileController extends AbstractController
         $model = array();
         return $this->render($view, $model);
     }
+
 }
+
 
 ?>
