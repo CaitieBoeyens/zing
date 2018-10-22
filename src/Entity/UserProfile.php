@@ -59,6 +59,11 @@ class UserProfile implements UserInterface
      */
     private $avatar;
 
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $apiToken;
+
     public function __construct()
     {
         $this->questionsAsked = new ArrayCollection();
@@ -221,6 +226,18 @@ class UserProfile implements UserInterface
                 $avatar->setPerson(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getApiToken(): ?string
+    {
+        return $this->apiToken;
+    }
+
+    public function setApiToken(string $apiToken): self
+    {
+        $this->apiToken = $apiToken;
 
         return $this;
     }
