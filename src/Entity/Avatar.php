@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AvatarRepository")
@@ -28,9 +29,17 @@ class Avatar
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="avatar")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $person;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload the avatar as a PNG file.")
+     * @Assert\File(mimeTypes={ "image/png" })
+     */
+    private $file;
 
    
 
@@ -71,6 +80,18 @@ class Avatar
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(string $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }

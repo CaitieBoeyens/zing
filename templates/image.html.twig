@@ -2,7 +2,7 @@
 
 {% block title %}
 
-    Login | Zing
+    Register | Zing
 {% endblock %}
 
 {% block body %}
@@ -22,7 +22,27 @@
                 <h1>Upload a picture</h1>
             </div>
 
-            <div class="content"></div>
+            <div class="content columns is-centered">
+
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="file column is-centered">
+                    <label class="file-label">
+                        {{ form_row(form.file) }}
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Choose a file…
+                            </span>
+                        </span>
+                    </label>
+                </div>
+
+                {{ form_end(form) }}</div>
+            <a href="{{ path('home_view') }}" class="button is-blue is-inverted is-rounded">
+                I'll do this later
+            </a>
         </div>
     </div>
 
