@@ -1,0 +1,90 @@
+{% extends "base.html.twig"%}
+
+{% block title %}
+
+    Profile | Zing
+{% endblock %}
+
+{% block body %}
+
+    {% include 'components/navbar.html.twig' %}
+
+    <div class="container">
+        <div class='section profile-heading'>
+            <div class='columns is-multiline'>
+                <div class='column is-2'>
+                    <span class='header-icon user-profile-image'>
+                        <figure class='image'>
+                            <img class='is-rounded' alt='avatar' src='https://bulma.io/images/placeholders/256x256.png'>
+                        </figure>
+                    </span>
+                </div>
+                <div class='column name'>
+                    <p>
+                        <span class='title is-bold'>Your Name Here</span>
+                        <br>
+                        <span class='tag is-primary is-outline status'>Pro</span>
+                    </p>
+                </div>
+                <div class='column has-text-centered'>
+                    <p class='stat-val'>7</p>
+                    <p class='stat-key'>posts</p>
+                </div>
+                <div class='column has-text-centered'>
+                    <p class='stat-val'>10</p>
+                    <p class='stat-key'>upvotes</p>
+                </div>
+                <div class='column has-text-centered'>
+                    <p class='stat-val'>3</p>
+                    <p class='stat-key'>downvotes</p>
+                </div>
+                <div class='column has-text-centered'>
+                    <p class='stat-val'>15</p>
+                    <p class='stat-key'>zings</p>
+                </div>
+            </div>
+        </div>
+        <div class='profile-options is-fullwidth'>
+            <div class='tabs is-fullwidth'>
+                <ul>
+                    <li class='link is-active'>
+                        <a>
+                            <span class='icon'>
+                                <i class='fa fa-list'></i>
+                            </span>
+                            <span>My Posts</span>
+                        </a>
+                    </li>
+                    <li class='link'>
+                        <a>
+                            <span class='icon'>
+                                <i class='fa fa-comment'></i>
+                            </span>
+                            <span>My Comments</span>
+                        </a>
+                    </li>
+                    <li class='link'>
+                        <a>
+                            <span class='icon'>
+                                <i class='fa fa-user'></i>
+                            </span>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main">
+            <div class="posts">
+                {% include 'components/posts.html.twig' %}
+            </div>
+            <div class="comments">
+                {% include 'components/comments.html.twig' %}
+            </div>
+            <div class="profile">
+                {% include 'components/profile.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
