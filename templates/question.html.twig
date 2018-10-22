@@ -25,28 +25,27 @@
         </div>
     </div>
 
-{% endblock %}
+    {% block script %}
+        <script>
+            //Text Area Resizing from https://blog.invoiceberry.com/2011/03/dynamically-change-the-height-of-a-textarea-based-on-the-text-javascript/
 
-{% block script %}
-    <script>
-        //Text Area Resizing from https://blog.invoiceberry.com/2011/03/dynamically-change-the-height-of-a-textarea-based-on-the-text-javascript/
+            function do_resize(textbox) {
 
-        function do_resize(textbox) {
+                var maxrows = 5;
+                var txt = textbox.value;
+                var cols = textbox.cols;
 
-            var maxrows = 5;
-            var txt = textbox.value;
-            var cols = textbox.cols;
+                var arraytxt = txt.split('\n');
+                var rows = arraytxt.length;
 
-            var arraytxt = txt.split('\n');
-            var rows = arraytxt.length;
-
-            for (i = 0; i < arraytxt.length; i++) 
-                rows += parseInt(arraytxt[i].length / cols);
-            
-            if (rows > maxrows) 
-                textbox.rows = maxrows;
-            else 
-                textbox.rows = rows;
-            }
-    </script>
+                for (i = 0; i < arraytxt.length; i++) 
+                    rows += parseInt(arraytxt[i].length / cols);
+                
+                if (rows > maxrows) 
+                    textbox.rows = maxrows;
+                else 
+                    textbox.rows = rows;
+                }
+        </script>
+    {% endblock %}
 {% endblock %}

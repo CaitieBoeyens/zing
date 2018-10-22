@@ -14,7 +14,7 @@
             $builder
                 ->add('username', TextType::class)
                 ->add('password', PasswordType::class)
-                ->add('submit', SubmitType::class, ['label' => 'Signup']);
+                ->add('submit', SubmitType::class, ['label' => 'Login']);
         }
     }
 ?>
