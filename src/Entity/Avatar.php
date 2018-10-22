@@ -30,18 +30,18 @@ class Avatar
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="avatar")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user_id;
+    private $person;
 
    
 
-    public function getUserId(): ?UserId
+    public function getPerson(): ?Person
     {
-        return $this->user_id;
+        return $this->person;
     }
 
-    public function setUserId(?UserId $user_id): self
+    public function setPerson(?Person $person): self
     {
-        $this->user_id = $user_id;
+        $this->person = $person;
 
         return $this;
     }

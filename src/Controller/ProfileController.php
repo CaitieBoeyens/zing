@@ -9,6 +9,7 @@ use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfileController extends AbstractController
 {
@@ -43,19 +44,22 @@ class ProfileController extends AbstractController
      * @Route("/signup", name="signup_view")
      */
 
-    public function newProfile(Request $request)
+    public function newProfile(Request $request,  UserPasswordEncoderInterface $passwordEncoder)
     {
-        $userInfo = new User();
-        $form = $this->createForm(UserType::class, $userInfo);
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
-            $userProfile = $form->getData();
+            $user = $form->getData();
+
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($userInfo);
+            $entityManager->persist($user);
             $entityManager->flush();
 
             return $this->redirectToRoute('image_upload');
