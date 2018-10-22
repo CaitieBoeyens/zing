@@ -90,6 +90,16 @@ class ProfileController extends AbstractController
         $model = array();
         return $this->render($view, $model);
     }
+
+    /**
+     * @Route("/profile", name="user_profile")
+     */
+    public function viewProfile(Request $request)
+    {
+        $view = 'profile.html.twig';
+        $model = array();
+        return $this->render($view, $model);
+    }
 }
 
 ?>
