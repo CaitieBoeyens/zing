@@ -18,8 +18,14 @@
             </div>
 
             <div class="content">
-                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                {{ form_widget(form) }}
+                {{ form_start(form) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword) }}
+
+                <div class="has-text-centered">
+                    {{ form_row(form.submit) }}
+                </div>
                 {{ form_end(form) }}
             </div>
         </div>

@@ -17,28 +17,36 @@
                         <h1>Upload a picture</h1>
                     </div>
 
-                    <div class="content columns is-centered">
+                    <div class="content">
+                        <div class="columns is-centered">
 
-                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                        <div class="file column is-centered">
-                            <label class="file-label">
-                                {{ form_row(form.file) }}
-                                <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-upload"></i>
+                            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                            <div class="file column is-centered">
+                                <label class="file-label">
+                                    {{ form_row(form.file) }}
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                            Choose a file…
+                                        </span>
                                     </span>
-                                    <span class="file-label">
-                                        Choose a file…
-                                    </span>
-                                </span>
-                            </label>
+                                </label>
+                                <div class="has-text-centered">
+                                    {{ form_row(form.submit) }}
+                                </div>
+                            </div>
+
+                            {{ form_end(form) }}
                         </div>
 
-                        {{ form_end(form) }}
+                        <div class="has-text-centered">
+                            <a href="{{ path('home_view') }}" class="button is-blue is-inverted is-rounded">
+                                I'll do this later
+                            </a>
+                        </div>
                     </div>
-                    <a href="{{ path('home_view') }}" class="button is-blue is-inverted is-rounded">
-                        I'll do this later
-                    </a>
                 </div>
             </div>
 

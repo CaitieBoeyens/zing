@@ -60,6 +60,7 @@ class ProfileController extends AbstractController
 
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+            $user->setRoles(['general']);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

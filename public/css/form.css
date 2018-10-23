@@ -22,7 +22,7 @@
 }
 
 .login-card .content {
-    padding: 3rem 2.5rem 5rem;
+    padding: 3rem 2.5rem 4rem;
 }
 
 input {
@@ -45,7 +45,6 @@ input:active {
 }
 
 textarea {
-    display: block;
     width: 100%;
     font-size: 1rem;
     margin-bottom: 1.75rem;
@@ -128,4 +127,8 @@ select:focus,
 textarea:focus,
 button:focus {
     outline: none;
+}
+
+.button {
+    margin: 1em auto;
 }
