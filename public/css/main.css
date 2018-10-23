@@ -37,7 +37,7 @@ body {
 
 .button.is-blue.is-inverted {
     color: #474f70;
-    border-color: transparent;
+    border-color: #474f70;
     background-color: #fff;
 }
 
@@ -76,7 +76,6 @@ body {
     background-color: #a1a1a1;
 }
 
-
 /* ====================================================================
                                 Profile Page
 ======================================================================= */
@@ -85,9 +84,9 @@ body {
     font-size: 3em;
     padding-top: 20px;
     font-weight: bold;
-  }
-  
-  .stat-key {
+}
+
+.stat-key {
     font-size: 1.4em;
     font-weight: 200;
-  }
+}

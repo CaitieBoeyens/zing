@@ -13,7 +13,7 @@
         $builder
             ->add('title', TextType::class, ['label' => 'Give your question a title'])
             ->add('body', TextareaType::class, ['label' => 'What do you need advice about?'],['attr' => ['onkeyup' => 'new do_resize(this)', 'cols'=>"80", 'rows'=>"1"]])
-            ->add('submit', SubmitType::class, ['label' => 'Ask']);
+            ->add('submit', SubmitType::class, ['label' => 'Ask', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
         ; }
     }
 ?>

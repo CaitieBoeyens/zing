@@ -82,7 +82,7 @@ textarea:active {
     margin-bottom: 1.5rem;
 }
 
-.login-card button {
+/* .login-card button {
     cursor: pointer;
     font-size: 1.2rem;
     color: #474f70;
@@ -103,7 +103,7 @@ textarea:active {
 
 .login-card button:active {
     transform: translateY(1px);
-}
+} */
 
 label {
     cursor: pointer;

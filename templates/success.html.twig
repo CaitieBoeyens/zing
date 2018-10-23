@@ -1,1 +1,33 @@
-<h1>SUCCESS</h1>
+{% extends "base.html.twig"%}
+
+{% block title %}
+
+    Register | Zing
+{% endblock %}
+
+{% block body %}
+
+    <div class="columns is-halfheight is-centered">
+        <div class="column is-one-fifth  is-paddingless signup-card">
+
+            <div id="login" class="is-halfheight">
+                <div class="login-card">
+
+                    <div class="card-title">
+                        <h1>Success!</h1>
+                    </div>
+
+                    <div class="content columns is-centered">
+
+                        <a href="{{ path('home_view') }}" class="button is-blue is-rounded">
+                            Go home
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

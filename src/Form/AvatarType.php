@@ -16,7 +16,7 @@
                     'label' => ' ', 
                     'attr' => ['class' => 'file-input hide-file-input']
                     ])
-                ->add('submit', SubmitType::class, ['label' => 'add avatar']);
+                ->add('submit', SubmitType::class, ['label' => 'add avatar', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
         }
     }
 ?>

@@ -14,7 +14,7 @@
             $builder
                 ->add('username', TextType::class)
                 ->add('password', PasswordType::class)
-                ->add('submit', SubmitType::class, ['label' => 'Login']);
+                ->add('submit', SubmitType::class, ['label' => 'Login', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
         }
     }
 ?>
