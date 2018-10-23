@@ -20,5 +20,21 @@
     <body class="has-background-light">
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+
+        {% block script %}
+            <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+            <script>
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyBeRfVa5FOuZI-G2akRcp_T0MXJdFKJgss",
+                    authDomain: "zing-df142.firebaseapp.com",
+                    databaseURL: "https://zing-df142.firebaseio.com",
+                    projectId: "zing-df142",
+                    storageBucket: "zing-df142.appspot.com",
+                    messagingSenderId: "805810067270"
+                };
+                firebase.initializeApp(config);
+            </script>
+        {% endblock %}
     </body>
 </html>
