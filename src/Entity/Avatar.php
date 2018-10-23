@@ -43,12 +43,12 @@ class Avatar
 
    
 
-    public function getPerson(): ?Person
+    public function getPerson(): ?UserProfile
     {
         return $this->person;
     }
 
-    public function setPerson(?Person $person): self
+    public function setPerson(?UserProfile $person): self
     {
         $this->person = $person;
 
