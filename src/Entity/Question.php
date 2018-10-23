@@ -122,12 +122,12 @@ class Question
         return $this;
     }
 
-    public function getUserId(): ?UserInfo
+    public function getUserId(): ?UserProfile
     {
         return $this->user_id;
     }
 
-    public function setUserId(?UserInfo $user_id): self
+    public function setUserId(?UserProfile $user_id): self
     {
         $this->user_id = $user_id;
 
