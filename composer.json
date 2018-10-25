@@ -6,7 +6,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/collections": "^1.5",
-        "eightpoints/guzzle-bundle": "^7.4",
         "j0k3r/php-imgur-api-client": "^3.0",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/apache-pack": "^1.0",

@@ -74,15 +74,6 @@
             "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
         }
     },
-    "eightpoints/guzzle-bundle": {
-        "version": "7.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "7.0",
-            "ref": "e5e657ce5a4ebc99f3c76916938aa0a5f8ef7736"
-        }
-    },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
     },
@@ -184,9 +175,6 @@
     },
     "symfony/event-dispatcher": {
         "version": "v4.1.4"
-    },
-    "symfony/expression-language": {
-        "version": "v4.1.6"
     },
     "symfony/filesystem": {
         "version": "v4.1.4"

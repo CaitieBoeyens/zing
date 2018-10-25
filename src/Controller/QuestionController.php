@@ -24,19 +24,6 @@
          */
         public function newQuestion(Request $request)
         {
-
-            $client = new \Imgur\Client();
-            $client->setOption('client_id', '3125eeaed96df4e');
-            $client->setOption('client_secret', '8aebb8d1c8fc1e2563cd4d5f0a8b6a5292b79db1');
-
-            $pathToFile = '/Users/brianirons/Desktop/Unknown.png';
-            $imageData = [
-                'image' => base64_encode(file_get_contents($pathToFile)),
-                'type'  => 'base64',
-            ];
-
-            $client->api('image')->upload($imageData);
-
             $question = new Question();
             $form = $this->createForm(QuestionType::class, $question);
             $form->handleRequest($request);
