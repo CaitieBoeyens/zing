@@ -74,6 +74,27 @@
             "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
         }
     },
+    "eightpoints/guzzle-bundle": {
+        "version": "7.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "7.0",
+            "ref": "e5e657ce5a4ebc99f3c76916938aa0a5f8ef7736"
+        }
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.3.3"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.4.2"
+    },
+    "j0k3r/php-imgur-api-client": {
+        "version": "3.0.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -94,6 +115,9 @@
     },
     "psr/container": {
         "version": "1.0.0"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
     },
     "psr/log": {
         "version": "1.0.2"
@@ -160,6 +184,9 @@
     },
     "symfony/event-dispatcher": {
         "version": "v4.1.4"
+    },
+    "symfony/expression-language": {
+        "version": "v4.1.6"
     },
     "symfony/filesystem": {
         "version": "v4.1.4"
