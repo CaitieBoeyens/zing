@@ -29,9 +29,9 @@ class Avatar
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="avatar")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $person;
+    private $user;
 
     /**
      * @ORM\Column(type="string")
@@ -43,14 +43,14 @@ class Avatar
 
    
 
-    public function getPerson(): ?UserProfile
+    public function getUser(): ?UserProfile
     {
-        return $this->person;
+        return $this->user;
     }
 
-    public function setPerson(?UserProfile $person): self
+    public function setUser(?UserProfile $id): self
     {
-        $this->person = $person;
+        $this->user = $id;
 
         return $this;
     }

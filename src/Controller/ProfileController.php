@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ProfileController extends AbstractController
 {
@@ -60,12 +61,22 @@ class ProfileController extends AbstractController
 
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            $user->setRoles(['general']);
+            $user->setRoles(['ROLE_USER']);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
             $user -> eraseCredentials();
+
+            $token = new UsernamePasswordToken(
+                $user,
+                $password,
+                'main',
+                $user->getRoles()
+            );
+
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
 
             return $this->redirectToRoute('image_upload');
         }
@@ -103,7 +114,14 @@ class ProfileController extends AbstractController
             }
 
             $avatar->setUrl($fileName);
+            $avatar->setFile('');
             $avatar -> setActive(true);
+
+            
+            $user = $this->getUser();
+            $avatar -> setUser($user);
+
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($avatar);
