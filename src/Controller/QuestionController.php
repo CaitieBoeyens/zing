@@ -19,11 +19,27 @@
 
     class QuestionController extends AbstractController 
     {
+        
+
+        
+        /*
+        Tried to implements an arrayChoiceList as specified by documentation, but didnt work
+
+        private $choices = array("love", "cooking", "fitness");
+        private $values = array("love", "cooking", "fitness");
+
+        protected $choiceList = new ArrayChoiceList(iterable $choices, callable $values);
+        */
+        
+        
         /**
          * @Route("/question", name="question_view")
          */
         public function newQuestion(Request $request)
         {
+            
+            $tags = array("Love", "DIY");
+            
             $question = new Question();
             $form = $this->createForm(QuestionType::class, $question);
             $form->handleRequest($request);

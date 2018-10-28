@@ -17,33 +17,27 @@ class Question
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
-
     /**
      * @ORM\Column(type="text")
      */
     private $body;
-
     /**
      * @ORM\Column(type="array")
      */
     private $tags = [];
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="question_id", orphanRemoval=true)
      */
     private $responses;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="questionsAsked")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user_id;
-
 
     public function __construct()
     {
