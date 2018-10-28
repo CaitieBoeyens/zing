@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Question
 {
+
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,15 +28,17 @@ class Question
      */
     private $body;
     /**
-     * @ORM\Column(type="array")
-     */
-    private $tags = [];
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="question_id", orphanRemoval=true)
      */
     private $responses;
+
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="questionsAsked")
+     * @ORM\ManyToMany(targetEntity="App\Entity\QuestionTopic", mappedBy="question_id")
+     */
+    private $questionTopics;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user_id;
@@ -42,6 +46,7 @@ class Question
     public function __construct()
     {
         $this->responses = new ArrayCollection();
+        $this->questionTopics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +129,34 @@ class Question
     public function setUserId(?UserProfile $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuestionTopic[]
+     */
+    public function getQuestionTopics(): Collection
+    {
+        return $this->questionTopics;
+    }
+
+    public function addQuestionTopic(QuestionTopic $questionTopic): self
+    {
+        if (!$this->questionTopics->contains($questionTopic)) {
+            $this->questionTopics[] = $questionTopic;
+            $questionTopic->addQuestionId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionTopic(QuestionTopic $questionTopic): self
+    {
+        if ($this->questionTopics->contains($questionTopic)) {
+            $this->questionTopics->removeElement($questionTopic);
+            $questionTopic->removeQuestionId($this);
+        }
 
         return $this;
     }

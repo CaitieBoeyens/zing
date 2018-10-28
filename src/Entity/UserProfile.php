@@ -45,11 +45,6 @@ class UserProfile implements UserInterface
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="user_id", orphanRemoval=true)
-     */
-    private $questionsAsked;
-
-    /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
@@ -59,6 +54,11 @@ class UserProfile implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Avatar", mappedBy="user_id", orphanRemoval=true)
      */
     private $avatar;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="user_id", orphanRemoval=true)
+     */
+    private $questions;
 
     public function getRoles(): array
     {
@@ -73,6 +73,7 @@ class UserProfile implements UserInterface
     {
         $this->questionsAsked = new ArrayCollection();
         $this->avatar = new ArrayCollection();
+        $this->questions = new ArrayCollection();
     }
 
 
@@ -218,6 +219,37 @@ class UserProfile implements UserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->contains($question)) {
+            $this->questions->removeElement($question);
+            // set the owning side to null (unless already changed)
+            if ($question->getUserId() === $this) {
+                $question->setUserId(null);
+            }
+        }
 
         return $this;
     }
