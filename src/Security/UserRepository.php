@@ -21,6 +21,7 @@ class UserRepository extends ServiceEntityRepository
 
     /**
         * @return UserProfile[] Returns an array of UserProfile objects
+        * @params $username
     */
     public function findOneByUsername($username): ?UserProfile
     {
