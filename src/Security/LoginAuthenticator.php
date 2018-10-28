@@ -27,13 +27,15 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
     private $router;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $userRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository)
     {
         $this->entityManager = $entityManager;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->userRepository = $userRepository;
     }
 
     public function supports(Request $request)
@@ -64,7 +66,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(UserProfile::class)->findOneBy(['username' => $credentials['username']]);
+        $user = $this->userRepository->findOneByUsername(['username' => $credentials['username']]);
 
         if (!$user) {
             // fail authentication with a custom error
@@ -86,7 +88,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         // For example : return new RedirectResponse($this->router->generate('some_route'));
-        throw new \Exception('home.html.twig'.__FILE__);
+        throw new \Exception('home.html.twig');
     }
 
     protected function getLoginUrl()
