@@ -66,7 +66,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->userRepository->findOneByUsername(['username' => $credentials['username']]);
+        $user = $this->userRepository->findOneByUsername($credentials['username']);
 
         if (!$user) {
             // fail authentication with a custom error
@@ -88,7 +88,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         // For example : return new RedirectResponse($this->router->generate('some_route'));
-        throw new \Exception('home.html.twig');
+        return new RedirectResponse($this->router->generate('home_view'));
     }
 
     protected function getLoginUrl()
