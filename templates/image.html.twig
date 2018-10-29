@@ -18,9 +18,10 @@
                     </div>
 
                     <div class="content">
+                        <div id="avatar_preview"></div>
                         <div class="columns is-centered">
 
-                            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                            {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id': 'avatar_form'}}) }}
                             <div class="file column is-centered">
                                 <label class="file-label">
                                     {{ form_row(form.file) }}

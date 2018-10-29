@@ -9,11 +9,18 @@ use App\Form\LoginInfoType;
 use App\Form\UserProfileType;
 use App\Form\AvatarType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+
+use Symfony\Component\Debug\Debug;
+
+use Psr\Log\LoggerInterface;
+
+Debug::enable();
 
 class ProfileController extends AbstractController
 {
@@ -88,20 +95,45 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route ("signup/img", name="image_upload")
+     * @Route ("signup/img", name="image_upload", methods="GET|POST")
      */
     public function newAvatar(Request $request){
 
+       
         $avatar = new Avatar();
         $form = $this->createForm(AvatarType::class, $avatar);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $form->get('file')->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($avatar);
+                $entityManager->flush();
 
+                return $this->redirectToRoute('profile_success');
+            }
+        
+
+        $view = 'image.html.twig';
+
+        $model = array('form' => $form->createView());
+        return $this->render($view, $model);
+    }
+
+    /**
+     * @Route("/image", name="image", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function getAvatar (Request $request) {
+        if ($request->isXmlHttpRequest()){
+            $avatar = new Avatar();
+            $form = $this->createForm(AvatarType::class, $avatar);
+
+            $file = $this->getRequest()->files->get('file');
+            $file = new UploadedFile($file['tmp_name'], $file['name'], $file['type']);
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             try {
@@ -117,23 +149,16 @@ class ProfileController extends AbstractController
             $avatar->setFile('');
             $avatar -> setActive(true);
 
+            return new JsonResponse($fileName);
+
             
             $user = $this->getUser();
             $avatar -> setUser($user);
-
-
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($avatar);
             $entityManager->flush();
-
-            return $this->redirectToRoute('profile_success');
         }
-
-        $view = 'image.html.twig';
-
-        $model = array('form' => $form->createView());
-        return $this->render($view, $model);
+        return new JsonResponse("This is not an ajax request");
     }
 
     /**
