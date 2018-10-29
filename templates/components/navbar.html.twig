@@ -39,17 +39,45 @@
                 </a>
             </div>
         </div>
+        {% if 'ROLE_ADMIN' in app.user.roles %}
+            <a class="navbar-item">
+                Admin
+            </a>
+        {% endif %}
 
-        <div class="navbar-item">
-            <div class="buttons">
-                <a class="button is-blue is-rounded" href="{{ path('signup_view') }}">
-                    <strong>Sign up</strong>
-                </a>
-                <a href="{{ path('login_view') }}" class="button is-blue is-inverted is-rounded">
-                    Log in
-                </a>
+        {% if app.user == null %}
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-blue is-rounded" href="{{ path('signup_view') }}">
+                        <strong>Sign up</strong>
+                    </a>
+                    <a href="{{ path('login_view') }}" class="button is-blue is-inverted is-rounded">
+                        Log in
+                    </a>
+                </div>
             </div>
-        </div>
+        {% else %}
+            <div class="navbar-item has-dropdown is-hoverable ">
+                <a class="navbar-link user-details">
+                    <img src="uploads/avatars/7b0fdd53c0488defdb5a1f950001862e.png" width="30" height="30" class="user-avatar">
+                    {{app.user.username}}
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                        My Profile
+                    </a>
+                    <a class="navbar-item">
+                        Settings
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item">
+                        Log out
+                    </a>
+
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
 </nav>
