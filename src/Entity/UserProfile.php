@@ -52,7 +52,7 @@ class UserProfile implements UserInterface
     private $plainPassword;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Avatar", mappedBy="user_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Avatar", mappedBy="user", orphanRemoval=true)
      */
     private $avatar;
 
