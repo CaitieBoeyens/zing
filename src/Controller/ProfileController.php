@@ -9,7 +9,7 @@ use App\Form\LoginInfoType;
 use App\Form\UserProfileType;
 use App\Form\AvatarType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -124,16 +124,15 @@ class ProfileController extends AbstractController
     /**
      * @Route("/image", name="image", methods={"POST"}, options={"expose"=true})
      * @param Request $request
-     * @return JsonResponse
      */
 
     public function getAvatar (Request $request) {
         if ($request->isXmlHttpRequest()){
             $avatar = new Avatar();
             $form = $this->createForm(AvatarType::class, $avatar);
-
-            $file = $this->getRequest()->files->get('file');
-            $file = new UploadedFile($file['tmp_name'], $file['name'], $file['type']);
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $request -> files -> get('avatar');
+            
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             try {
@@ -149,16 +148,13 @@ class ProfileController extends AbstractController
             $avatar->setFile('');
             $avatar -> setActive(true);
 
-            return new JsonResponse($fileName);
-
-            
             $user = $this->getUser();
             $avatar -> setUser($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($avatar);
             $entityManager->flush();
         }
-        return new JsonResponse("This is not an ajax request");
+        return $this->redirectToRoute('profile_success');
     }
 
     /**

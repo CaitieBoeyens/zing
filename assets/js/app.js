@@ -24,9 +24,8 @@ document.getElementById('avatar_submit').onclick = function() {
     let avatar;
     avatarCropper.result({ type: 'blob' }).then(blob => {
         avatar = blob;
+        ajaxWithAxios(avatar);
     });
-
-    ajaxWithAxios(avatar);
 };
 
 document.getElementById('avatar_form').onsubmit = function(event) {
@@ -34,8 +33,10 @@ document.getElementById('avatar_form').onsubmit = function(event) {
 };
 
 function ajaxWithAxios(blob) {
-    let url = '/image';
-    let data = blob;
+    const url = '/image';
+    const data = new FormData();
+    data.append('avatar', blob);
+
     axios({
         method: 'post',
         url: url,
@@ -43,7 +44,7 @@ function ajaxWithAxios(blob) {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
         .then(response => {
-            console.log(response);
+            window.location.assign('/success');
         })
         .catch(error => {
             console.error(error);
