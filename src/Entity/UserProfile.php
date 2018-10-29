@@ -35,6 +35,7 @@ class UserProfile implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank()
      */
     private $password;
 
