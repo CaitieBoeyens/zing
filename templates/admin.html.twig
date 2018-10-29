@@ -1,0 +1,63 @@
+{% extends "base.html.twig"%}
+
+{% block title %}
+    Admin | zing.
+{% endblock %}
+
+{% block body %}
+
+    {% include 'components/navbar.html.twig' %}
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-1">Admin Dashboard</h1>
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    <div class="box">
+                        <aside class="menu">
+                            <p class="menu-label">
+                                General
+                            </p>
+                            <ul class="menu-list">
+                                <li>
+                                    <a class="is-active">Dashboard</a>
+                                </li>
+                            </ul>
+                            <p class="menu-label">
+                                Administrators
+                            </p>
+                            <ul class="menu-list">
+                                <li>
+                                    <a>Add / Remove</a>
+                                </li>
+                                {# <li>
+                                    <a>View All</a>
+                                </li> #}
+                            </ul>
+                            <p class="menu-label">
+                                Members
+                            </p>
+                            <ul class="menu-list">
+                                <li>
+                                    <a>Members</a>
+                                </li>
+                                <li>
+                                    <a>Ban Member</a>
+                                </li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        {% include 'components/admin_count_details.html.twig' %}
+                    </div>
+                    <div class="box">
+                        {% include 'components/admin_details.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

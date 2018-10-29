@@ -1,7 +1,7 @@
 {% extends "base.html.twig"%}
 
 {% block title %}
-    Profile | Zing
+    {{ app.user.username }}'s Profile | zing.
 {% endblock %}
 
 {% block body %}
@@ -15,12 +15,13 @@
                     <span class='header-icon user-profile-image'>
                         <figure class='image'>
                             <img class='is-rounded' alt='avatar' src='https://bulma.io/images/placeholders/256x256.png'>
+                            <a class="button is-outlined is-rounded">Outlined</a>
                         </figure>
                     </span>
                 </div>
                 <div class='column name'>
                     <p>
-                        <span class='title is-bold'>Your Name Here</span>
+                        <span class='title is-bold'>{{ app.user.username }}</span>
                         <br>
                         <span class='tag is-primary is-outline status'>Pro</span>
                     </p>
@@ -75,7 +76,7 @@
         </div>
         <div class="main">
             <div class="posts">
-                {% include 'components/posts.html.twig' %}
+                {% include 'components/comments.html.twig' %}
             </div>
             <div class="comments">
                 {% include 'components/comments.html.twig' %}
