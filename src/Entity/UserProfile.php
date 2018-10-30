@@ -142,15 +142,6 @@ class UserProfile implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Question[]
-     */
-    public function getQuestionsAsked(): Collection
-    {
-        return $this->questionsAsked;
-    }
-
-
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;

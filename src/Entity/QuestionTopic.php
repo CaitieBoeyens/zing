@@ -26,11 +26,12 @@ class QuestionTopic
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Question", inversedBy="questionTopics")
      */
-    private $question_id;
+    private $question;
 
     public function __construct()
     {
         $this->question_id = new ArrayCollection();
+        $this->question = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,24 +54,24 @@ class QuestionTopic
     /**
      * @return Collection|Question[]
      */
-    public function getQuestionId(): Collection
+    public function getQuestion(): Collection
     {
-        return $this->question_id;
+        return $this->question;
     }
 
-    public function addQuestionId(Question $questionId): self
+    public function addQuestion(Question $question): self
     {
-        if (!$this->question_id->contains($questionId)) {
-            $this->question_id[] = $questionId;
+        if (!$this->question->contains($question)) {
+            $this->question[] = $question;
         }
 
         return $this;
     }
 
-    public function removeQuestionId(Question $questionId): self
+    public function removeQuestion(Question $question): self
     {
-        if ($this->question_id->contains($questionId)) {
-            $this->question_id->removeElement($questionId);
+        if ($this->question->contains($question)) {
+            $this->question->removeElement($question);
         }
 
         return $this;

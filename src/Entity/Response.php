@@ -30,7 +30,7 @@ class Response
      * @ORM\ManyToOne(targetEntity="App\Entity\Question")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $question_id;
+    private $question;
 
     public function getId(): ?int
     {
@@ -61,14 +61,14 @@ class Response
         return $this;
     }
 
-    public function getQuestionId(): ?Question
+    public function getQuestion(): ?Question
     {
-        return $this->question_id;
+        return $this->question;
     }
 
-    public function setQuestionId(?Question $question_id): self
+    public function setQuestion(?Question $question): self
     {
-        $this->question_id = $question_id;
+        $this->question = $question;
 
         return $this;
     }
