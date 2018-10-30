@@ -52,7 +52,7 @@
             </div>
         {% else %}
             {% if 'ROLE_ADMIN' in app.user.roles %}
-                <a class="navbar-item">
+                <a class="navbar-item" href={{ path('admin_view') }}>
                     Admin
                 </a>
             {% endif %}

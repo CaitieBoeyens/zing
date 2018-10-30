@@ -57,7 +57,7 @@ class UserProfile implements UserInterface
     private $avatar;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="user_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="user", orphanRemoval=true)
      */
     private $questions;
 
@@ -139,37 +139,6 @@ class UserProfile implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Question[]
-     */
-    public function getQuestionsAsked(): Collection
-    {
-        return $this->questionsAsked;
-    }
-
-    public function addQuestionsAsked(Question $questionsAsked): self
-    {
-        if (!$this->questionsAsked->contains($questionsAsked)) {
-            $this->questionsAsked[] = $questionsAsked;
-            $questionsAsked->setUId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuestionsAsked(Question $questionsAsked): self
-    {
-        if ($this->questionsAsked->contains($questionsAsked)) {
-            $this->questionsAsked->removeElement($questionsAsked);
-            // set the owning side to null (unless already changed)
-            if ($questionsAsked->getUId() === $this) {
-                $questionsAsked->setUId(null);
-            }
-        }
 
         return $this;
     }

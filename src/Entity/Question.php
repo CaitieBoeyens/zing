@@ -10,9 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\QuestionRepository")
  */
 class Question
-{
-
-    
+{ 
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -41,7 +39,7 @@ class Question
      * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user_id;
+    private $user;
 
     public function __construct()
     {
@@ -49,10 +47,6 @@ class Question
         $this->questionTopics = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getTitle(): ?string
     {
@@ -121,18 +115,6 @@ class Question
         return $this;
     }
 
-    public function getUserId(): ?UserProfile
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(?UserProfile $user_id): self
-    {
-        $this->user_id = $user_id;
-
-        return $this;
-    }
-
     /**
      * @return Collection|QuestionTopic[]
      */
@@ -157,6 +139,23 @@ class Question
             $this->questionTopics->removeElement($questionTopic);
             $questionTopic->removeQuestionId($this);
         }
+
+        return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getUser(): ?UserProfile
+    {
+        return $this->user;
+    }
+
+    public function setUser(?UserProfile $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
