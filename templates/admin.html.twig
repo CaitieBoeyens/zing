@@ -8,6 +8,10 @@
 
     {% include 'components/navbar.html.twig' %}
 
+    <div class="notification is-primary hide-notification">
+        New Administrator added <strong>successfully</strong>.
+    </div>
+
     <section class="section">
         <div class="container">
             <h1 class="title is-1">Admin Dashboard</h1>
@@ -73,6 +77,7 @@
                 //$('.add-remove').hide();
                 $('.members').hide();
                 $('.banned-members').hide();
+                //$('.notification').hide();
 
                 $('.dashboard-list').on('click', function () {
                     $('.add-remove-list').removeClass('is-active');

@@ -132,4 +132,6 @@ table .hide {
     display: none;
 }
 
-
+.hide-notification {
+    display: none;
+}
