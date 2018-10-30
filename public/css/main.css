@@ -122,14 +122,6 @@ body {
     margin-top: 4rem;
 }
 
-.profile-heading .image {
-    position: relative;
-}
-
-.profile-heading a {
-    position: absolute;
-}
-
 
 /* ====================================================================
                                 5. Admin Console
