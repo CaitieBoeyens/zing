@@ -193,33 +193,23 @@ class ProfileController extends AbstractController
      */
     public function adminConsole(Request $request,  UserPasswordEncoderInterface $passwordEncoder)
     {
-        $admin = new UserProfile();
-        $form = $this->createForm(AdminType::class, $admin);
+        $user = new UserProfile();
+        $form = $this->createForm(AdminType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
-            $admin = $form->getData();
+            $user = $form->getData();
 
-            $password = $passwordEncoder->encodePassword($admin, $admin->getPlainPassword());
-            $admin->setPassword($password);
-            $admin->setRoles(['ROLE_ADMIN']);
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+            $user->setRoles(["ROLE_USER", "ROLE_ADMIN"]);
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($admin);
+            $entityManager->persist($user);
             $entityManager->flush();
-            $admin -> eraseCredentials();
-
-            $token = new UsernamePasswordToken(
-                $admin,
-                $password,
-                'main',
-                $admin->getRoles()
-            );
-
-            $this->get('security.token_storage')->setToken($token);
-            $this->get('session')->set('_security_main', serialize($token));
+            $user -> eraseCredentials();
 
             return $this->redirectToRoute('image_upload');
 

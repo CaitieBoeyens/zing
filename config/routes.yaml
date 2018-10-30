@@ -1,7 +1,10 @@
 index:
-   path: /
-   controller: App\Controller\HomeController::viewHome
+    path: /
+    controller: App\Controller\HomeController::viewHome
 
 login:
-  path: /login
-  controller: App\Controller\LoginController::viewLogin
+    path: /login
+    controller: App\Controller\LoginController::viewLogin
+
+logout:
+    path: /logout
