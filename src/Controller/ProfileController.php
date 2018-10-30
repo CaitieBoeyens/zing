@@ -7,6 +7,7 @@ use App\Entity\UserProfile;
 use App\Entity\Avatar;
 use App\Form\LoginInfoType;
 use App\Form\UserProfileType;
+use App\Form\AdminType;
 use App\Form\AvatarType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -188,6 +189,49 @@ class ProfileController extends AbstractController
     {
         $view = 'profile.html.twig';
         $model = array();
+        return $this->render($view, $model);
+    }
+
+    /**
+     * @Route("/admin", name="admin_view", methods="GET|POST")
+     */
+    public function adminConsole(Request $request,  UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $user = new UserProfile();
+        $form = $this->createForm(AdminType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            $user = $form->getData();
+
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+            $user->setRoles(['ROLE_ADMIN']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $user -> eraseCredentials();
+
+            $token = new UsernamePasswordToken(
+                $user,
+                $password,
+                'main',
+                $user->getRoles()
+            );
+
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+
+            return $this->redirectToRoute('admin_view');
+
+        }
+
+        $view = 'admin.html.twig';
+
+        $model = array('form' => $form->createView());
         return $this->render($view, $model);
     }
 
