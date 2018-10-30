@@ -215,7 +215,13 @@ class ProfileController extends AbstractController
             $entityManager->flush();
             $user -> eraseCredentials();
 
-            return $this->redirectToRoute('image_upload');
+            echo '<script type="text/javascript"> 
+                
+                $(function(){
+                    $(".notification").removeClass("hide-notification");
+                })
+
+            </script>';
 
         }
 

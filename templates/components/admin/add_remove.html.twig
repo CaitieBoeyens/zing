@@ -3,9 +3,9 @@
     <h3 class="title is-3">Add an Administrator</h3>
 
     <div class="content">
-        {{ form_start(form) }}
-        {{ form_row(form.username) }}
-        {{ form_row(form.email) }}
+        {{ form_start(form, {'attr': {'id': 'add_remove_form'}}) }}
+        {{ form_row(form.username, {'attr': {'id': 'form_username'}}) }}
+        {{ form_row(form.email, {'attr': {'id': 'form_email'}}) }}
         {{ form_row(form.plainPassword) }}
 
         <div class="has-text-centered">
