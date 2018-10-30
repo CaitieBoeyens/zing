@@ -1,0 +1,125 @@
+{% extends "base.html.twig"%}
+
+{% block title %}
+    Admin | zing.
+{% endblock %}
+
+{% block body %}
+
+    {% include 'components/navbar.html.twig' %}
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-1">Admin Dashboard</h1>
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    <div class="box">
+                        <aside class="menu">
+                            <p class="menu-label">
+                                General
+                            </p>
+                            <ul class="menu-list">
+                                <li>
+                                    <a class="is-active dashboard-list">Dashboard</a>
+                                </li>
+                            </ul>
+                            <p class="menu-label">
+                                Administrators
+                            </p>
+                            <ul class="menu-list">
+                                <li>
+                                    <a class="add-remove-list">Add / Remove</a>
+                                </li>
+                            </ul>
+                            <p class="menu-label">
+                                Members
+                            </p>
+                            <ul class="menu-list">
+                                <li>
+                                    <a class="members-list">Members</a>
+                                </li>
+                                <li>
+                                    <a class="banned-members-list">Banned Member</a>
+                                </li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        {% include 'components/admin_count_details.html.twig' %}
+                    </div>
+                    <div class="box dashboard">
+                        {% include 'components/admin/dashboard.html.twig' %}
+                    </div>
+                    <div class="box add-remove">
+                        {% include 'components/admin/add_remove.html.twig' %}
+                    </div>
+                    <div class="box members">
+                        {% include 'components/admin/members.html.twig' %}
+                    </div>
+                    <div class="box banned-members">
+                        {% include 'components/admin/banned_members.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% block script %}
+        <script>
+            $(function () {
+                $('.dashboard').show();
+                //$('.add-remove').hide();
+                $('.members').hide();
+                $('.banned-members').hide();
+
+                $('.dashboard-list').on('click', function () {
+                    $('.add-remove-list').removeClass('is-active');
+                    $('.members-list').removeClass('is-active');
+                    $('.banned-members-list').removeClass('is-active');
+                    $(this).addClass('is-active');
+                    $('.dashboard').show();
+                    //$('.add-remove').hide();
+                    $('.members').hide();
+                    $('.banned-members').hide();
+                });
+
+                $('.add-remove-list').on('click', function () {
+                    $('.dashboard-list').removeClass('is-active');
+                    $('.members-list').removeClass('is-active');
+                    $('.banned-members-list').removeClass('is-active');
+                    $(this).addClass('is-active');
+                    $('.dashboard').hide();
+                    //$('.add-remove').show();
+                    $('.members').hide();
+                    $('.banned-members').hide();
+                });
+
+                $('.members-list').on('click', function () {
+                    $('.dashboard-list').removeClass('is-active');
+                    $('.add-remove-list').removeClass('is-active');
+                    $('.banned-members-list').removeClass('is-active');
+                    $(this).addClass('is-active');
+                    $('.dashboard').hide();
+                    //$('.add-remove').hide();
+                    $('.members').show();
+                    $('.banned-members').hide();
+                });
+
+                $('.banned-members-list').on('click', function () {
+                    $('.dashboard-list').removeClass('is-active');
+                    $('.add-remove-list').removeClass('is-active');
+                    $('.members-list').removeClass('is-active');
+                    $(this).addClass('is-active');
+                    $('.dashboard').hide();
+                    //$('.add-remove').hide();
+                    $('.members').hide();
+                    $('.banned-members').show();
+                });
+
+            })
+        </script>
+    {% endblock %}
+
+{% endblock %}

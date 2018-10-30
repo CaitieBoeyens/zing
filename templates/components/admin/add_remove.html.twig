@@ -1,0 +1,66 @@
+<section class="section admin-add">
+
+    <h3 class="title is-3">Add an Administrator</h3>
+
+    <div class="content">
+        {{ form_start(form) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.plainPassword) }}
+
+        <div class="has-text-centered">
+            {{ form_row(form.submit) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+</section>
+
+<section class="section admin-list">
+
+    <h3 class="title is-3">Remove an Administrator</h3>
+
+    <table class="table is-fullwidth is-hoverable">
+        <thead>
+            <tr>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Email Address
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{ app.user.username }}
+                </td>
+                <td>
+                    {{ app.user.email }}
+                </td>
+                <td>
+                    <a>
+                        <i class="fas fa-user-times remove-admin hide"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+
+{% block script %}
+
+    <script>
+
+        $(function () {
+            $("tr").mouseenter(function () {
+                $('.remove-admin').removeClass("hide");
+            }).mouseleave(function () {
+                $('.remove-admin').addClass("hide");
+            });
+        })
+    </script>
+
+{% endblock %}

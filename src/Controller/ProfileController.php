@@ -7,13 +7,21 @@ use App\Entity\UserProfile;
 use App\Entity\Avatar;
 use App\Form\LoginInfoType;
 use App\Form\UserProfileType;
+use App\Form\AdminType;
 use App\Form\AvatarType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+
+use Symfony\Component\Debug\Debug;
+
+use Psr\Log\LoggerInterface;
+
+Debug::enable();
 
 class ProfileController extends AbstractController
 {
@@ -88,20 +96,44 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route ("signup/img", name="image_upload")
+     * @Route ("signup/img", name="image_upload", methods="GET|POST")
      */
     public function newAvatar(Request $request){
 
+       
         $avatar = new Avatar();
         $form = $this->createForm(AvatarType::class, $avatar);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($avatar);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('profile_success');
+            }
+        
+
+        $view = 'image.html.twig';
+
+        $model = array('form' => $form->createView());
+        return $this->render($view, $model);
+    }
+
+    /**
+     * @Route("/image", name="image", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+
+    public function getAvatar (Request $request) {
+        if ($request->isXmlHttpRequest()){
+            $avatar = new Avatar();
+            $form = $this->createForm(AvatarType::class, $avatar);
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $form->get('file')->getData();
-
+            $file = $request -> files -> get('avatar');
+            
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             try {
@@ -117,23 +149,13 @@ class ProfileController extends AbstractController
             $avatar->setFile('');
             $avatar -> setActive(true);
 
-            
             $user = $this->getUser();
             $avatar -> setUser($user);
-
-
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($avatar);
             $entityManager->flush();
-
-            return $this->redirectToRoute('profile_success');
         }
-
-        $view = 'image.html.twig';
-
-        $model = array('form' => $form->createView());
-        return $this->render($view, $model);
+        return $this->redirectToRoute('profile_success');
     }
 
     /**
@@ -163,6 +185,39 @@ class ProfileController extends AbstractController
     {
         $view = 'profile.html.twig';
         $model = array();
+        return $this->render($view, $model);
+    }
+
+    /**
+     * @Route("/admin", name="admin_view", methods="GET|POST")
+     */
+    public function adminConsole(Request $request,  UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $user = new UserProfile();
+        $form = $this->createForm(AdminType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            $user = $form->getData();
+
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+            $user->setRoles(["ROLE_USER", "ROLE_ADMIN"]);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $user -> eraseCredentials();
+
+            return $this->redirectToRoute('image_upload');
+
+        }
+
+        $view = 'admin.html.twig';
+
+        $model = array('form' => $form->createView());
         return $this->render($view, $model);
     }
 

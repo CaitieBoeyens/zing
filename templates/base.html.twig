@@ -10,6 +10,8 @@
         <script defer="defer" src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+        <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/form.css">
 
@@ -22,19 +24,7 @@
         {% block javascripts %}{% endblock %}
 
         {% block script %}
-            <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
-            <script>
-                // Initialize Firebase
-                var config = {
-                    apiKey: "AIzaSyBeRfVa5FOuZI-G2akRcp_T0MXJdFKJgss",
-                    authDomain: "zing-df142.firebaseapp.com",
-                    databaseURL: "https://zing-df142.firebaseio.com",
-                    projectId: "zing-df142",
-                    storageBucket: "zing-df142.appspot.com",
-                    messagingSenderId: "805810067270"
-                };
-                firebase.initializeApp(config);
-            </script>
+            <script src="{{asset('build/js/app.js')}}"></script>
         {% endblock %}
     </body>
 </html>
