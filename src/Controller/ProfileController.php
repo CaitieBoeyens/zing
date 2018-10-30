@@ -149,8 +149,9 @@ class ProfileController extends AbstractController
             $avatar->setFile('');
             $avatar -> setActive(true);
 
-            $user = $this->getUser();
-            $avatar -> setUser($user);
+            $user = $this->getUser();/* 
+            $avatar -> setUser($user); */
+            $user -> addAvatar($avatar);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($avatar);
             $entityManager->flush();
