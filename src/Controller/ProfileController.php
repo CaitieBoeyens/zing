@@ -7,6 +7,7 @@ use App\Entity\UserProfile;
 use App\Entity\Avatar;
 use App\Form\LoginInfoType;
 use App\Form\UserProfileType;
+use App\Form\AdminType;
 use App\Form\AvatarType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -184,6 +185,49 @@ class ProfileController extends AbstractController
     {
         $view = 'profile.html.twig';
         $model = array();
+        return $this->render($view, $model);
+    }
+
+    /**
+     * @Route("/admin", name="admin_view", methods="GET|POST")
+     */
+    public function adminConsole(Request $request,  UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $admin = new UserProfile();
+        $form = $this->createForm(AdminType::class, $admin);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            $admin = $form->getData();
+
+            $password = $passwordEncoder->encodePassword($admin, $admin->getPlainPassword());
+            $admin->setPassword($password);
+            $admin->setRoles(['ROLE_ADMIN']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($admin);
+            $entityManager->flush();
+            $admin -> eraseCredentials();
+
+            $token = new UsernamePasswordToken(
+                $admin,
+                $password,
+                'main',
+                $admin->getRoles()
+            );
+
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+
+            return $this->redirectToRoute('image_upload');
+
+        }
+
+        $view = 'admin.html.twig';
+
+        $model = array('form' => $form->createView());
         return $this->render($view, $model);
     }
 
