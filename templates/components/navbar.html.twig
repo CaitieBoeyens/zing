@@ -39,11 +39,7 @@
                 </a>
             </div>
         </div>
-        {% if 'ROLE_ADMIN' in app.user.roles %}
-            <a class="navbar-item">
-                Admin
-            </a>
-        {% endif %}
+
         {% if app.user == null %}
             <div class="navbar-item">
                 <div class="buttons">
@@ -56,6 +52,11 @@
                 </div>
             </div>
         {% else %}
+            {% if 'ROLE_ADMIN' in app.user.roles %}
+                <a class="navbar-item">
+                    Admin
+                </a>
+            {% endif %}
             <div class="navbar-item has-dropdown is-hoverable ">
                 <a class="navbar-link user-details">
                     <img src="uploads/avatars/7b0fdd53c0488defdb5a1f950001862e.png" width="30" height="30" class="user-avatar">
