@@ -96,7 +96,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route ("signup/img", name="image_upload", methods="GET|POST")
+     * @Route ("upload/img", name="image_upload", methods="GET|POST")
      */
     public function newAvatar(Request $request){
 
@@ -149,8 +149,11 @@ class ProfileController extends AbstractController
             $avatar->setFile('');
             $avatar -> setActive(true);
 
-            $user = $this->getUser();/* 
-            $avatar -> setUser($user); */
+            $user = $this->getUser();
+            $avatars = $user -> getAvatar() -> toArray();
+            foreach($avatars as $a) {
+                $user -> removeAvatar($a);
+            }
             $user -> addAvatar($avatar);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($avatar);
