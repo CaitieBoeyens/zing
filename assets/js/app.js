@@ -7,11 +7,13 @@ const avatarCropper = new Croppie(document.getElementById('avatar_preview'), {
 });
 
 function readFile({ target: input }) {
+    document.getElementById('avatar_preview').classList.add('is-visible');
     if (input.files && input.files[0]) {
         const reader = new FileReader();
 
         reader.onload = function(e) {
             /* display ready */
+
             avatarCropper.bind({ url: e.target.result });
         };
 
