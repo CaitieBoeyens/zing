@@ -149,6 +149,8 @@ class ProfileController extends AbstractController
             $avatars = $user -> getAvatar() -> toArray();
             foreach($avatars as $a) {
                 $user -> removeAvatar($a);
+                $url = $a->getURL();
+                $fileSystem->remove(array('file', $this->getParameter('avatars_directory'), $url));
             }
             $user -> addAvatar($avatar);
             $entityManager = $this->getDoctrine()->getManager();
