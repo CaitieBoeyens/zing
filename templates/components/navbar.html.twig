@@ -52,13 +52,14 @@
             </div>
         {% else %}
             {% if 'ROLE_ADMIN' in app.user.roles %}
-                <a class="navbar-item" href={{ path('admin_view') }}>
+                <a class="navbar-item" href="{{ path('admin_view')}}">
                     Admin
                 </a>
             {% endif %}
-            <div class="navbar-item has-dropdown is-hoverable ">
+            <div class=" navbar-item  has-dropdown is-hoverable">
                 <a class="navbar-link user-details">
-                    <img src="uploads/avatars/7b0fdd53c0488defdb5a1f950001862e.png" width="30" height="30" class="user-avatar">
+
+                    <img src="uploads/avatars/{{ app.user.avatar.first.url }}" width="40" height="40" class="user-avatar">
                     {{app.user.username}}
                 </a>
 

@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "circle/doctrine-rest-driver": "^1.3",
         "doctrine/collections": "^1.5",
+        "doctrine/common": "2.8.1",
         "friendsofsymfony/jsrouting-bundle": "^2.2",
         "j0k3r/php-imgur-api-client": "^3.0",
         "sensio/framework-extra-bundle": "^5.2",

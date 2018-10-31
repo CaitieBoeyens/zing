@@ -172,7 +172,7 @@ class UserProfile implements UserInterface
     {
         if (!$this->avatar->contains($avatar)) {
             $this->avatar[] = $avatar;
-            $avatar->setPerson($this);
+            $avatar->setUser($this);
         }
 
         return $this;
@@ -183,8 +183,8 @@ class UserProfile implements UserInterface
         if ($this->avatar->contains($avatar)) {
             $this->avatar->removeElement($avatar);
             // set the owning side to null (unless already changed)
-            if ($avatar->getPerson() === $this) {
-                $avatar->setPerson(null);
+            if ($avatar->getUser() === $this) {
+                $avatar->setUser(null);
             }
         }
 

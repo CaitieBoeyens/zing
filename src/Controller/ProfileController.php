@@ -17,11 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-use Symfony\Component\Debug\Debug;
 
-use Psr\Log\LoggerInterface;
-
-Debug::enable();
 
 class ProfileController extends AbstractController
 {
@@ -96,7 +92,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route ("signup/img", name="image_upload", methods="GET|POST")
+     * @Route ("upload/img", name="image_upload", methods="GET|POST")
      */
     public function newAvatar(Request $request){
 
@@ -150,7 +146,13 @@ class ProfileController extends AbstractController
             $avatar -> setActive(true);
 
             $user = $this->getUser();
-            $avatar -> setUser($user);
+            $avatars = $user -> getAvatar() -> toArray();
+            foreach($avatars as $a) {
+                $user -> removeAvatar($a);
+                $url = $a->getURL();
+                $fileSystem->remove(array('file', $this->getParameter('avatars_directory'), $url));
+            }
+            $user -> addAvatar($avatar);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($avatar);
             $entityManager->flush();
@@ -211,7 +213,13 @@ class ProfileController extends AbstractController
             $entityManager->flush();
             $user -> eraseCredentials();
 
-            return $this->redirectToRoute('image_upload');
+            echo '<script type="text/javascript"> 
+                
+                $(function(){
+                    $(".notification").removeClass("hide-notification");
+                })
+
+            </script>';
 
         }
 
