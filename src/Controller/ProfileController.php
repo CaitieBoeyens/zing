@@ -17,11 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-use Symfony\Component\Debug\Debug;
 
-use Psr\Log\LoggerInterface;
-
-Debug::enable();
 
 class ProfileController extends AbstractController
 {
