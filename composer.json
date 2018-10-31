@@ -25,7 +25,8 @@
         "symfony/validator": "*",
         "symfony/web-server-bundle": "*",
         "symfony/webpack-encore-pack": "*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "doctrine/common": "2.8.1"
     },
     "require-dev": {
         "symfony/dotenv": "*"
