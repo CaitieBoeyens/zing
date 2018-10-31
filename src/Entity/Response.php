@@ -19,11 +19,6 @@ class Response
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $user_name;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $body;
 
     /**
@@ -32,21 +27,15 @@ class Response
      */
     private $question;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="responses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $userName;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUserName(): ?string
-    {
-        return $this->user_name;
-    }
-
-    public function setUserName(string $user_name): self
-    {
-        $this->user_name = $user_name;
-
-        return $this;
     }
 
     public function getBody(): ?string
@@ -69,6 +58,18 @@ class Response
     public function setQuestion(?Question $question): self
     {
         $this->question = $question;
+
+        return $this;
+    }
+
+    public function getUserName(): ?UserProfile
+    {
+        return $this->userName;
+    }
+
+    public function setUserName(?UserProfile $userName): self
+    {
+        $this->userName = $userName;
 
         return $this;
     }

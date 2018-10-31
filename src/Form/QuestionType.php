@@ -11,16 +11,19 @@
     use App\Entity\Topics;
     use Symfony\Bridge\Doctrine\Form\Type\EntityType;
     use App\Controller\QuestionController;
+    use App\Entity\QuestionTopic;
 
     class QuestionType extends AbstractType
     {
+        //$user = $this->get('session')->get();
         public function buildForm(FormBuilderInterface $builder, array $options)
         {          
             $builder
                 ->add('title', TextType::class, ['label' => 'Give your question a title'])
                 ->add('body', TextareaType::class, ['label' => 'What do you need advice about?', 'attr' => ['onkeyup' => 'new do_resize(this)', 'rows'=> 1]])
-                ->add('tags', ChoiceType::class, array(
-                    'choices'  => QuestionController::TOPICS
+                ->add('tag', EntityType::class, array(
+                    'class' => QuestionTopic::class,
+                    'choice_label' => 'tag'
                 ))
                 ->add('submit', SubmitType::class, ['label' => 'Ask', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
         }

@@ -31,22 +31,21 @@ class Question
     private $responses;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\QuestionTopic", mappedBy="question_id")
-     */
-    private $questionTopics;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\QuestionTopic", inversedBy="questions")
+     */
+    private $tag;
+
     public function __construct()
     {
         $this->responses = new ArrayCollection();
-        $this->questionTopics = new ArrayCollection();
+        $this->tag = new ArrayCollection();
     }
-
 
     public function getTitle(): ?string
     {
@@ -56,18 +55,6 @@ class Question
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getTags(): ?array
-    {
-        return $this->tags;
-    }
-
-    public function setTags(array $tags): self
-    {
-        $this->tags = ['DIY'];
 
         return $this;
     }
@@ -115,34 +102,6 @@ class Question
         return $this;
     }
 
-    /**
-     * @return Collection|QuestionTopic[]
-     */
-    public function getQuestionTopics(): Collection
-    {
-        return $this->questionTopics;
-    }
-
-    public function addQuestionTopic(QuestionTopic $questionTopic): self
-    {
-        if (!$this->questionTopics->contains($questionTopic)) {
-            $this->questionTopics[] = $questionTopic;
-            $questionTopic->addQuestionId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuestionTopic(QuestionTopic $questionTopic): self
-    {
-        if ($this->questionTopics->contains($questionTopic)) {
-            $this->questionTopics->removeElement($questionTopic);
-            $questionTopic->removeQuestionId($this);
-        }
-
-        return $this;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -156,6 +115,32 @@ class Question
     public function setUser(?UserProfile $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuestionTopic[]
+     */
+    public function getTag(): Collection
+    {
+        return $this->tag;
+    }
+
+    public function addTag(QuestionTopic $tag): self
+    {
+        if (!$this->tag->contains($tag)) {
+            $this->tag[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(QuestionTopic $tag): self
+    {
+        if ($this->tag->contains($tag)) {
+            $this->tag->removeElement($tag);
+        }
 
         return $this;
     }

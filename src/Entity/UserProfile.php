@@ -35,7 +35,6 @@ class UserProfile implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string", length=64)
-     
      */
     private $password;
 
@@ -61,6 +60,11 @@ class UserProfile implements UserInterface
      */
     private $questions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="userName", orphanRemoval=true)
+     */
+    private $responses;
+
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -75,6 +79,7 @@ class UserProfile implements UserInterface
         $this->questionsAsked = new ArrayCollection();
         $this->avatar = new ArrayCollection();
         $this->questions = new ArrayCollection();
+        $this->responses = new ArrayCollection();
     }
 
 
@@ -218,6 +223,37 @@ class UserProfile implements UserInterface
             // set the owning side to null (unless already changed)
             if ($question->getUserId() === $this) {
                 $question->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Response[]
+     */
+    public function getResponses(): Collection
+    {
+        return $this->responses;
+    }
+
+    public function addResponse(Response $response): self
+    {
+        if (!$this->responses->contains($response)) {
+            $this->responses[] = $response;
+            $response->setUserName($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponse(Response $response): self
+    {
+        if ($this->responses->contains($response)) {
+            $this->responses->removeElement($response);
+            // set the owning side to null (unless already changed)
+            if ($response->getUserName() === $this) {
+                $response->setUserName(null);
             }
         }
 
