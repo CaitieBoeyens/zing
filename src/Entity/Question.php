@@ -37,14 +37,14 @@ class Question
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\QuestionTopic", inversedBy="questions")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="questions")
      */
-    private $tag;
+    private $tags;
 
     public function __construct()
     {
         $this->responses = new ArrayCollection();
-        $this->tag = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getTitle(): ?string
@@ -143,5 +143,13 @@ class Question
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|QuestionTopic[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
     }
 }

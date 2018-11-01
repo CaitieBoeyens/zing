@@ -18,6 +18,12 @@
                 <div class="card-content">
                     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                     {{ form_widget(form) }}
+                    <h3>Tags</h3>
+                    <ul class="tags">
+                        {% for tag in form.tags %}
+                            <li>{{ form_row(tag.name) }}</li>
+                        {% endfor %}
+                    </ul>
                     {{ form_end(form) }}
                 </div>
             </div>

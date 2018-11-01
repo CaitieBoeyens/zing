@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuestionTopicRepository")
  */
-class QuestionTopic
+class Tag
 {
     /**
      * @ORM\Id()
@@ -21,7 +21,7 @@ class QuestionTopic
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $topicName;
+    private $name;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Question", mappedBy="tag")
@@ -68,14 +68,14 @@ class QuestionTopic
         return $this;
     }
 
-    public function getTopicName(): ?string
+    public function getName(): ?string
     {
-        return $this->topicName;
+        return $this->name;
     }
 
-    public function setTopicName(string $topicName): self
+    public function setName(string $name): self
     {
-        $this->topicName = $topicName;
+        $this->name = $name;
 
         return $this;
     }   
