@@ -37,7 +37,7 @@ class Question
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="questions")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="questions", cascade={"all"})
      */
     private $tags;
 
