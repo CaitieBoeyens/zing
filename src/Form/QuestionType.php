@@ -15,7 +15,6 @@
 
     class QuestionType extends AbstractType
     {
-        //$user = $this->get('session')->get();
         public function buildForm(FormBuilderInterface $builder, array $options)
         {          
             $builder
@@ -23,7 +22,7 @@
                 ->add('body', TextareaType::class, ['label' => 'What do you need advice about?', 'attr' => ['onkeyup' => 'new do_resize(this)', 'rows'=> 1]])
                 ->add('tag', EntityType::class, array(
                     'class' => QuestionTopic::class,
-                    'choice_label' => 'tag'
+                    'choice_label' => 'topicName'
                 ))
                 ->add('submit', SubmitType::class, ['label' => 'Ask', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
         }
