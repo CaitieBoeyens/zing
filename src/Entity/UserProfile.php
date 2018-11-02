@@ -100,6 +100,7 @@ class UserProfile implements UserInterface
         $this->questions = new ArrayCollection();
         $this->following = new ArrayCollection();
         $this->responses = new ArrayCollection();
+        $this->followers = new ArrayCollection();
     }
 
 
@@ -332,6 +333,14 @@ class UserProfile implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|UserProfile[]
+     */
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
     }
 
 }

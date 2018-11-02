@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,16 +16,19 @@ class Tag
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"searchable"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"searchable"})
      */
     private $name;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Question", mappedBy="tags")
+     * @Groups({"searchable"})
      */
     private $questions;
 
@@ -33,9 +37,6 @@ class Tag
         $this->questions = new ArrayCollection();
     }
 
-    /**
-     * @Groups({"searchable"})
-     */
     public function getId(): ?int
     {
         return $this->id;
