@@ -33,11 +33,17 @@ class Tag
         $this->questions = new ArrayCollection();
     }
 
+    /**
+     * @Groups({"searchable"})
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @Groups({"searchable"})
+     */
     public function getName(): ?string
     {
         return $this->name;
@@ -52,6 +58,7 @@ class Tag
 
     /**
      * @return Collection|Question[]
+     * @Groups({"searchable"})
      */
     public function getQuestions(): Collection
     {

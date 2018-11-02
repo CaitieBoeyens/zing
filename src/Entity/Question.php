@@ -47,6 +47,9 @@ class Question
         $this->tags = new ArrayCollection();
     }
 
+    /**
+     * @Groups({"searchable"})
+     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -61,6 +64,7 @@ class Question
 
     /**
      * @return Collection|Response[]
+     * @Groups({"searchable"})
      */
     public function getResponses(): Collection
     {
@@ -90,6 +94,9 @@ class Question
         return $this;
     }
 
+    /**
+     * @Groups({"searchable"})
+     */
     public function getBody(): ?string
     {
         return $this->body;
@@ -107,6 +114,9 @@ class Question
         return $this->id;
     }
 
+    /**
+     * @Groups({"searchable"})
+     */
     public function getUser(): ?UserProfile
     {
         return $this->user;
@@ -121,6 +131,7 @@ class Question
 
     /**
      * @return Collection|Tag[]
+     * @Groups({"searchable"})
      */
     public function getTags(): Collection
     {
