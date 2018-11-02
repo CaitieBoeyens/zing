@@ -36,7 +36,6 @@ class UserProfile implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string", length=64)
-     
      */
     private $password;
 
@@ -79,6 +78,11 @@ class UserProfile implements UserInterface
      * )
      */
     private $followers;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="userName", orphanRemoval=true)
+     */
+    private $responses;
 
     public function getRoles(): array
     {
@@ -95,6 +99,7 @@ class UserProfile implements UserInterface
         $this->avatar = new ArrayCollection();
         $this->questions = new ArrayCollection();
         $this->following = new ArrayCollection();
+        $this->responses = new ArrayCollection();
     }
 
 
@@ -258,8 +263,6 @@ class UserProfile implements UserInterface
             $this->following[] = $following;
             $following->addFollower($this);
         }
-
-        return $this;
     }
 
     public function removeFollowing(UserProfile $following): self
@@ -295,6 +298,37 @@ class UserProfile implements UserInterface
         if ($this->follower->contains($follower)) {
             $this->follower->removeElement($follower);
             $follower->removeFollowing($this);
+
+        }
+    }
+
+    /**
+     * @return Collection|Response[]
+     */
+    public function getResponses(): Collection
+    {
+        return $this->responses;
+    }
+
+    public function addResponse(Response $response): self
+    {
+        if (!$this->responses->contains($response)) {
+            $this->responses[] = $response;
+            $response->setUserName($this);
+        }
+
+        return $this;
+    }
+
+
+    public function removeResponse(Response $response): self
+    {
+        if ($this->responses->contains($response)) {
+            $this->responses->removeElement($response);
+            // set the owning side to null (unless already changed)
+            if ($response->getUserName() === $this) {
+                $response->setUserName(null);
+            }
         }
 
         return $this;

@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\QuestionTopicRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  */
-class QuestionTopic
+class Tag
 {
     /**
      * @ORM\Id()
@@ -21,17 +21,16 @@ class QuestionTopic
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $tag;
+    private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Question", inversedBy="questionTopics")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Question", mappedBy="tags")
      */
-    private $question;
+    private $questions;
 
     public function __construct()
     {
-        $this->question_id = new ArrayCollection();
-        $this->question = new ArrayCollection();
+        $this->questions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -39,14 +38,14 @@ class QuestionTopic
         return $this->id;
     }
 
-    public function getTag(): ?string
+    public function getName(): ?string
     {
-        return $this->tag;
+        return $this->name;
     }
 
-    public function setTag(string $tag): self
+    public function setName(string $name): self
     {
-        $this->tag = $tag;
+        $this->name = $name;
 
         return $this;
     }
@@ -54,15 +53,16 @@ class QuestionTopic
     /**
      * @return Collection|Question[]
      */
-    public function getQuestion(): Collection
+    public function getQuestions(): Collection
     {
-        return $this->question;
+        return $this->questions;
     }
 
     public function addQuestion(Question $question): self
     {
-        if (!$this->question->contains($question)) {
-            $this->question[] = $question;
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->addTag($this);
         }
 
         return $this;
@@ -70,8 +70,9 @@ class QuestionTopic
 
     public function removeQuestion(Question $question): self
     {
-        if ($this->question->contains($question)) {
-            $this->question->removeElement($question);
+        if ($this->questions->contains($question)) {
+            $this->questions->removeElement($question);
+            $question->removeTag($this);
         }
 
         return $this;

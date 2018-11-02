@@ -31,22 +31,21 @@ class Question
     private $responses;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\QuestionTopic", mappedBy="question_id")
-     */
-    private $questionTopics;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="questions", cascade={"persist"})
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->responses = new ArrayCollection();
-        $this->questionTopics = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
-
 
     public function getTitle(): ?string
     {
@@ -56,18 +55,6 @@ class Question
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getTags(): ?array
-    {
-        return $this->tags;
-    }
-
-    public function setTags(array $tags): self
-    {
-        $this->tags = ['DIY'];
 
         return $this;
     }
@@ -115,34 +102,6 @@ class Question
         return $this;
     }
 
-    /**
-     * @return Collection|QuestionTopic[]
-     */
-    public function getQuestionTopics(): Collection
-    {
-        return $this->questionTopics;
-    }
-
-    public function addQuestionTopic(QuestionTopic $questionTopic): self
-    {
-        if (!$this->questionTopics->contains($questionTopic)) {
-            $this->questionTopics[] = $questionTopic;
-            $questionTopic->addQuestionId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuestionTopic(QuestionTopic $questionTopic): self
-    {
-        if ($this->questionTopics->contains($questionTopic)) {
-            $this->questionTopics->removeElement($questionTopic);
-            $questionTopic->removeQuestionId($this);
-        }
-
-        return $this;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -156,6 +115,32 @@ class Question
     public function setUser(?UserProfile $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+        }
 
         return $this;
     }
