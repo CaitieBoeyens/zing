@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -61,6 +62,24 @@ class UserProfile implements UserInterface
      */
     private $questions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\UserProfile", mappedBy="followers")
+     */
+    private $following;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\UserProfile", inversedBy="following")
+     * @ORM\JoinTable(name="userFollows", 
+        *   joinColumns={
+        *       @ORM\JoinColumn(name="follower_id", referencedColumnName="id")
+        *   },
+        *   inverseJoinColumns={
+        *       @ORM\JoinColumn(name="following_id", referencedColumnName="id")
+        *   }
+     * )
+     */
+    private $followers;
+
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -75,6 +94,7 @@ class UserProfile implements UserInterface
         $this->questionsAsked = new ArrayCollection();
         $this->avatar = new ArrayCollection();
         $this->questions = new ArrayCollection();
+        $this->following = new ArrayCollection();
     }
 
 
@@ -219,6 +239,62 @@ class UserProfile implements UserInterface
             if ($question->getUserId() === $this) {
                 $question->setUserId(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProfile[]
+     */
+    public function getFollowing(): Collection
+    {
+        return $this->following;
+    }
+
+    public function addFollowing(UserProfile $following): self
+    {
+        if (!$this->following->contains($following)) {
+            $this->following[] = $following;
+            $following->addFollower($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollowing(UserProfile $following): self
+    {
+        if ($this->following->contains($following)) {
+            $this->following->removeElement($following);
+            $following->removeFollower($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProfile[]
+     */
+    public function getFollower(): Collection
+    {
+        return $this->follower;
+    }
+
+    public function addFollower(UserProfile $follower): self
+    {
+        if (!$this->follower->contains($follower)) {
+            $this->follower[] = $follower;
+            $follower->addFollowing($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollower(UserProfile $follower): self
+    {
+        if ($this->follower->contains($follower)) {
+            $this->follower->removeElement($follower);
+            $follower->removeFollowing($this);
         }
 
         return $this;
