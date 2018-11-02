@@ -31,7 +31,17 @@ class Response
      * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="responses")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $userName;
+    private $user;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $upvotes;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $downvotes;
 
     public function getId(): ?int
     {
@@ -62,14 +72,38 @@ class Response
         return $this;
     }
 
-    public function getUserName(): ?UserProfile
+    public function getUser(): ?UserProfile
     {
         return $this->userName;
     }
 
-    public function setUserName(?UserProfile $userName): self
+    public function setUser(?UserProfile $userName): self
     {
         $this->userName = $userName;
+
+        return $this;
+    }
+
+    public function getUpvotes(): ?int
+    {
+        return $this->upvotes;
+    }
+
+    public function setUpvotes(int $upvotes): self
+    {
+        $this->upvotes = $upvotes;
+
+        return $this;
+    }
+
+    public function getDownvotes(): ?int
+    {
+        return $this->downvotes;
+    }
+
+    public function setDownvotes(int $downvotes): self
+    {
+        $this->downvotes = $downvotes;
 
         return $this;
     }

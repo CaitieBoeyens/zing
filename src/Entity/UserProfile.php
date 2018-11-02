@@ -80,7 +80,7 @@ class UserProfile implements UserInterface
     private $followers;
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="userName", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="user", orphanRemoval=true)
      */
     private $responses;
 
