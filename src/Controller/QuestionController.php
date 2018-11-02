@@ -20,16 +20,6 @@
         {
             $question = new Question();
 
-            // dummy code - this is here just so that the Task has some tags
-            // otherwise, this isn't an interesting example
-            $tag1 = new Tag();
-            $tag1->setName('tag1');
-            $question->getTags()->add($tag1);
-            $tag2 = new Tag();
-            $tag2->setName('tag2');
-            $question->getTags()->add($tag2);
-            // end dummy code
-
             $form = $this->createForm(QuestionType::class, $question);
             
             $form->handleRequest($request);

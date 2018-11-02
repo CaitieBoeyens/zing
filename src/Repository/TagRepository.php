@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Topic;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Topic|null find($id, $lockMode = null, $lockVersion = null)
- * @method Topic|null findOneBy(array $criteria, array $orderBy = null)
- * @method Topic[]    findAll()
- * @method Topic[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Tag|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Tag[]    findAll()
+ * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TopicRepository extends ServiceEntityRepository
+class TagRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Topic::class);
+        parent::__construct($registry, Tag::class);
     }
 
 //    /**
-//     * @return Topic[] Returns an array of Topic objects
+//     * @return Tag[] Returns an array of Tag objects
 //     */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TopicRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Topic
+    public function findOneBySomeField($value): ?Tag
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

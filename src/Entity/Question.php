@@ -37,7 +37,7 @@ class Question
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="questions", cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="questions", cascade={"persist"})
      */
     private $tags;
 
@@ -120,36 +120,28 @@ class Question
     }
 
     /**
-     * @return Collection|QuestionTopic[]
-     */
-    public function getTag(): Collection
-    {
-        return $this->tag;
-    }
-
-    public function addTag(QuestionTopic $tag): self
-    {
-        if (!$this->tag->contains($tag)) {
-            $this->tag[] = $tag;
-        }
-
-        return $this;
-    }
-
-    public function removeTag(QuestionTopic $tag): self
-    {
-        if ($this->tag->contains($tag)) {
-            $this->tag->removeElement($tag);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|QuestionTopic[]
+     * @return Collection|Tag[]
      */
     public function getTags(): Collection
     {
         return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+        }
+
+        return $this;
     }
 }

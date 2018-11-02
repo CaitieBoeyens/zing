@@ -9,7 +9,6 @@
     use Symfony\Component\Form\Extension\Core\Type\TextareaType;
     use Symfony\Component\Form\Extension\Core\Type\FileType;
     use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-    use App\Entity\Topics;
     use Symfony\Component\Form\Extension\Core\Type\CollectionType;
     use Symfony\Bridge\Doctrine\Form\Type\EntityType;
     use App\Controller\QuestionController;
@@ -27,17 +26,10 @@
                 ->add('tags', CollectionType::class, array(
                     'entry_type' => TagType::class,
                     'entry_options' => array('label' => false),
+                    'allow_add' => true,
+                    'by_reference' => false,
+                    'label' => false,
                 ))
-                    /*
-                        psudo code
-                        'choice_value = question.addTag(topic name)
-                    /*
-                ))
-                /*->add('tag', ChoiceType::class, array(
-                    'choices' => $topics,
-                    'label' => 'Question Category'
-                ))
-                */
                 ->add('submit', SubmitType::class, ['label' => 'Ask', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
         }
 
