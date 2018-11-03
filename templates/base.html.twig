@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/form.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css">
 
         <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
         <link rel="icon" href="img/favicon.png" type="image/x-icon">
@@ -24,7 +26,19 @@
         {% block javascripts %}{% endblock %}
 
         {% block script %}
+        
             <script src="{{asset('build/js/app.js')}}"></script>
+            <script>
+                const instantsearch = require('instantsearch.js');
+                const search = instantsearch({
+                    appId: 'QYA53J1CYH',
+                    apiKey: 'ba3e0b01de87426a2407a1fb02018d70',
+                    indexName: 'dev_tags',
+                    routing: true
+                });
+
+                search.start();
+            </script>
         {% endblock %}
     </body>
 </html>

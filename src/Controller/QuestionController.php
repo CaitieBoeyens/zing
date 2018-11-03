@@ -52,5 +52,20 @@
             $model = array();
             return $this->render($view, $model);
         }
+
+        /**
+         * @Route("/question/{id}", name="show_question")
+         */
+        public function show($id){
+            $question = $this->getDoctrine()->getRepository(Question::class)->find($id);
+
+            if (!$question) {
+                throw $this->createNotFoundException(
+                    'No question found for id '.$id
+                );
+            }
+        
+            return new Response('Check out this great product: '.$question->getTitle());
+        }
     }
 ?>

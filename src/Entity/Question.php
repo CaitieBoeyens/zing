@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,7 +26,7 @@ class Question
      */
     private $body;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="question_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="question", orphanRemoval=true)
      */
     private $responses;
 
@@ -48,9 +47,6 @@ class Question
         $this->tags = new ArrayCollection();
     }
 
-    /**
-     * @Groups({"searchable"})
-     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -65,7 +61,6 @@ class Question
 
     /**
      * @return Collection|Response[]
-     * @Groups({"searchable"})
      */
     public function getResponses(): Collection
     {
@@ -95,9 +90,6 @@ class Question
         return $this;
     }
 
-    /**
-     * @Groups({"searchable"})
-     */
     public function getBody(): ?string
     {
         return $this->body;
@@ -115,9 +107,6 @@ class Question
         return $this->id;
     }
 
-    /**
-     * @Groups({"searchable"})
-     */
     public function getUser(): ?UserProfile
     {
         return $this->user;
@@ -132,7 +121,6 @@ class Question
 
     /**
      * @return Collection|Tag[]
-     * @Groups({"searchable"})
      */
     public function getTags(): Collection
     {

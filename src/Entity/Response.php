@@ -74,12 +74,12 @@ class Response
 
     public function getUser(): ?UserProfile
     {
-        return $this->userName;
+        return $this->user;
     }
 
     public function setUser(?UserProfile $userName): self
     {
-        $this->userName = $userName;
+        $this->user = $userName;
 
         return $this;
     }
