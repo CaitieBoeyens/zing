@@ -51,6 +51,24 @@
 
                             </div>
                         </article>
+                        {% for response in question.responses %}
+
+                            <article class="media reply column is-11 is-pulled-right">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{response.user.username}}</strong>
+
+                                            <br>
+                                            {{response.body}}
+                                        </p>
+                                    </div>
+                                    <nav class="level is-mobile">
+                                        <div class="level-left"></div>
+                                    </nav>
+                                </div>
+                            </article>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
