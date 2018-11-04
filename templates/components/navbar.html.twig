@@ -65,6 +65,12 @@
         <div class=" navbar-item  has-dropdown is-hoverable">
             <a class="navbar-link user-details">
 
+                {% if app.user.avatar.first == null %}
+                    <img class='is-rounded user-avatar' alt='avatar' src="img/placeholder-avatar.png" width="50" height="50">
+                {% else %}
+                    <img class='is-rounded user-avatar' alt='avatar' src="uploads/avatars/{{ app.user.avatar.first.url }}" width="50" height="50">
+                {% endif %}
+
                 {{app.user.username}}
             </a>
 
