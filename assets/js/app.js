@@ -45,13 +45,21 @@ function avatarUpload(blob) {
         data: data,
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-        .then(response => {
-            window.location.assign('/success');
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    .then(response => {
+        window.location.assign('/success');
+    })
+    .catch(error => {
+        console.error(error);
+    });
+};
+
+function test(){
+    alert('test');
 }
+
+document.getElementById('userSearchBar').onkeyup = test;
+
+
 document.getElementsByName('downvote').onclick = function() {
     vote(-1);
     this.classList.add('is-pink');
@@ -75,7 +83,7 @@ document.onload = function() {
     });
 };
 
-export function vote(value) {
+function vote(value) {
     /* const url = '/vote';
     const data = { vote: value };
 
@@ -92,3 +100,4 @@ export function vote(value) {
 
     alert(value);
 }
+
