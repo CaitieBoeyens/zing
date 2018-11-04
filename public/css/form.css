@@ -1,12 +1,18 @@
 .login-card {
-    /* background: #fff; */
     width: 24rem;
-    /* box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.11); */
+    color: #fff;
     margin-top: 1em;
-    color: #fff; 
     text-transform: uppercase;
 }
-.signup-card, .login-card {
+
+.login-card input,
+.signup-card input {
+    color: #fff;
+    margin-top: 1rem;
+}
+
+.signup-card,
+.login-card {
     margin-top: 10em;
 }
 
@@ -34,10 +40,8 @@
 
 input {
     width: 100%;
-    color: #fff;
     display: block;
     font-size: 1rem;
-    margin-top: 1rem;
     margin-bottom: 1.75rem;
     padding: 0.25rem 0;
     border: none;
@@ -123,7 +127,7 @@ label {
     display: none;
 }
 
-.regular-checkbox + label {
+.regular-checkbox+label {
     background-color: #fafafa;
     border: 1px solid #dbdbdb;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
