@@ -17,8 +17,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-
-
 class ProfileController extends AbstractController
 {
     /**
@@ -212,14 +210,6 @@ class ProfileController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $user -> eraseCredentials();
-
-            echo '<script type="text/javascript"> 
-                
-                $(function(){
-                    $(".notification").removeClass("hide-notification");
-                })
-
-            </script>';
 
         }
 

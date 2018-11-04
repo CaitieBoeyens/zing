@@ -5,7 +5,6 @@
 {% endblock %}
 {% block body %}
     <div class="login-con">
-        {# <div id="login" class="columns is-centered"></div> #}
         <div id="login" class="columns is-halfheight">
             <div class="column is-offset-2 is-one-quarter is-paddingless login-card signup-card">
                 <div class="card-title">
@@ -39,23 +38,3 @@
             </div>
         </div>
     {% endblock %}
-
-    {#
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername" class="sr-only">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-
-</form>
-#}
