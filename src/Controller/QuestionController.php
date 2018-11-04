@@ -48,7 +48,7 @@
         /**
          * @Route("/q/success", name="question_success")
          */
-        public function successQuestion(Request $request)
+        public function successQuestion()
         {
             $view = 'success.html.twig';
             $model = array();
@@ -58,7 +58,7 @@
         /**
          * @Route("/question/{id}", name="show_question")
          */
-        public function show($id){
+        public function show($id, Request $request){
             $question = $this->getDoctrine()->getRepository(Question::class)->find($id);
             $reply = new Reply();
             $form = $this->createForm(ReplyType::class, $reply);
@@ -68,10 +68,31 @@
                     'No question found for id '.$id
                 );
             }
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()){
+                //$unmappedFields = $form['unmapped_field']->getData();
+                $user = $this->getUser();
+                $reply->setUser($user);
+                $reply->setQuestion($question);
+                $reply->setUpvotes(0);
+                $reply->setDownvotes(0);
+                
+                $reply = $form->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($reply);
+                $entityManager->flush();
+
+
+                
+            }
         
             $view = 'question.html.twig';
             $model = array('question' => $question, 'form' => $form->createView());
             return $this->render($view, $model);
         }
+
+        
     }
 ?>
