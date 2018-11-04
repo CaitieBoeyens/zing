@@ -187,7 +187,6 @@ class UserProfile implements UserInterface
         /**
         * @Assert\IsTrue(message="The password cannot match your username")
         */
-        // ... return true or false
         if ($password === $username) {
             return $this->username !== $this->password;
         }
