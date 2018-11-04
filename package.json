@@ -25,6 +25,6 @@
     },
     "dependencies": {
         "axios": "^0.18.0",
-        "croppie": "^2.6.2",
+        "croppie": "^2.6.2"
     }
 }
