@@ -12,6 +12,8 @@ use App\Form\AvatarType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -186,6 +188,15 @@ class ProfileController extends AbstractController
         $view = 'profile.html.twig';
         $model = array();
         return $this->render($view, $model);
+    }
+
+    /**
+     * @Route("/userList", name="userList")
+     */
+    public function userList(Request $request)
+    {
+        $users = $this->getDoctrine()->getRepository(UserProfile::class)->findAll();
+        return new JsonResponse($users);
     }
 
     /**
