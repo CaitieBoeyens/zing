@@ -21,7 +21,7 @@
                     'first_options'  => array('label' => 'Password'),
                     'second_options' => array('label' => 'Repeat Password'),
                 ))
-                ->add('submit', SubmitType::class, ['label' => 'Signup', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
+                ->add('submit', SubmitType::class, ['label' => 'Sign Up', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
         }
     }
 ?>

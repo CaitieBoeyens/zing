@@ -9,7 +9,7 @@
     3. Quick Links
     4. Profle Page
     5. Admin Console
-    6.FAB
+    6. FAB
 
 ======================================================================= */
 
@@ -21,6 +21,11 @@ body {
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
     background: #f7f7f7;
+}
+
+body .signup-con, .login-con {
+    background: #474f70;
+    height: 100vh;
 }
 
 .logo-img {
@@ -154,7 +159,7 @@ body {
 ======================================================================= */
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 0px;
 }
 
 ::-webkit-scrollbar-track {
