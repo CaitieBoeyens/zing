@@ -1,11 +1,12 @@
 <nav class="navbar is-white" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="">
-            <img src="img/alt-logo.svg" width="120" height="100">
+        <a class="navbar-item" href="{{ path('home_view') }}">
+            <img src="/img/alt-logo.svg" width="120" height="100">
             <h1 class="title">zing.</h1>
         </a>
     </div>
 
+<<<<<<< HEAD
     <div class="navbar-menu">
         <!-- THE SEARCH BAR -->
         <div class="navbar-start">
@@ -14,77 +15,91 @@
                     <input class="input" type="text" placeholder="Find a repository">
                 </div>
             </div>
+=======
+    <div class="navbar-start"></div>
+
+    <div class="navbar-end">
+
+        <div class="navbar-item">
+
+            <input class="input" type="text" placeholder="Find a repository">
+
+>>>>>>> fb0bbb90be5be4af7291b0c2dff1a755547956bf
         </div>
     </div>
 
-    <div class="navbar-end">
-        <a class="navbar-item" href="{{ path('home_view') }}">
-            Home
+    <a class="navbar-item" href="{{ path('home_view') }}">
+        Home
+    </a>
+
+    <div class="navbar-item has-dropdown is-hoverable ">
+        <a class="navbar-link">
+            Sections
         </a>
 
-        <div class="navbar-item has-dropdown is-hoverable ">
-            <a class="navbar-link">
-                Sections
+        <div class="navbar-dropdown">
+            <a class="navbar-item">
+                Cooking
+            </a>
+            <a class="navbar-item">
+                Home
+            </a>
+            <a class="navbar-item">
+                Love
+            </a>
+            <a class="navbar-item">
+                Fitness
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+                Roast Me
+            </a>
+        </div>
+    </div>
+    {% if app.user == null %}
+        <div class="navbar-item">
+            <div class="buttons">
+                <a class="button is-blue is-rounded" href="{{ path('signup_view') }}">
+                    <strong>Sign up</strong>
+                </a>
+                <a href="{{ path('login_view') }}" class="button is-blue is-inverted is-rounded">
+                    Log in
+                </a>
+            </div>
+        </div>
+    {% else %}
+        {% if 'ROLE_ADMIN' in app.user.roles %}
+            <a class="navbar-item" href="{{ path('admin_view')}}">
+                Admin
+            </a>
+        {% endif %}
+        <div class=" navbar-item  has-dropdown is-hoverable">
+            <a class="navbar-link user-details">
+
+                {% if app.user.avatar.first == null %}
+                    <img class='is-rounded user-avatar' alt='avatar' src="/img/placeholder-avatar.png" width="50" height="50">
+                {% else %}
+                    <img class='is-rounded user-avatar' alt='avatar' src="/uploads/avatars/{{ app.user.avatar.first.url }}" width="50" height="50">
+                {% endif %}
+
+                {{app.user.username}}
             </a>
 
             <div class="navbar-dropdown">
-                <a class="navbar-item">
-                    Cooking
+                <a class="navbar-item" href="{{ path('user_profile') }}">
+                    My Profile
                 </a>
                 <a class="navbar-item">
-                    Home
-                </a>
-                <a class="navbar-item">
-                    Love
-                </a>
-                <a class="navbar-item">
-                    Fitness
+                    Settings
                 </a>
                 <hr class="navbar-divider">
-                <a class="navbar-item">
-                    Roast Me
+                <a class="navbar-item" href="{{ path('logout') }}">
+                    Log out
                 </a>
+
             </div>
         </div>
-        {% if app.user == null %}
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-blue is-rounded" href="{{ path('signup_view') }}">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a href="{{ path('login_view') }}" class="button is-blue is-inverted is-rounded">
-                        Log in
-                    </a>
-                </div>
-            </div>
-        {% else %}
-            {% if 'ROLE_ADMIN' in app.user.roles %}
-                <a class="navbar-item" href="{{ path('admin_view')}}">
-                    Admin
-                </a>
-            {% endif %}
-            <div class=" navbar-item  has-dropdown is-hoverable">
-                <a class="navbar-link user-details">
-
-                   
-                    {{app.user.username}}
-                </a>
-
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" href="{{ path('user_profile') }}">
-                        My Profile
-                    </a>
-                    <a class="navbar-item">
-                        Settings
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" href="{{ path('logout') }}">
-                        Log out
-                    </a>
-
-                </div>
-            </div>
-        {% endif %}
-    </div>
+    {% endif %}
+</div>
 </div>
 </nav>

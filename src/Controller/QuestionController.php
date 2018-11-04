@@ -7,14 +7,16 @@
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\Routing\Annotation\Route;
     use App\Entity\Question;
+    use App\Entity\Reply;
     use App\Form\QuestionType;
+    use App\Form\ReplyType;
     use App\Entity\Tag;
     use Symfony\Component\HttpFoundation\Session\Session;
 
     class QuestionController extends AbstractController 
     {      
         /**
-         * @Route("/question", name="question_view")
+         * @Route("/ask_question", name="ask_question_view")
          */
         public function newQuestion(Request $request)
         {
@@ -38,7 +40,7 @@
                 return $this->redirectToRoute('question_success');
             }
 
-            $view = 'question.html.twig';
+            $view = 'ask_question.html.twig';
             $model = array('form' => $form->createView());
             return $this->render($view, $model);
         }
@@ -58,6 +60,8 @@
          */
         public function show($id){
             $question = $this->getDoctrine()->getRepository(Question::class)->find($id);
+            $reply = new Reply();
+            $form = $this->createForm(ReplyType::class, $reply);
 
             if (!$question) {
                 throw $this->createNotFoundException(
@@ -65,7 +69,9 @@
                 );
             }
         
-            return new Response('Check out this great product: '.$question->getTitle());
+            $view = 'question.html.twig';
+            $model = array('question' => $question, 'form' => $form->createView());
+            return $this->render($view, $model);
         }
     }
 ?>

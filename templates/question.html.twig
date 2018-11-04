@@ -1,22 +1,75 @@
 {% extends "base.html.twig"%}
 
 {% block title %}
-    Ask a question | Zing
+    {{question.title}}
 {% endblock %}
 
 {% block body %}
     {% include 'components/navbar.html.twig'%}
 
     <div class="container main">
-        <div id="question" href="">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-header-title">
-                        Ask a question
-                    </div>
-                </div>
-                <div class="card-content">
-                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div class="columns is-centered">
+            <div class="column is-three-quarters">
+                <div class="box ">
+                    <div class="box is-clearfix">
+                        <article class="media">
+                            <figure class="media-left">
+                                <p class="image is-64x64">
+                                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                                </p>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <small>{{question.user.username}}</small>
+                                        <br>
+                                        <strong>{{question.title}}</strong>
+                                        <br>
+                                        {{question.body}}
+                                    </p>
+                                </div>
+                                <hr class="navbar-divider">
+                                <nav class="level is-mobile">
+                                    <div class="level-left"></div>
+                                    <div class="level-right">
+                                        <a class="level-item">
+                                            <span class="icon is-small is-inactive zing">
+                                                <i class="fas fa-bolt"></i>
+                                            </span>
+                                        </a>
+                                        <a class="level-item">
+                                            <span class='tag is-yellow is-outline status is-uppercase'>3 Answers</span>
+                                        </a>
+                                        <a class="level-item">
+                                            <span class="icon is-small is-blue">
+                                                <i class="fas fa-reply"></i>
+                                            </span>
+                                        </a>
+
+                                    </div>
+                                </nav>
+
+                            </div>
+                        </article>
+                        {% for reply in question.replys %}
+
+                            <article class="media reply column is-11 is-pulled-right">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{reply.user.username}}</strong>
+
+                                            <br>
+                                            {{reply.body}}
+                                        </p>
+                                    </div>
+                                    <nav class="level is-mobile">
+                                        <div class="level-left"></div>
+                                    </nav>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                         {{ form_row(form.title) }}
                         {{ form_row(form.body)}}
                         <h3>Tags</h3>
@@ -25,79 +78,11 @@
                                 <li>{{ form_row(tag.name) }}</li>
                             {% endfor %}
                         </ul>
-                    {{ form_end(form) }}
+                        {{ form_end(form) }}
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
-{% endblock %}
-
-{% block script %}
-    <script>
-        //Text Area Resizing from https://blog.invoiceberry.com/2011/03/dynamically-change-the-height-of-a-textarea-based-on-the-text-javascript/
-        function do_resize(textbox) {
-            var maxrows = 10;
-            var txt = textbox.value;
-            var cols = textbox.cols;
-            var arraytxt = txt.split('\n');
-            var rows = arraytxt.length;
-            for (i = 0; i < arraytxt.length; i++) {
-                rows += parseInt(arraytxt[i].length / cols);
-                if (rows > maxrows) {
-                    textbox.rows = maxrows;
-                } else {
-                    textbox.rows = rows;
-                }
-            }
-        };
-
-        var $collectionHolder;
-        console.log($collectionHolder);
-
-        // setup an "add a tag" link
-        var $addTagButton = $('<button type="button" class="add_tag_link">Add a tag</button>');
-        var $newLinkLi = $('<li></li>').append($addTagButton);
-
-        jQuery(document).ready(function() {
-            console.log("jQuery");
-            // Get the ul that holds the collection of tags
-            $collectionHolder = $('ul.tags');
-
-            // add the "add a tag" anchor and li to the tags ul
-            $collectionHolder.append($newLinkLi);
-
-            // count the current form inputs we have (e.g. 2), use that as the new
-            // index when inserting a new item (e.g. 2)
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-            $addTagButton.on('click', function(e) {
-                e.preventDefault();
-                // add a new tag form (see next code block)
-                console.log("addTagButton clicked");
-                addTagForm($collectionHolder, $newLinkLi);
-            });
-
-            
-        });
-
-        function addTagForm($collectionHolder, $newLinkLi) {
-                // Get the data-prototype explained earlier
-                console.log("addTagForm");
-                var prototype = $collectionHolder.data('prototype');
-
-                // get the new index
-                var index = $collectionHolder.data('index');
-                console.log(index);
-
-                var newForm = prototype;
-
-                // increase the index with one for the next item
-                $collectionHolder.data('index', index + 1);
-
-                // Display the form in the page in an li, before the "Add a tag" link li
-                var $newFormLi = $('<li></li>').append(newForm);
-                $newLinkLi.before($newFormLi);
-            }
-        
-    </script>
 {% endblock %}
