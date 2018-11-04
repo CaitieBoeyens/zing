@@ -22,7 +22,7 @@ class Response
     private $body;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Question")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Question", inversedBy="responses")
      * @ORM\JoinColumn(nullable=false)
      */
     private $question;

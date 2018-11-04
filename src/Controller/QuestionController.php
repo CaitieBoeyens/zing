@@ -65,7 +65,9 @@
                 );
             }
         
-            return new Response('Check out this great product: '.$question->getTitle());
+            $view = 'question.html.twig';
+            $model = array('question' => $question);
+            return $this->render($view, $model);
         }
     }
 ?>

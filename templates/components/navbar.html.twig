@@ -1,7 +1,7 @@
 <nav class="navbar is-white" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="{{ path('home_view') }}">
-            <img src="img/alt-logo.svg" width="120" height="100">
+            <img src="/img/alt-logo.svg" width="120" height="100">
             <h1 class="title">zing.</h1>
         </a>
     </div>
@@ -66,9 +66,9 @@
             <a class="navbar-link user-details">
 
                 {% if app.user.avatar.first == null %}
-                    <img class='is-rounded user-avatar' alt='avatar' src="img/placeholder-avatar.png" width="50" height="50">
+                    <img class='is-rounded user-avatar' alt='avatar' src="/img/placeholder-avatar.png" width="50" height="50">
                 {% else %}
-                    <img class='is-rounded user-avatar' alt='avatar' src="uploads/avatars/{{ app.user.avatar.first.url }}" width="50" height="50">
+                    <img class='is-rounded user-avatar' alt='avatar' src="/uploads/avatars/{{ app.user.avatar.first.url }}" width="50" height="50">
                 {% endif %}
 
                 {{app.user.username}}
