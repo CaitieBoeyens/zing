@@ -106,8 +106,28 @@ class FillerFix extends Fixture
         $question5->setUser($joanne);
         $question5->addTag($DIYTag);
 
+        $question6 = new Question();
+        $question6->setTitle('Sand paper grit');
+        $question6->setBody('What level of coarseness do I need to strip varnish using a belt sander?');
+        $question6->setUser($james);
+        $question6->addTag($DIYTag);
+
+        $question7 = new Question();
+        $question7->setTitle('Tile Cutting');
+        $question7->setBody('What tools do I need to cut tiles?');
+        $question7->setUser($james);
+        $question7->addTag($DIYTag);
+
+        $question8 = new Question();
+        $question8->setTitle('Ceramic drill bit');
+        $question8->setBody('What drill bit tip do you recommend for old tiles?');
+        $question8->setUser($james);
+        $question8->addTag($DIYTag);
+
         $loveTag->addQuestion($question1);
         $DIYTag->addQuestion($question5);
+        $DIYTag->addQuestion($question7);
+        $DIYTag->addQuestion($question8);
         $homeTag->addQuestion($question2);
         $cookingTag->addQuestion($question3);   
         $fitnessTag->addQuestion($question4);
@@ -115,7 +135,7 @@ class FillerFix extends Fixture
         // ----- RESPONSES ----------------------------------------------------------
         $resp1 = new Response();
         $resp1->setQuestion($question4);
-        $resp1->setUser($jack);
+        $resp1->setUser($jimmy);
         $resp1->setBody('Bruuu, It"s def VA, they got the best equipment my boychi!');
         $resp1->setUpvotes(1);
         $resp1->setDownvotes(0);
