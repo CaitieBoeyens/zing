@@ -17,14 +17,14 @@
                 </div>
                 <div class="card-content">
                     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                        {{ form_row(form.title) }}
-                        {{ form_row(form.body)}}
-                        <h3>Tags</h3>
-                        <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
-                            {% for tag in form.tags %}
-                                <li>{{ form_row(tag.name) }}</li>
-                            {% endfor %}
-                        </ul>
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.body)}}
+                    <h3>Tags</h3>
+                    <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
+                        {% for tag in form.tags %}
+                            <li>{{ form_row(tag.name) }}</li>
+                        {% endfor %}
+                    </ul>
                     {{ form_end(form) }}
                 </div>
             </div>
@@ -58,7 +58,7 @@
         var $addTagButton = $('<button type="button" class="add_tag_link">Add a tag</button>');
         var $newLinkLi = $('<li></li>').append($addTagButton);
 
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             console.log("jQuery");
             // Get the ul that holds the collection of tags
             $collectionHolder = $('ul.tags');
@@ -70,34 +70,32 @@
             // index when inserting a new item (e.g. 2)
             $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-            $addTagButton.on('click', function(e) {
+            $addTagButton.on('click', function (e) {
                 e.preventDefault();
                 // add a new tag form (see next code block)
                 console.log("addTagButton clicked");
                 addTagForm($collectionHolder, $newLinkLi);
             });
 
-            
         });
 
         function addTagForm($collectionHolder, $newLinkLi) {
-                // Get the data-prototype explained earlier
-                console.log("addTagForm");
-                var prototype = $collectionHolder.data('prototype');
+            // Get the data-prototype explained earlier
+            console.log("addTagForm");
+            var prototype = $collectionHolder.data('prototype');
 
-                // get the new index
-                var index = $collectionHolder.data('index');
-                console.log(index);
+            // get the new index
+            var index = $collectionHolder.data('index');
+            console.log(index);
 
-                var newForm = prototype;
+            var newForm = prototype;
 
-                // increase the index with one for the next item
-                $collectionHolder.data('index', index + 1);
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
 
-                // Display the form in the page in an li, before the "Add a tag" link li
-                var $newFormLi = $('<li></li>').append(newForm);
-                $newLinkLi.before($newFormLi);
-            }
-        
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
     </script>
 {% endblock %}

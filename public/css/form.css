@@ -25,6 +25,10 @@
     padding: 3rem 2.5rem 4rem;
 }
 
+.navbar-item input {
+    margin-bottom: 0 !important;
+}
+
 input {
     display: block;
     width: 100%;

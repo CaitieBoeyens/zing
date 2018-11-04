@@ -14,7 +14,7 @@
     class QuestionController extends AbstractController 
     {      
         /**
-         * @Route("/question", name="question_view")
+         * @Route("/ask_question", name="ask_question_view")
          */
         public function newQuestion(Request $request)
         {
@@ -38,7 +38,7 @@
                 return $this->redirectToRoute('question_success');
             }
 
-            $view = 'question.html.twig';
+            $view = 'ask_question.html.twig';
             $model = array('form' => $form->createView());
             return $this->render($view, $model);
         }
