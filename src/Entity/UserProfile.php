@@ -41,7 +41,8 @@ class UserProfile implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Assert\NotBlank()
+     * @Assert\NotBlank()
+     * @Assert\Email(message = "The email '{{ email }}' is not a valid email.")
      */
     private $email;
 
