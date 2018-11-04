@@ -20,7 +20,7 @@
             //$topics = $options['topics'];
             $builder
                 
-                ->add('body', TextareaType::class, ['label' => '', 'attr' => ['onkeyup' => 'new do_resize(this)', 'rows'=> 1]])
+                ->add('body', TextareaType::class, ['label' => ' ', 'attr' => ['onkeyup' => 'new do_resize(this)', 'rows'=> 1]])
                 
                 ->add('submit', SubmitType::class, ['label' => 'Give advice', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
         }
