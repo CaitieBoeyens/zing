@@ -26,7 +26,7 @@ document.getElementById('avatar_submit').onclick = function() {
     let avatar;
     avatarCropper.result({ type: 'blob' }).then(blob => {
         avatar = blob;
-        ajaxWithAxios(avatar);
+        avatarUpload(avatar);
     });
 };
 
@@ -34,7 +34,7 @@ document.getElementById('avatar_form').onsubmit = function(event) {
     event.preventDefault();
 };
 
-function ajaxWithAxios(blob) {
+function avatarUpload(blob) {
     const url = '/image';
     const data = new FormData();
     data.append('avatar', blob);
@@ -51,4 +51,44 @@ function ajaxWithAxios(blob) {
         .catch(error => {
             console.error(error);
         });
+}
+document.getElementsByName('downvote').onclick = function() {
+    vote(-1);
+    this.classList.add('is-pink');
+};
+
+document.getElementById('test').onclick = function() {
+    alert('test');
+    this.classList.add('is-pink');
+};
+
+document.onload = function() {
+    const upvotes = Array.from(document.getElementsByClassName('upvote'));
+    console.log(upvotes);
+
+    upvotes.forEach((element, index) => {
+        debugger;
+        element.addEventListener('click', event => {
+            vote(1);
+            this.classList.add('is-pink');
+        });
+    });
+};
+
+export function vote(value) {
+    /* const url = '/vote';
+    const data = { vote: value };
+
+    axios({
+        method: 'post',
+        url: url,
+        data: data,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+        .then(response => {})
+        .catch(error => {
+            console.error(error);
+        }); */
+
+    alert(value);
 }

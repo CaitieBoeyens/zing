@@ -28,7 +28,7 @@
                                         {{question.body}}
                                     </p>
                                 </div>
-                                <hr class="navbar-divider">
+
                                 <nav class="level is-mobile">
                                     <div class="level-left"></div>
                                     <div class="level-right">
@@ -51,11 +51,14 @@
 
                             </div>
                         </article>
+                        <span class="icon is-medium" id="test">
+                            <i class="fas  fa-lg fa-long-arrow-alt-up"></i>
+                        </span>
                         {% for reply in question.replys %}
 
-                            <article class="media reply column is-11 is-pulled-right">
-                                <div class="media-content">
-                                    <div class="content">
+                            <article class="media reply column is-11 is-offset-1">
+                                <div class="media-content columns">
+                                    <div class="content column is-10">
                                         <p>
                                             <strong>{{reply.user.username}}</strong>
 
@@ -63,21 +66,37 @@
                                             {{reply.body}}
                                         </p>
                                     </div>
-                                    <nav class="level is-mobile">
-                                        <div class="level-left"></div>
-                                    </nav>
+
+                                    <div class="media-right column is-2">
+                                        <span class="icon is-medium is-inactive upvote">
+                                            <i class="fas  fa-lg fa-long-arrow-alt-up"></i>
+                                        </span>
+                                        <span class="icon is-medium is-inactive downvote">
+                                            <i class="fas  fa-lg fa-long-arrow-alt-down"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </article>
                         {% endfor %}
-                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-                        {{ form_row(form.body)}}
+                        <article class="content">
 
-                        {{ form_end(form) }}
+                            <hr class="navbar-divider">
+
+                            <p>What do you think?</p>
+
+                            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                            {{ form_row(form.body)}}
+
+                            {{ form_end(form) }}
+                        </article>
+
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
+
 {% endblock %}
