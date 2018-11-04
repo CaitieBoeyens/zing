@@ -51,4 +51,10 @@ function ajaxWithAxios(blob) {
         .catch(error => {
             console.error(error);
         });
+};
+
+function test(){
+    alert('test');
 }
+
+document.getElementById('userSearchBar').onkeyup = test;

@@ -11,7 +11,7 @@
         "friendsofsymfony/jsrouting-bundle": "^2.2",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/apache-pack": "^1.0",
-        "symfony/asset": "^4.1",
+        "symfony/asset": "*",
         "symfony/console": "*",
         "symfony/debug": "*",
         "symfony/debug-pack": "^1.0",
