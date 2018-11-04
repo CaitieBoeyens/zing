@@ -2,6 +2,7 @@ import axios from 'axios';
 
 window.vote = function(el, value) {
     el.classList.add('is-pink');
+    el.classList.remove('is-inactive');
     const url = '/vote';
     const data = {
         vote: value,

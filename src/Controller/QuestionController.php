@@ -101,7 +101,26 @@
 
      public function vote (Request $request) {
         if ($request->isXmlHttpRequest()){
-            $response = new JsonResponse($request->getContent());
+            $data = json_decode($request->getContent(), true);
+            $vote = $data['vote'];
+            $id = (int)$data['reply_id'];
+
+            $reply = $this->getDoctrine()->getRepository(Reply::class)->find($id);
+
+            if($vote === 1) {
+                $upvotes = $reply->getUpvotes();
+                $reply->setUpvotes((int)$upvotes + 1);
+            }
+            else if($vote === -1) {
+                $downvotes = $reply->getDownvotes();
+                $reply->setDownvotes((int)$downvotes - 1);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($reply);
+            $entityManager->flush();
+
+            $response = new JsonResponse($reply);
         }
         return ($response);
     }
