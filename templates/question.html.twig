@@ -51,9 +51,7 @@
 
                             </div>
                         </article>
-                        <span class="icon is-medium" id="test">
-                            <i class="fas  fa-lg fa-long-arrow-alt-up"></i>
-                        </span>
+
                         {% for reply in question.replys %}
 
                             <article class="media reply column is-11 is-offset-1">
@@ -67,11 +65,11 @@
                                         </p>
                                     </div>
 
-                                    <div class="media-right column is-2">
-                                        <span class="icon is-medium is-inactive upvote">
+                                    <div class="media-right column is-2" id='{{reply.id}}'>
+                                        <span class="icon is-medium is-inactive" onclick="vote(this, 1)">
                                             <i class="fas  fa-lg fa-long-arrow-alt-up"></i>
                                         </span>
-                                        <span class="icon is-medium is-inactive downvote">
+                                        <span class="icon is-medium is-inactive" onclick="vote(this, -1)">
                                             <i class="fas  fa-lg fa-long-arrow-alt-down"></i>
                                         </span>
                                     </div>
@@ -100,6 +98,7 @@
     </div>
     {% block script %}
         <script src="{{asset('build/js/voting.js')}}"></script>
+
     {% endblock %}
 
 {% endblock %}

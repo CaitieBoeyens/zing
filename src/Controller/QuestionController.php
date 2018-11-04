@@ -12,6 +12,7 @@
     use App\Form\ReplyType;
     use App\Entity\Tag;
     use Symfony\Component\HttpFoundation\Session\Session;
+    use Symfony\Component\HttpFoundation\JsonResponse;
 
     class QuestionController extends AbstractController 
     {      
@@ -92,6 +93,18 @@
             $model = array('question' => $question, 'form' => $form->createView());
             return $this->render($view, $model);
         }
+
+        /**
+     * @Route("/vote", name="vote", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+
+     public function vote (Request $request) {
+        if ($request->isXmlHttpRequest()){
+            $response = new JsonResponse($request->getContent());
+        }
+        return ($response);
+    }
 
         
     }
