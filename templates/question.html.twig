@@ -51,16 +51,16 @@
 
                             </div>
                         </article>
-                        {% for response in question.responses %}
+                        {% for reply in question.replys %}
 
                             <article class="media reply column is-11 is-pulled-right">
                                 <div class="media-content">
                                     <div class="content">
                                         <p>
-                                            <strong>{{response.user.username}}</strong>
+                                            <strong>{{reply.user.username}}</strong>
 
                                             <br>
-                                            {{response.body}}
+                                            {{reply.body}}
                                         </p>
                                     </div>
                                     <nav class="level is-mobile">
@@ -69,6 +69,16 @@
                                 </div>
                             </article>
                         {% endfor %}
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.body)}}
+                        <h3>Tags</h3>
+                        <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
+                            {% for tag in form.tags %}
+                                <li>{{ form_row(tag.name) }}</li>
+                            {% endfor %}
+                        </ul>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>

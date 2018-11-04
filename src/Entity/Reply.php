@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ResponseRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ReplyRepository")
  */
-class Response
+class Reply
 {
     /**
      * @ORM\Id()
@@ -22,13 +22,13 @@ class Response
     private $body;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Question", inversedBy="responses")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Question", inversedBy="replys")
      * @ORM\JoinColumn(nullable=false)
      */
     private $question;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="responses")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="replys")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

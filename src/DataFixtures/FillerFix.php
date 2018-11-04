@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Question;
 use App\Entity\UserProfile;
 use App\Entity\Tag;
-use App\Entity\Response;
+use App\Entity\Reply;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -132,15 +132,15 @@ class FillerFix extends Fixture
         $cookingTag->addQuestion($question3);   
         $fitnessTag->addQuestion($question4);
         
-        // ----- RESPONSES ----------------------------------------------------------
-        $resp1 = new Response();
+        // ----- ReplyS ----------------------------------------------------------
+        $resp1 = new Reply();
         $resp1->setQuestion($question4);
         $resp1->setUser($jimmy);
         $resp1->setBody('Bruuu, It"s def VA, they got the best equipment my boychi!');
         $resp1->setUpvotes(1);
         $resp1->setDownvotes(0);
 
-        $question4->addResponse($resp1);
+        $question4->addReply($resp1);
 
         $manager->persist($james);
         $manager->persist($jimmy);

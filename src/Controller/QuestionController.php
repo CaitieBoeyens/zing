@@ -7,7 +7,9 @@
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\Routing\Annotation\Route;
     use App\Entity\Question;
+    use App\Entity\Reply;
     use App\Form\QuestionType;
+    use App\Form\ReplyType;
     use App\Entity\Tag;
     use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -58,6 +60,8 @@
          */
         public function show($id){
             $question = $this->getDoctrine()->getRepository(Question::class)->find($id);
+            $reply = new Reply();
+            $form = $this->createForm(ReplyType::class, $reply);
 
             if (!$question) {
                 throw $this->createNotFoundException(
@@ -66,7 +70,7 @@
             }
         
             $view = 'question.html.twig';
-            $model = array('question' => $question);
+            $model = array('question' => $question, 'form' => $form->createView());
             return $this->render($view, $model);
         }
     }

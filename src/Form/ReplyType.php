@@ -1,5 +1,5 @@
 <?php
-    // QResponse form class
+    // QReply form class
     namespace App\Form;
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
@@ -11,9 +11,9 @@
     use Symfony\Component\Form\Extension\Core\Type\CollectionType;
     use Symfony\Bridge\Doctrine\Form\Type\EntityType;
     use App\Controller\QuestionController;
-    use App\Entity\Response;
+    use App\Entity\Reply;
 
-    class ResponseType extends AbstractType
+    class ReplyType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
@@ -28,7 +28,7 @@
         public function configureOptions(OptionsResolver $resolver)
         {
             $resolver->setDefaults(array(
-                'data_class' => Response::class,
+                'data_class' => Reply::class,
             ));
         }
     }

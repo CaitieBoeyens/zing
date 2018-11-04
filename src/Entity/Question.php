@@ -26,9 +26,9 @@ class Question
      */
     private $body;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="question", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Reply", mappedBy="question", orphanRemoval=true)
      */
-    private $responses;
+    private $replys;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserProfile", inversedBy="questions")
@@ -43,7 +43,7 @@ class Question
 
     public function __construct()
     {
-        $this->responses = new ArrayCollection();
+        $this->replys = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
 
@@ -60,30 +60,30 @@ class Question
     }
 
     /**
-     * @return Collection|Response[]
+     * @return Collection|Reply[]
      */
-    public function getResponses(): Collection
+    public function getReplys(): Collection
     {
-        return $this->responses;
+        return $this->replys;
     }
 
-    public function addResponse(Response $response): self
+    public function addReply(Reply $reply): self
     {
-        if (!$this->responses->contains($response)) {
-            $this->responses[] = $response;
-            $response->setQuestion($this);
+        if (!$this->replys->contains($reply)) {
+            $this->replys[] = $reply;
+            $reply->setQuestion($this);
         }
 
         return $this;
     }
 
-    public function removeResponse(Response $response): self
+    public function removeReply(Reply $reply): self
     {
-        if ($this->responses->contains($response)) {
-            $this->responses->removeElement($response);
+        if ($this->replys->contains($reply)) {
+            $this->replys->removeElement($reply);
             // set the owning side to null (unless already changed)
-            if ($response->getQuestion() === $this) {
-                $response->setQuestion(null);
+            if ($reply->getQuestion() === $this) {
+                $reply->setQuestion(null);
             }
         }
 
