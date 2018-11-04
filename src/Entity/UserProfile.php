@@ -182,6 +182,16 @@ class UserProfile implements UserInterface
         return $this;
     }
 
+    public function isPasswordSafe()
+    {
+        /**
+        * @Assert\IsTrue(message="The password cannot match your username")
+        */
+        if ($password === $username) {
+            return $this->username !== $this->password;
+        }
+    }
+
     /**
      * @return Collection|Avatar[]
      */

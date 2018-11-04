@@ -7,26 +7,26 @@
 
 {% block body %}
 
-    <div class="columns is-halfheight ">
-        <div class="column is-half is-offset-1 is-paddingless signup-card">
-            <img src="/img/logo.svg" alt="logo" class="logo-img ">
-        </div>
-        <div class="column is-one-quarter is-paddingless login-card signup-card">
-
-            <div class="card-title">
-                <h1>Register</h1>
-            </div>
-
-            <div class="content">
-                {{ form_start(form) }}
-                {{ form_row(form.username) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.plainPassword) }}
-
-                <div class="has-text-centered">
-                    {{ form_row(form.submit) }}
+    <div class="signup-con">
+        <div class="columns is-halfheight">
+            <div class="column is-offset-2 is-one-quarter is-paddingless login-card signup-card">
+                <div class="card-title">
+                    <h1>Register</h1>
                 </div>
-                {{ form_end(form) }}
+                <div class="content">
+                    {{ form_start(form) }}
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.plainPassword) }}
+
+                    <div class="has-text-centered">
+                        {{ form_row(form.submit) }}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <div class="column is-half is-offset-1 is-paddingless signup-card">
+                <img src="/img/logo.svg" alt="logo" class="logo-img ">
             </div>
         </div>
     </div>

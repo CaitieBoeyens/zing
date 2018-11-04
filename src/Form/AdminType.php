@@ -9,7 +9,7 @@
     use Symfony\Component\Form\Extension\Core\Type\SubmitType;
     use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
-    class UserProfileType extends AbstractType
+    class AdminType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
@@ -21,7 +21,7 @@
                     'first_options'  => array('label' => 'Password'),
                     'second_options' => array('label' => 'Repeat Password'),
                 ))
-                ->add('submit', SubmitType::class, ['label' => 'Sign Up', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
+                ->add('submit', SubmitType::class, ['label' => 'Add Admin', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
         }
     }
 ?>
