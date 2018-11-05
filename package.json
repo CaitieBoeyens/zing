@@ -8,7 +8,9 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch --watch-poll",
-        "build": "encore production"
+        "build": "encore production",
+        "heroku-postbuild": "encore production"
+    
     },
     "repository": {
         "type": "git",
