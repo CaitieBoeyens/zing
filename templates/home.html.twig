@@ -92,15 +92,18 @@
         <div class="main">
             <div class="columns">
                 <div class="column is-three-quarters">
-                    <div class="box ">
+                    {% for question in questions %}
+
                         <div class="box is-clearfix">
+
                             {% include 'components/question.html.twig'
                             with {
-                                'username' : 'Caitie'
+                                'question' : question
                             } %}
 
                         </div>
-                    </div>
+                    {% endfor %}
+
                 </div>
                 <div class="column is-one-quarter side-bar">
                     <div class="box"></div>
