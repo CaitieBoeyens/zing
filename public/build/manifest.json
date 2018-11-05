@@ -1,0 +1,7 @@
+{
+    "build/css/app.css": "/build/css/app.css",
+    "build/js/app.js": "/build/js/app.js",
+    "build/js/avatar.js": "/build/js/avatar.js",
+    "build/js/remove_admin.js": "/build/js/remove_admin.js",
+    "build/js/voting.js": "/build/js/voting.js"
+}
