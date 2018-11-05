@@ -9,8 +9,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch --watch-poll",
         "build": "encore production",
-        "heroku-postbuild": "encore production"
-    
+        "heroku-postbuild": "npm run build"
     },
     "repository": {
         "type": "git",
