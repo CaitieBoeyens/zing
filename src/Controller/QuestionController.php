@@ -8,6 +8,7 @@
     use Symfony\Component\Routing\Annotation\Route;
     use App\Entity\Question;
     use App\Entity\Reply;
+    use App\Entity\UserProfile;
     use App\Form\QuestionType;
     use App\Form\ReplyType;
     use App\Entity\Tag;
@@ -121,6 +122,30 @@
             $entityManager->flush();
 
             $response = new JsonResponse($reply);
+        }
+        return ($response);
+    }
+
+    /**
+     * @Route("/delete_reply", name="deleteReply", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+
+    public function deleteReply(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $id = (int) $data['reply_id'];
+
+            $removedReply = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+
+            $removedReply->removeReply($id);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($removedReply);
+            $entityManager->flush();
+
+            $response = new JsonResponse($removedReply);
         }
         return ($response);
     }
