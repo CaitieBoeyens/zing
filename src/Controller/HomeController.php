@@ -7,6 +7,7 @@
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\Routing\Annotation\Route;
     use App\Entity\Question;
+    use App\Entity\UserProfile;
     
     class HomeController extends AbstractController 
     {
@@ -17,8 +18,7 @@
         {
             
             $view = 'home.html.twig';
-
-            return $this->render($view);
+            return $this->render($view, $model);
         }
 
         /**
@@ -26,10 +26,10 @@
         */
         public function showQuestions(){
             $questions = $this->getDoctrine()->getRepository(Question::class)->findAll();
-
+            $users = $this->getDoctrine()->getRepository(UserProfile::class)->findAll();
 
             $view = 'home.html.twig';
-            $model = array('questions' => $questions);
+            $model = array('questions' => $questions, 'users' => $users);
             return $this->render($view, $model);
         }
     }
