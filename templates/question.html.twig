@@ -12,72 +12,20 @@
             <div class="column is-three-quarters">
                 <div class="box ">
                     <div class="box is-clearfix">
-                        <article class="media">
-                            <figure class="media-left">
-                                <p class="image is-64x64">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                                </p>
-                            </figure>
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        <small>{{question.user.username}}</small>
-                                        <br>
-                                        <strong>{{question.title}}</strong>
-                                        <br>
-                                        {{question.body}}
-                                    </p>
-                                </div>
-
-                                <nav class="level is-mobile">
-                                    <div class="level-left"></div>
-                                    <div class="level-right">
-                                        <a class="level-item">
-                                            <span class="icon is-small is-inactive zing">
-                                                <i class="fas fa-bolt"></i>
-                                            </span>
-                                        </a>
-                                        <a class="level-item">
-                                            <span class='tag is-yellow is-outline status is-uppercase'>3 Answers</span>
-                                        </a>
-                                        <a class="level-item">
-                                            <span class="icon is-small is-blue">
-                                                <i class="fas fa-reply"></i>
-                                            </span>
-                                        </a>
-
-                                    </div>
-                                </nav>
-
-                            </div>
-                        </article>
+                        {% include 'components/question.html.twig'
+                        with {
+                            'question' : question
+                        } %}
 
                         {% for reply in question.replys %}
 
-                            <article class="media reply column is-11 is-offset-1">
-                                <div class="media-content columns">
-                                    <div class="content column is-10">
-                                        <p>
-                                            <strong>{{reply.user.username}}</strong>
+                            {% include 'components/reply.html.twig' with {
+                                'reply' : reply
+                            } %}
 
-                                            <br>
-                                            {{reply.body}}
-                                        </p>
-                                    </div>
-
-                                    <div class="media-right column is-2" id='{{reply.id}}'>
-                                        <span class="icon is-medium is-inactive" onclick="vote(this, 1)">
-                                            <i class="fas  fa-lg fa-long-arrow-alt-up"></i>
-                                        </span>
-                                        <span class="icon is-medium is-inactive" onclick="vote(this, -1)">
-                                            <i class="fas  fa-lg fa-long-arrow-alt-down"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </article>
                         {% endfor %}
 
-                        <article class="content">
+                        <article class="content" id="reply">
 
                             <hr class="navbar-divider">
 

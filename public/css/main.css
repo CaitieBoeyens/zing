@@ -23,7 +23,8 @@ body {
     background: #f7f7f7;
 }
 
-body .signup-con, .login-con {
+body .signup-con,
+.login-con {
     background: #474f70;
     height: 100vh;
 }
@@ -129,16 +130,19 @@ body .signup-con, .login-con {
     background-color: #fcfcfc !important;
 }
 
+p.is-blue,
 .icon.is-blue {
     color: #474f70 !important;
     background: none !important;
 }
 
+p.is-pink,
 .icon.is-pink {
     color: #ff4f6f !important;
     background: none !important;
 }
 
+p.is-inactive,
 .icon.is-inactive {
     color: #d6d6d6 !important;
     background: none !important;
@@ -150,6 +154,7 @@ body .signup-con, .login-con {
     background: none !important;
 }
 
+p.is-yellow,
 .icon.is-yellow {
     color: #fab95b !important;
     background: none !important;
