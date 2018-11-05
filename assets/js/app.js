@@ -2,9 +2,13 @@ import jqueryui from 'jquery-ui';
 import axios from 'axios';
 
 function test() {
+<<<<<<< HEAD
+    axios.get('/autocomplete', { test: "test" }).then(response => {console.log(response.data);});
+=======
     axios.get('/autocomplete', { test: 'test' }).then(response => {
         console.log(response.data);
     });
+>>>>>>> 764fb15f14a49fd151440ceb269433e62c21ffd0
 }
 
 /*
