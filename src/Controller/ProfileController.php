@@ -185,8 +185,27 @@ class ProfileController extends AbstractController
      */
     public function viewProfile(Request $request)
     {
+        $user = $this->getUser();
+        $replies = $user -> getReplys();
+        
+        
+        $upvotes = 0;
+        foreach($replies as $r) {
+            $num = $r->getUpvotes();
+            
+            $upvotes += $num;
+        }
+
+        $downvotes = 0;
+        foreach($replies as $r) {
+            $num = $r->getDownvotes();
+            
+            $downvotes += $num;
+        }
+
+
         $view = 'profile.html.twig';
-        $model = array();
+        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes);
         return $this->render($view, $model);
     }
 

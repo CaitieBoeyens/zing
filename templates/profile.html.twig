@@ -33,19 +33,19 @@
                     </p>
                 </div>
                 <div class='column has-text-centered'>
-                    <p class='stat-val'>7</p>
+                    <p class='stat-val'>{{app.user.questions | length}}</p>
                     <p class='stat-key'>posts</p>
                 </div>
                 <div class='column has-text-centered'>
-                    <p class='stat-val'>10</p>
+                    <p class='stat-val'>{{upvotes}}</p>
                     <p class='stat-key'>upvotes</p>
                 </div>
                 <div class='column has-text-centered'>
-                    <p class='stat-val'>3</p>
+                    <p class='stat-val'>{{downvotes * -1}}</p>
                     <p class='stat-key'>downvotes</p>
                 </div>
                 <div class='column has-text-centered'>
-                    <p class='stat-val'>15</p>
+                    <p class='stat-val'>{{upvotes + downvotes}}</p>
                     <p class='stat-key'>zings</p>
                 </div>
             </div>
@@ -82,7 +82,7 @@
         </div>
         <div class="main">
             <div class="posts">
-                {% include 'components/comments.html.twig' %}
+                {% include 'components/posts.html.twig' %}
             </div>
             <div class="comments">
                 {% include 'components/comments.html.twig' %}
