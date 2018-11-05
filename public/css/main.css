@@ -29,6 +29,10 @@ body .signup-con,
     height: 100vh;
 }
 
+a {
+    color: black;
+}
+
 .logo-img {
     margin: 4em 20% 0;
 }
@@ -165,7 +169,7 @@ p.is-yellow,
 ======================================================================= */
 
 ::-webkit-scrollbar {
-    width: 0px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -175,7 +179,7 @@ p.is-yellow,
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #a1a1a1;
+    background-color: #e4e4e4;
 }
 
 /* ====================================================================
@@ -214,8 +218,12 @@ p.is-yellow,
                                 5. Admin Console
 ======================================================================= */
 
-table .hide {
-    display: none;
+table.remove-admin .fa-user-times {
+    visibility: hidden;
+}
+
+table.remove-admin tr:hover .fa-user-times {
+    visibility: visible;
 }
 
 .hide-notification {

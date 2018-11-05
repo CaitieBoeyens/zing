@@ -1,14 +1,17 @@
 <div class="columns">
     <div class="column is-three-quarters">
-        <div class="box ">
-            <div class="box is-clearfix">
-                {% include 'components/question.html.twig'
-                with {
-                    'username' : 'Caitie'
-                } %}
-                {% include 'components/reply.html.twig' %}
-            </div>
-        </div>
+        {% if user.replys | length is same as(0) %}
+            <p>Nothing answered yet</p>
+        {% else %}
+            {% for reply in user.replys %}
+                <div class="box is-clearfix">
+
+                    {% include 'components/reply.html.twig' with {
+                        'reply' : reply
+                    } %}
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
     <div class="column is-one-quarter side-bar">
         <div class="box"></div>

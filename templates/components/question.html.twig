@@ -1,6 +1,6 @@
 <article class="media">
     <figure class="media-left">
-        <p class="image is-96x96">
+        <p class="image is-64x64">
             {% if question.user.avatar.first == null %}
                 <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
             {% else %}
@@ -12,27 +12,40 @@
     <div class="media-content">
         <div class="content">
             <p>
-                <small>
+                <br>
+
+                <a href="{{ path('show_profile', { 'id' : question.user.id }) }}">
+
                     {{question.user.username}}
-                    Username</small>
+
+                </a>
+                <br>
                 <br>
                 <strong>
                     {{question.title}}
-                    Title</strong>
+                </strong>
                 <br>
                 {{question.body}}
-                Body
+
             </p>
         </div>
 
         <nav class="level is-mobile">
-            <div class="level-left"></div>
+            <div class="level-left">
+
+                {% for tag in question.tags %}
+                    <a class="level-item" href="{# {{ path('show_question', { 'id' : question.id }) }} #}">
+                        <span class='tag is-pink is-outline status is-uppercase'>
+                            {{tag.name}}</span>
+                    </a>
+                {% endfor %}
+            </div>
             <div class="level-right">
 
                 <a class="level-item" href="{{ path('show_question', { 'id' : question.id }) }}">
                     <span class='tag is-yellow is-outline status is-uppercase'>
                         {{question.replys|length}}
-                        NUM Answers</span>
+                        Answers</span>
                 </a>
                 <a class="level-item" href="#reply">
                     <span class="icon is-small is-blue">

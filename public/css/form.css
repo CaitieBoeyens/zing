@@ -78,6 +78,15 @@ textarea:active {
     border-color: #474f70;
 }
 
+textarea.reply {
+    margin-top: 1.55em;
+    border-left: 0px;
+}
+
+button.reply {
+    border-radius: 3em !important;
+}
+
 .login-card .checkbox {
     color: #b5b5b5;
     font-size: 0.8rem;
@@ -127,7 +136,7 @@ label {
     display: none;
 }
 
-.regular-checkbox+label {
+.regular-checkbox + label {
     padding: 7px;
     border-radius: 3px;
     position: relative;

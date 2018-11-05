@@ -15,6 +15,7 @@
         "symfony/console": "*",
         "symfony/debug": "*",
         "symfony/debug-pack": "^1.0",
+        "symfony/filesystem": "*",
         "symfony/flex": "^1.1",
         "symfony/form": "*",
         "symfony/framework-bundle": "*",
@@ -28,6 +29,9 @@
         "symfony/yaml": "*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "symfony/browser-kit": "*",
+        "symfony/css-selector": "*",
         "symfony/dotenv": "*",
         "symfony/phpunit-bridge": "*"
     },

@@ -2,22 +2,23 @@
 
 namespace App\Controller;
 
-use App\Entity\Login;
-use App\Entity\UserProfile;
 use App\Entity\Avatar;
-use App\Form\LoginInfoType;
-use App\Form\UserProfileType;
+use App\Entity\Login;
+use App\Entity\Question;
+use App\Entity\UserProfile;
 use App\Form\AdminType;
 use App\Form\AvatarType;
+use App\Form\LoginInfoType;
+use App\Form\UserProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfileController extends AbstractController
 {
@@ -33,7 +34,7 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-        // $form->getData() holds the submitted values
+            // $form->getData() holds the submitted values
             $loginProfile = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -52,7 +53,7 @@ class ProfileController extends AbstractController
      * @Route("/signup", name="signup_view")
      */
 
-    public function newProfile(Request $request,  UserPasswordEncoderInterface $passwordEncoder)
+    public function newProfile(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new UserProfile();
         $form = $this->createForm(UserProfileType::class, $user);
@@ -70,7 +71,7 @@ class ProfileController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            $user -> eraseCredentials();
+            $user->eraseCredentials();
 
             $token = new UsernamePasswordToken(
                 $user,
@@ -94,23 +95,22 @@ class ProfileController extends AbstractController
     /**
      * @Route ("upload/img", name="image_upload", methods="GET|POST")
      */
-    public function newAvatar(Request $request){
+    public function newAvatar(Request $request)
+    {
 
-       
         $avatar = new Avatar();
         $form = $this->createForm(AvatarType::class, $avatar);
 
         $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($avatar);
-                $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($avatar);
+            $entityManager->flush();
 
-                return $this->redirectToRoute('profile_success');
-            }
-        
+            return $this->redirectToRoute('profile_success');
+        }
 
         $view = 'image.html.twig';
 
@@ -123,14 +123,15 @@ class ProfileController extends AbstractController
      * @param Request $request
      */
 
-    public function getAvatar (Request $request) {
-        if ($request->isXmlHttpRequest()){
+    public function getAvatar(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
             $avatar = new Avatar();
             $form = $this->createForm(AvatarType::class, $avatar);
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $request -> files -> get('avatar');
-            
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $file = $request->files->get('avatar');
+
+            $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
 
             try {
                 $file->move(
@@ -143,16 +144,20 @@ class ProfileController extends AbstractController
 
             $avatar->setUrl($fileName);
             $avatar->setFile('');
-            $avatar -> setActive(true);
+            $avatar->setActive(true);
 
             $user = $this->getUser();
-            $avatars = $user -> getAvatar() -> toArray();
-            foreach($avatars as $a) {
-                $user -> removeAvatar($a);
-                $url = $a->getURL();
-                $fileSystem->remove(array('file', $this->getParameter('avatars_directory'), $url));
+            $avatars = $user->getAvatar()->toArray();
+            foreach ($avatars as $a) {
+                $fileSystem = new Filesystem();
+                $user->removeAvatar($a);
+                /*
+            $url = $a->getURL();
+            $folder = $this->getParameter('avatars_directory');
+            $oldfile = $folder.'/'.$url;
+            $fileSystem->remove('file', $url); */
             }
-            $user -> addAvatar($avatar);
+            $user->addAvatar($avatar);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($avatar);
             $entityManager->flush();
@@ -185,8 +190,25 @@ class ProfileController extends AbstractController
      */
     public function viewProfile(Request $request)
     {
+        $user = $this->getUser();
+        $replies = $user->getReplys();
+
+        $upvotes = 0;
+        foreach ($replies as $r) {
+            $num = $r->getUpvotes();
+
+            $upvotes += $num;
+        }
+
+        $downvotes = 0;
+        foreach ($replies as $r) {
+            $num = $r->getDownvotes();
+
+            $downvotes += $num;
+        }
+
         $view = 'profile.html.twig';
-        $model = array();
+        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user);
         return $this->render($view, $model);
     }
 
@@ -202,15 +224,19 @@ class ProfileController extends AbstractController
     /**
      * @Route("/admin", name="admin_view", methods="GET|POST")
      */
-    public function adminConsole(Request $request,  UserPasswordEncoderInterface $passwordEncoder)
+    public function adminConsole(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new UserProfile();
         $form = $this->createForm(AdminType::class, $user);
 
+        $users = $this->getDoctrine()->getRepository(UserProfile::class)->findAll();
+        $questions = $this->getDoctrine()->getRepository(Question::class)->findAll();
+
+        // return new JsonResponse($users);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
             $user = $form->getData();
 
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
@@ -220,17 +246,67 @@ class ProfileController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            $user -> eraseCredentials();
+            $user->eraseCredentials();
 
         }
 
         $view = 'admin.html.twig';
 
-        $model = array('form' => $form->createView());
+        $model = array('form' => $form->createView(), 'users' => $users, 'questions' => $questions);
+        return $this->render($view, $model);
+    }
+
+    /**
+     * @Route("/remove_admin", name="removeAdmin", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+
+    public function removeAdmin(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $id = (int) $data['admin_id'];
+
+            $adminUser = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+
+            $adminUser->setRoles(['ROLE_USER']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($adminUser);
+            $entityManager->flush();
+
+            $response = new JsonResponse($adminUser);
+        }
+        return ($response);
+    }
+
+    /**
+     * @Route("/profile/{id}", name="show_profile")
+     */
+
+    public function show($id)
+    {
+        $user = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+        $replies = $user->getReplys();
+
+        $upvotes = 0;
+        foreach ($replies as $r) {
+            $num = $r->getUpvotes();
+
+            $upvotes += $num;
+        }
+
+        $downvotes = 0;
+        foreach ($replies as $r) {
+            $num = $r->getDownvotes();
+
+            $downvotes += $num;
+        }
+
+
+        $view = 'other_profile.html.twig';
+        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user);
         return $this->render($view, $model);
     }
 
 }
-
-
-?>

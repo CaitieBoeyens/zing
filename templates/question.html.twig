@@ -10,112 +10,63 @@
     <div class="container main">
         <div class="columns is-centered">
             <div class="column is-three-quarters">
-                <div class="box ">
-                    <div class="box is-clearfix">
-                        <article class="media">
-                            <figure class="media-left">
-                                <p class="image is-96x96">
-                                    {% if question.user.avatar.first == null %}
-                                        <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
-                                    {% else %}
-                                        <img class='is-rounded' alt='avatar' src="/uploads/avatars/{{ question.user.avatar.first.url }}">
-                                    {% endif %}
 
-                                </p>
-                            </figure>
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        <small>{{question.user.username}}</small>
-                                        <br>
-                                        <strong>{{question.title}}</strong>
-                                        <br>
-                                        {{question.body}}
-                                    </p>
-                                </div>
+                <div class="box is-clearfix">
+                    {% include 'components/question.html.twig'
+                    with {
+                        'question' : question
+                    } %}
 
-                                <nav class="level is-mobile">
-                                    <div class="level-left"></div>
-                                    <div class="level-right">
+                    {% for reply in question.replys %}
 
-                                        <a class="level-item">
-                                            <span class='tag is-yellow is-outline status is-uppercase'>{{question.replys|length}}
-                                                Answers</span>
-                                        </a>
-                                        <a class="level-item" href="#reply">
-                                            <span class="icon is-small is-blue">
-                                                <i class="fas fa-reply"></i>
-                                            </span>
-                                        </a>
+                        {% include 'components/reply.html.twig' with {
+                            'reply' : reply
+                        } %}
 
-                                    </div>
-                                </nav>
+                    {% endfor %}
 
+                    <article class="content" id="reply">
+
+                        <hr class="navbar-divider">
+
+                        {{ form_start(form) }}
+                        <div class="field has-addons">
+                            <div class="control">
+                                {{ form_row(form.body, {'attr': {'class': 'reply is-blue is-inverted'}})}}
                             </div>
-                        </article>
-
-                        {% for reply in question.replys %}
-
-                            <article class="media reply column is-11 is-offset-1">
-                                <div class="media-content columns">
-                                    <figure class="media-left column is-1">
-                                        <p class="image is-48x48">
-                                            {% if reply.user.avatar.first == null %}
-                                                <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
-                                            {% else %}
-                                                <img class='is-rounded' alt='avatar' src="/uploads/avatars/{{ reply.user.avatar.first.url }}">
-                                            {% endif %}
-
-                                        </p>
-                                    </figure>
-                                    <div class="content column is-7">
-
-                                        <p>
-                                            <strong>{{reply.user.username}}</strong>
-
-                                            <br>
-                                            {{reply.body}}
-                                        </p>
-                                    </div>
-
-                                    <div class="media-right column is-3 is-clearfix" id='{{reply.id}}'>
-                                        <span class="is-pulled-right icon is-medium is-inactive" onclick="vote(this, -1)">
-                                            <i class="fas  fa-lg fa-long-arrow-alt-down"></i>
-                                        </span>
-                                        <span class=" is-pulled-right icon is-medium is-inactive" onclick="vote(this, 1)">
-                                            <i class="fas  fa-lg fa-long-arrow-alt-up"></i>
-                                        </span>
-                                        <p class="is-pulled-right is-size-4 is-inactive">
-                                            {{reply.upvotes + reply.downvotes}}
-                                        </p>
-                                    </div>
-
-                                </div>
-                            </article>
-                        {% endfor %}
-
-                        <article class="content" id="reply">
-
-                            <hr class="navbar-divider">
-
-                            <p>What do you think?</p>
-
-                            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-
-                            {{ form_row(form.body)}}
-
+                            <div class="control">
+                                {{ form_row(form.submit, {'attr': {'class': 'reply button is-blue'}})}}
+                            </div>
                             {{ form_end(form) }}
-                        </article>
 
-                    </div>
+                        </div>
+
+                    </article>
+
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
-    {% block script %}
-        <script src="{{asset('build/js/voting.js')}}"></script>
+        {% block script %}
+            <script src="{{asset('build/js/voting.js')}}"></script>
+            <script>
+                //Text Area Resizing from https://blog.invoiceberry.com/2011/03/dynamically-change-the-height-of-a-textarea-based-on-the-text-javascript/
+                function do_resize(textbox) {
+                    var maxrows = 5;
+                    var txt = textbox.value;
+                    var cols = textbox.cols;
+                    var arraytxt = txt.split('\n');
+                    var rows = arraytxt.length;
+                    for (i = 0; i < arraytxt.length; i++) {
+                        rows += parseInt(arraytxt[i].length / cols);
+                        if (rows > maxrows) {
+                            textbox.rows = maxrows;
+                        } else {
+                            textbox.rows = rows;
+                        }
+                    }
+                }
+            </script>
+        {% endblock %}
 
     {% endblock %}
-
-{% endblock %}

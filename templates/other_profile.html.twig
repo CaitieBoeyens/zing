@@ -13,16 +13,16 @@
             <div class='columns is-multiline'>
                 <div class='column is-2'>
                     <span class='header-icon user-profile-image'>
-                        <a href="/upload/img">
-                            <figure class='image profile-image'>
-                                {% if user.avatar.first == null %}
-                                    <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
-                                {% else %}
-                                    <img class='is-rounded' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}">
-                                {% endif %}
-                                <div class="profile-image-overlay"></div>
-                            </figure>
-                        </a>
+
+                        <figure class='image profile-image'>
+                            {% if user.avatar.first == null %}
+                                <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
+                            {% else %}
+                                <img class='is-rounded' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}">
+                            {% endif %}
+
+                        </figure>
+
                     </span>
                 </div>
                 <div class=' column="column" name' ="name'">
@@ -58,7 +58,7 @@
                             <span class='icon'>
                                 <i class='fa fa-list'></i>
                             </span>
-                            <span>My Posts</span>
+                            <span>Posts</span>
                         </a>
                     </li>
                     <li class='link comments-tab'>
@@ -66,17 +66,10 @@
                             <span class='icon'>
                                 <i class='fa fa-comment'></i>
                             </span>
-                            <span>My Comments</span>
+                            <span>Comments</span>
                         </a>
                     </li>
-                    <li class='link profile-tab'>
-                        <a>
-                            <span class='icon'>
-                                <i class='fa fa-user'></i>
-                            </span>
-                            <span>My Profile</span>
-                        </a>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -87,9 +80,7 @@
             <div class="comments">
                 {% include 'components/comments.html.twig' %}
             </div>
-            <div class="profile">
-                {% include 'components/profile.html.twig' %}
-            </div>
+
         </div>
     </div>
 
