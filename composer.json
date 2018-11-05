@@ -15,6 +15,7 @@
         "symfony/console": "*",
         "symfony/debug": "*",
         "symfony/debug-pack": "^1.0",
+        "symfony/filesystem": "*",
         "symfony/flex": "^1.1",
         "symfony/form": "*",
         "symfony/framework-bundle": "*",
