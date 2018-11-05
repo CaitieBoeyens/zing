@@ -2,13 +2,9 @@ import jqueryui from 'jquery-ui';
 import axios from 'axios';
 
 function test() {
-<<<<<<< HEAD
-    axios.get('/autocomplete', { test: "test" }).then(response => {console.log(response.data);});
-=======
-    axios.get('/userList').then(function(response) {
+    axios.get('/autocomplete', { test: 'test' }).then(response => {
         console.log(response.data);
     });
->>>>>>> 4779aadd53b7045833d5aba6fa5187cdd57bae96
 }
 
 /*
@@ -39,7 +35,14 @@ $(function() {
 });
 */
 
-document.getElementById('userSearchBar').onkeyup = function(){
+document.getElementById('userSearchBar').onkeyup = function() {
     var $data = this.value;
-    axios.post('/autocomplete',{term: this.value}).then(function (response) {console.log(response)}).catch(function (error){console.log(error);});
-}
+    axios
+        .post('/autocomplete', { term: this.value })
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+};
