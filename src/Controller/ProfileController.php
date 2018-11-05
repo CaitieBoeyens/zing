@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Avatar;
 use App\Entity\Login;
 use App\Entity\Question;
-use App\Entity\Reply;
 use App\Entity\UserProfile;
 use App\Form\AdminType;
 use App\Form\AvatarType;

@@ -32,7 +32,10 @@
                             </p>
                             <ul class="menu-list">
                                 <li>
-                                    <a class="add-remove-list">Add / Remove</a>
+                                    <a class="add-list">Add</a>
+                                </li>
+                                <li>
+                                    <a class="remove-list">Remove</a>
                                 </li>
                             </ul>
                             <p class="menu-label">
@@ -50,14 +53,14 @@
                     </div>
                 </div>
                 <div class="column">
-                    <div class="box">
-                        {% include 'components/admin_count_details.html.twig' %}
-                    </div>
                     <div class="box dashboard">
                         {% include 'components/admin/dashboard.html.twig' %}
                     </div>
-                    <div class="box add-remove">
-                        {% include 'components/admin/add_remove.html.twig' %}
+                    <div class="box add">
+                        {% include 'components/admin/add.html.twig' %}
+                    </div>
+                    <div class="box remove">
+                        {% include 'components/admin/remove.html.twig' %}
                     </div>
                     <div class="box members">
                         {% include 'components/admin/members.html.twig' %}
@@ -74,50 +77,72 @@
         <script>
             $(function () {
                 $('.dashboard').show();
-                $('.add-remove').hide();
+                $('.add').hide();
+                $('.remove').hide();
                 $('.members').hide();
                 $('.banned-members').hide();
 
                 $('.dashboard-list').on('click', function () {
-                    $('.add-remove-list').removeClass('is-active');
+                    $('.add-list').removeClass('is-active');
+                    $('.remove-list').removeClass('is-active');
                     $('.members-list').removeClass('is-active');
                     $('.banned-members-list').removeClass('is-active');
                     $(this).addClass('is-active');
                     $('.dashboard').show();
-                    $('.add-remove').hide();
+                    $('.add').hide();
+                    $('.remove').hide();
                     $('.members').hide();
                     $('.banned-members').hide();
                 });
 
-                $('.add-remove-list').on('click', function () {
+                $('.add-list').on('click', function () {
                     $('.dashboard-list').removeClass('is-active');
                     $('.members-list').removeClass('is-active');
+                    $('.remove-list').removeClass('is-active');
                     $('.banned-members-list').removeClass('is-active');
                     $(this).addClass('is-active');
                     $('.dashboard').hide();
-                    $('.add-remove').show();
+                    $('.add').show();
+                    $('.remove').hide();
+                    $('.members').hide();
+                    $('.banned-members').hide();
+                });
+                
+                $('.remove-list').on('click', function () {
+                    $('.dashboard-list').removeClass('is-active');
+                    $('.members-list').removeClass('is-active');
+                    $('.add-list').removeClass('is-active');
+                    $('.banned-members-list').removeClass('is-active');
+                    $(this).addClass('is-active');
+                    $('.dashboard').hide();
+                    $('.add').hide();
+                    $('.remove').show();
                     $('.members').hide();
                     $('.banned-members').hide();
                 });
 
                 $('.members-list').on('click', function () {
                     $('.dashboard-list').removeClass('is-active');
-                    $('.add-remove-list').removeClass('is-active');
+                    $('.add-list').removeClass('is-active');
+                    $('.remove-list').removeClass('is-active');
                     $('.banned-members-list').removeClass('is-active');
                     $(this).addClass('is-active');
                     $('.dashboard').hide();
-                    $('.add-remove').hide();
+                    $('.add').hide();
+                    $('.remove').hide();
                     $('.members').show();
                     $('.banned-members').hide();
                 });
 
                 $('.banned-members-list').on('click', function () {
                     $('.dashboard-list').removeClass('is-active');
-                    $('.add-remove-list').removeClass('is-active');
+                    $('.add-list').removeClass('is-active');
+                    $('.remove-list').removeClass('is-active');
                     $('.members-list').removeClass('is-active');
                     $(this).addClass('is-active');
                     $('.dashboard').hide();
-                    $('.add-remove').hide();
+                    $('.add').hide();
+                    $('.remove').hide();
                     $('.members').hide();
                     $('.banned-members').show();
                 });

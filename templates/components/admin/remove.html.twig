@@ -1,20 +1,3 @@
-<section class="section admin-add">
-
-    <h3 class="title is-3">Add an Administrator</h3>
-
-    <div class="content">
-        {{ form_start(form, {'attr': {'id': 'add_remove_form'}}) }}
-        {{ form_row(form.username, {'attr': {'id': 'form_username'}}) }}
-        {{ form_row(form.email, {'attr': {'id': 'form_email'}}) }}
-        {{ form_row(form.plainPassword) }}
-
-        <div class="has-text-centered">
-            {{ form_row(form.submit) }}
-        </div>
-        {{ form_end(form) }}
-    </div>
-</section>
-
 <section class="section admin-list">
 
     <h3 class="title is-3">Remove an Administrator</h3>
@@ -53,13 +36,11 @@
                         <td>
                             {% if app.user.username == user.username %}
 
-                            {% else %} 
+                            {% else %}
                                 <a onclick="removeAdmin(this)">
                                     <i class="fas fa-user-times"></i>
                                 </a>
                             {% endif %}
-                            
-                            
                         </td>
                     </tr>
                 {% endif %}

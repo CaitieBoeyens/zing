@@ -1,0 +1,53 @@
+<section class="section admin-list">
+
+    <h3 class="title is-3">Members</h3>
+
+    <table class="table is-fullwidth is-hoverable member-list">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Email Address
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for user in users | sort %}
+                {% if 'ROLE_ADMIN' in user.roles %}
+                    <tr id='{{ user.id }}'>
+                        <td>
+                            {% if user.avatar.first == null %}
+                                <img class='is-rounded user-avatar' alt='avatar' src="/img/placeholder-avatar.png" width="25" height="25">
+                            {% else %}
+                                <img class='is-rounded user-avatar' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}" width="25" height="25">
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ user.username }}
+                        </td>
+                        <td>
+                            {{ user.email }}
+                        </td>
+                        <td>
+                            {% if app.user.username == user.username %}
+
+                            {% else %}
+                                <a onclick="removeAdmin(this)">
+                                    <i class="fas fa-user-times"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</section>
+<script src="{{asset('build/js/remove_admin.js')}}"></script>
