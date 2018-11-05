@@ -7,109 +7,230 @@
 
 {% block body %}
     {% include 'components/navbar.html.twig' %}
-    {% include 'components/fab.html.twig' %}
 
-    <div class="container">
-        <div class="quick-links">
-            <div class="columns">
+    {% if app.user == null %}
 
-                <div class="column is-one-fifth">
+        <div class="container">
+            <div class="quick-links">
+                <div class="columns">
 
-                    <div class="box level has-text-centered">
-                        <div class="level-item has-text-centered">
-                            <p class="image is-32x32">
-                                <img src="/img/svg/diy.svg">
-                            </p>
-                        </div>
-                        <div class="level-item has-text-left">
-                            <h1>DIY</h1>
-                        </div>
-                    </div>
+                    <div class="column is-one-fifth">
 
-                </div>
-                <div class="column is-one-fifth">
-                    <div class="box level has-text-centered">
-                        <div class="level-item has-text-centered">
-                            <p class="image is-32x32">
-                                <img src="/img/svg/home.svg">
-                            </p>
-
-                        </div>
-                        <div class="level-item has-text-left">
-
-                            <h1>Home</h1>
+                        <div class="box level has-text-centered">
+                            <div class="level-item has-text-centered">
+                                <p class="image is-32x32">
+                                    <img src="/img/svg/diy.svg">
+                                </p>
+                            </div>
+                            <div class="level-item has-text-left">
+                                <h1>DIY</h1>
+                            </div>
                         </div>
 
                     </div>
-                </div>
-                <div class="column is-one-fifth">
-                    <div class="box level has-text-centered">
-                        <div class="level-item has-text-centered">
-                            <p class="image is-32x32">
-                                <img src="/img/svg/love.svg">
-                            </p>
+                    <div class="column is-one-fifth">
+                        <div class="box level has-text-centered">
+                            <div class="level-item has-text-centered">
+                                <p class="image is-32x32">
+                                    <img src="/img/svg/home.svg">
+                                </p>
+
+                            </div>
+                            <div class="level-item has-text-left">
+
+                                <h1>Home</h1>
+                            </div>
 
                         </div>
-                        <div class="level-item has-text-left">
+                    </div>
+                    <div class="column is-one-fifth">
+                        <div class="box level has-text-centered">
+                            <div class="level-item has-text-centered">
+                                <p class="image is-32x32">
+                                    <img src="/img/svg/love.svg">
+                                </p>
 
-                            <h1>Love</h1>
+                            </div>
+                            <div class="level-item has-text-left">
+
+                                <h1>Love</h1>
+                            </div>
+
                         </div>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <div class="box level has-text-centered">
+                            <div class="level-item has-text-centered">
+                                <p class="image is-32x32">
+                                    <img src="/img/svg/cooking.svg">
+                                </p>
 
+                            </div>
+                            <div class="level-item has-text-left">
+
+                                <h1>Cooking</h1>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <div class="box level has-text-centered">
+                            <div class="level-item has-text-centered">
+                                <p class="image is-32x32">
+                                    <img src="/img/svg/fitness.svg">
+                                </p>
+
+                            </div>
+                            <div class="level-item has-text-left">
+
+                                <h1>Fitness</h1>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <div class="column is-one-fifth">
-                    <div class="box level has-text-centered">
-                        <div class="level-item has-text-centered">
-                            <p class="image is-32x32">
-                                <img src="/img/svg/cooking.svg">
-                            </p>
+            </div>
+            <div class="main">
+                <div class="columns">
+                    <div class="column is-three-quarters">
+                        {% for question in questions %}
 
-                        </div>
-                        <div class="level-item has-text-left">
+                            <div class="box is-clearfix">
 
-                            <h1>Cooking</h1>
-                        </div>
+                                {% include 'components/question.html.twig'
+                                with {
+                                    'question' : question
+                                } %}
+
+                            </div>
+                        {% endfor %}
 
                     </div>
-                </div>
-                <div class="column is-one-fifth">
-                    <div class="box level has-text-centered">
-                        <div class="level-item has-text-centered">
-                            <p class="image is-32x32">
-                                <img src="/img/svg/fitness.svg">
-                            </p>
-
-                        </div>
-                        <div class="level-item has-text-left">
-
-                            <h1>Fitness</h1>
-                        </div>
-
+                    <div class="column is-one-quarter side-bar">
+                        <div class="box"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="main">
-            <div class="columns">
-                <div class="column is-three-quarters">
-                    {% for question in questions %}
 
-                        <div class="box is-clearfix">
+        {% else %}
 
-                            {% include 'components/question.html.twig'
-                            with {
-                                'question' : question
-                            } %}
+        {% for user in users %}
+            {% if app.user.username == user.username %}
+                {% if 'BANNED' in user.roles %}
+                    {% include 'components/banned.html.twig' %}
 
+                {% else %}
+
+                    {% include 'components/fab.html.twig' %}
+
+                    <div class="container">
+                        <div class="quick-links">
+                            <div class="columns">
+
+                                <div class="column is-one-fifth">
+
+                                    <div class="box level has-text-centered">
+                                        <div class="level-item has-text-centered">
+                                            <p class="image is-32x32">
+                                                <img src="/img/svg/diy.svg">
+                                            </p>
+                                        </div>
+                                        <div class="level-item has-text-left">
+                                            <h1>DIY</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="column is-one-fifth">
+                                    <div class="box level has-text-centered">
+                                        <div class="level-item has-text-centered">
+                                            <p class="image is-32x32">
+                                                <img src="/img/svg/home.svg">
+                                            </p>
+
+                                        </div>
+                                        <div class="level-item has-text-left">
+
+                                            <h1>Home</h1>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="column is-one-fifth">
+                                    <div class="box level has-text-centered">
+                                        <div class="level-item has-text-centered">
+                                            <p class="image is-32x32">
+                                                <img src="/img/svg/love.svg">
+                                            </p>
+
+                                        </div>
+                                        <div class="level-item has-text-left">
+
+                                            <h1>Love</h1>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="column is-one-fifth">
+                                    <div class="box level has-text-centered">
+                                        <div class="level-item has-text-centered">
+                                            <p class="image is-32x32">
+                                                <img src="/img/svg/cooking.svg">
+                                            </p>
+
+                                        </div>
+                                        <div class="level-item has-text-left">
+
+                                            <h1>Cooking</h1>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="column is-one-fifth">
+                                    <div class="box level has-text-centered">
+                                        <div class="level-item has-text-centered">
+                                            <p class="image is-32x32">
+                                                <img src="/img/svg/fitness.svg">
+                                            </p>
+
+                                        </div>
+                                        <div class="level-item has-text-left">
+
+                                            <h1>Fitness</h1>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    {% endfor %}
+                        <div class="main">
+                            <div class="columns">
+                                <div class="column is-three-quarters">
+                                    {% for question in questions %}
 
-                </div>
-                <div class="column is-one-quarter side-bar">
-                    <div class="box"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                        <div class="box is-clearfix">
+
+                                            {% include 'components/question.html.twig'
+                                            with {
+                                                'question' : question
+                                            } %}
+
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                                <div class="column is-one-quarter side-bar">
+                                    <div class="box"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
 
 {% endblock %}
