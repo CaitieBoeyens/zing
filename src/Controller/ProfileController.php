@@ -205,7 +205,7 @@ class ProfileController extends AbstractController
 
 
         $view = 'profile.html.twig';
-        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes);
+        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user);
         return $this->render($view, $model);
     }
 
@@ -248,6 +248,35 @@ class ProfileController extends AbstractController
         $model = array('form' => $form->createView());
         return $this->render($view, $model);
     }
+
+    /**
+     * @Route("/profile/{id}", name="show_profile")
+     */
+
+     public function show($id){
+        $user = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+        $replies = $user -> getReplys();
+        
+        
+        $upvotes = 0;
+        foreach($replies as $r) {
+            $num = $r->getUpvotes();
+            
+            $upvotes += $num;
+        }
+
+        $downvotes = 0;
+        foreach($replies as $r) {
+            $num = $r->getDownvotes();
+            
+            $downvotes += $num;
+        }
+
+
+        $view = 'profile.html.twig';
+        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user);
+        return $this->render($view, $model);
+     }
 
 }
 

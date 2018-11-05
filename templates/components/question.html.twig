@@ -12,16 +12,18 @@
     <div class="media-content">
         <div class="content">
             <p>
-                <small>
-                    {{question.user.username}}
-                    Username</small>
+                <a href="{{ path('show_profile', { 'id' : question.user.id }) }}">
+                    <small>
+                        {{question.user.username}}
+                    </small>
+                </a>
                 <br>
                 <strong>
                     {{question.title}}
-                    Title</strong>
+                </strong>
                 <br>
                 {{question.body}}
-                Body
+
             </p>
         </div>
 
@@ -32,7 +34,7 @@
                 <a class="level-item" href="{{ path('show_question', { 'id' : question.id }) }}">
                     <span class='tag is-yellow is-outline status is-uppercase'>
                         {{question.replys|length}}
-                        NUM Answers</span>
+                        Answers</span>
                 </a>
                 <a class="level-item" href="#reply">
                     <span class="icon is-small is-blue">

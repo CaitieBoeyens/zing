@@ -1,9 +1,9 @@
 <div class="columns">
     <div class="column is-three-quarters">
-        {% if app.user.replys | length is same as(0) %}
+        {% if user.replys | length is same as(0) %}
             <p>You havent answered anything yet</p>
         {% else %}
-            {% for reply in app.user.replys %}
+            {% for reply in user.replys %}
                 <div class="box is-clearfix">
 
                     {% include 'components/reply.html.twig' with {

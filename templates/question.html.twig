@@ -10,36 +10,36 @@
     <div class="container main">
         <div class="columns is-centered">
             <div class="column is-three-quarters">
-                <div class="box ">
-                    <div class="box is-clearfix">
-                        {% include 'components/question.html.twig'
-                        with {
-                            'question' : question
+
+                <div class="box is-clearfix">
+                    {% include 'components/question.html.twig'
+                    with {
+                        'question' : question
+                    } %}
+
+                    {% for reply in question.replys %}
+
+                        {% include 'components/reply.html.twig' with {
+                            'reply' : reply
                         } %}
 
-                        {% for reply in question.replys %}
+                    {% endfor %}
 
-                            {% include 'components/reply.html.twig' with {
-                                'reply' : reply
-                            } %}
+                    <article class="content" id="reply">
 
-                        {% endfor %}
+                        <hr class="navbar-divider">
 
-                        <article class="content" id="reply">
+                        <p>What do you think?</p>
 
-                            <hr class="navbar-divider">
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-                            <p>What do you think?</p>
+                        {{ form_row(form.body)}}
 
-                            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                        {{ form_end(form) }}
+                    </article>
 
-                            {{ form_row(form.body)}}
-
-                            {{ form_end(form) }}
-                        </article>
-
-                    </div>
                 </div>
+
             </div>
 
         </div>

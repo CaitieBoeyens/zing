@@ -29,6 +29,10 @@ body .signup-con,
     height: 100vh;
 }
 
+a {
+    color: black;
+}
+
 .logo-img {
     margin: 4em 20% 0;
 }

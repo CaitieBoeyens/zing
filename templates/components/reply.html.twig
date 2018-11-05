@@ -13,7 +13,11 @@
         <div class="content column is-7">
 
             <p>
-                <strong>{{reply.user.username}}</strong>
+                <a href="{{ path('show_profile', { 'id' : reply.user.id }) }}">
+                    <strong>
+                        {{reply.user.username}}
+                    </strong>
+                </a>
 
                 <br>
                 {{reply.body}}

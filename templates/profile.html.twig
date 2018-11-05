@@ -1,7 +1,7 @@
 {% extends "base.html.twig"%}
 
 {% block title %}
-    {{ app.user.username }}'s Profile | zing.
+    {{ user.username }}'s Profile | zing.
 {% endblock %}
 
 {% block body %}
@@ -15,10 +15,10 @@
                     <span class='header-icon user-profile-image'>
                         <a href="/upload/img">
                             <figure class='image profile-image'>
-                                {% if app.user.avatar.first == null %}
-                                    <img class='is-rounded' alt='avatar' src="img/placeholder-avatar.png">
+                                {% if user.avatar.first == null %}
+                                    <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
                                 {% else %}
-                                    <img class='is-rounded' alt='avatar' src="uploads/avatars/{{ app.user.avatar.first.url }}">
+                                    <img class='is-rounded' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}">
                                 {% endif %}
                                 <div class="profile-image-overlay"></div>
                             </figure>
@@ -27,13 +27,13 @@
                 </div>
                 <div class=' column="column" name' ="name'">
                     <p>
-                        <span class='title is-bold'>{{ app.user.username }}</span>
+                        <span class='title is-bold'>{{ user.username }}</span>
                         <br>
                         <span class='tag is-primary is-outline status'>Pro</span>
                     </p>
                 </div>
                 <div class='column has-text-centered'>
-                    <p class='stat-val'>{{app.user.questions | length}}</p>
+                    <p class='stat-val'>{{user.questions | length}}</p>
                     <p class='stat-key'>posts</p>
                 </div>
                 <div class='column has-text-centered'>
