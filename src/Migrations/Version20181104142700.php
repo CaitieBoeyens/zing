@@ -17,7 +17,7 @@ final class Version20181104142700 extends AbstractMigration
 
         $this->addSql('DROP SEQUENCE login_id_seq CASCADE');
         /* $this->addSql('CREATE SEQUENCE tag_id_seq INCREMENT BY 1 MINVALUE 1 START 1'); */
-        $this->addSql('CREATE TABLE question_tag (question_id INT NOT NULL, tag_id INT NOT NULL, PRIMARY KEY(question_id, tag_id))');
+        /* $this->addSql('CREATE TABLE question_tag (question_id INT NOT NULL, tag_id INT NOT NULL, PRIMARY KEY(question_id, tag_id))'); */
         $this->addSql('CREATE INDEX IDX_339D56FB1E27F6BF ON question_tag (question_id)');
         $this->addSql('CREATE INDEX IDX_339D56FBBAD26311 ON question_tag (tag_id)');
         $this->addSql('CREATE TABLE tag (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
