@@ -1,10 +1,10 @@
 <div class="columns">
     <div class="column is-three-quarters">
-        {% if app.user.questions | length is same as(0) %}
-            <p>You havent asked anything yet</p>
+        {% if user.questions | length is same as(0) %}
+            <p>Nothing asked yet</p>
         {% else %}
 
-            {% for question in app.user.questions %}
+            {% for question in user.questions %}
                 <div class="box is-clearfix">
                     {% include 'components/question.html.twig'
                     with {

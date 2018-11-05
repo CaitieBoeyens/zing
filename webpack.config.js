@@ -15,7 +15,8 @@ Encore
     .addStyleEntry('css/app', './assets/css/app.css')
 
     .addEntry('js/avatar', './assets/js/avatar.js')
-    .addEntry('js/voting', './assets/js/voting.js');
+    .addEntry('js/voting', './assets/js/voting.js')
+    .addEntry('js/remove_admin', './assets/js/remove_admin.js');
 
 // uncomment if you use Sass/SCSS files
 // .enableSassLoader()

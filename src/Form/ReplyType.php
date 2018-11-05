@@ -20,9 +20,9 @@
             //$topics = $options['topics'];
             $builder
                 
-                ->add('body', TextareaType::class, ['label' => ' ', 'attr' => ['onkeyup' => 'new do_resize(this)', 'rows'=> 1]])
+                ->add('body', TextareaType::class, ['label' => ' ', 'attr' => ['onkeyup' => 'new do_resize(this)', 'rows'=> 1, 'cols'=> 100, 'placeholder'=> 'What do you think?']])
                 
-                ->add('submit', SubmitType::class, ['label' => 'Give advice', 'attr' => ['class' => 'button is-blue is-inverted is-rounded']]);
+                ->add('submit', SubmitType::class, ['label' => 'Give advice']);
         }
 
         public function configureOptions(OptionsResolver $resolver)
