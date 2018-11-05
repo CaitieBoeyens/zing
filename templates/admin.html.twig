@@ -74,10 +74,9 @@
         <script>
             $(function () {
                 $('.dashboard').show();
-                //$('.add-remove').hide();
+                $('.add-remove').hide();
                 $('.members').hide();
                 $('.banned-members').hide();
-                //$('.notification').hide();
 
                 $('.dashboard-list').on('click', function () {
                     $('.add-remove-list').removeClass('is-active');
@@ -85,7 +84,7 @@
                     $('.banned-members-list').removeClass('is-active');
                     $(this).addClass('is-active');
                     $('.dashboard').show();
-                    //$('.add-remove').hide();
+                    $('.add-remove').hide();
                     $('.members').hide();
                     $('.banned-members').hide();
                 });
@@ -96,7 +95,7 @@
                     $('.banned-members-list').removeClass('is-active');
                     $(this).addClass('is-active');
                     $('.dashboard').hide();
-                    //$('.add-remove').show();
+                    $('.add-remove').show();
                     $('.members').hide();
                     $('.banned-members').hide();
                 });
@@ -107,7 +106,7 @@
                     $('.banned-members-list').removeClass('is-active');
                     $(this).addClass('is-active');
                     $('.dashboard').hide();
-                    //$('.add-remove').hide();
+                    $('.add-remove').hide();
                     $('.members').show();
                     $('.banned-members').hide();
                 });
@@ -118,7 +117,7 @@
                     $('.members-list').removeClass('is-active');
                     $(this).addClass('is-active');
                     $('.dashboard').hide();
-                    //$('.add-remove').hide();
+                    $('.add-remove').hide();
                     $('.members').hide();
                     $('.banned-members').show();
                 });
