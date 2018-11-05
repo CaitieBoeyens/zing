@@ -51,9 +51,15 @@
                             {{ user.email }}
                         </td>
                         <td>
-                            <a onclick="removeAdmin(this)">
-                                <i class="fas fa-user-times"></i>
-                            </a>
+                            {% if app.user.username == user.username %}
+
+                            {% else %} 
+                                <a onclick="removeAdmin(this)">
+                                    <i class="fas fa-user-times"></i>
+                                </a>
+                            {% endif %}
+                            
+                            
                         </td>
                     </tr>
                 {% endif %}

@@ -19,4 +19,5 @@ window.removeAdmin = function (el) {
         .catch(error => {
             console.error(error);
         });
+        location.reload();
 };
