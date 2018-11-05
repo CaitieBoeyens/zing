@@ -36,7 +36,7 @@
 
             {% for user in users | sort %}
                 {% if 'ROLE_ADMIN' in user.roles %}
-                    <tr>
+                    <tr id='{{ user.id }}'>
                         <td>
                             {% if user.avatar.first == null %}
                                 <img class='is-rounded user-avatar' alt='avatar' src="/img/placeholder-avatar.png" width="25" height="25">
@@ -51,9 +51,15 @@
                             {{ user.email }}
                         </td>
                         <td>
-                            <a>
-                                <i class="fas fa-user-times"></i>
-                            </a>
+                            {% if app.user.username == user.username %}
+
+                            {% else %} 
+                                <a onclick="removeAdmin(this)">
+                                    <i class="fas fa-user-times"></i>
+                                </a>
+                            {% endif %}
+                            
+                            
                         </td>
                     </tr>
                 {% endif %}
@@ -63,3 +69,4 @@
     </table>
 
 </section>
+<script src="{{asset('build/js/remove_admin.js')}}"></script>
