@@ -1,7 +1,7 @@
 <div class="columns">
     <div class="column is-three-quarters">
         {% if user.questions | length is same as(0) %}
-            <p>You havent asked anything yet</p>
+            <p>Nothing asked yet</p>
         {% else %}
 
             {% for question in user.questions %}
