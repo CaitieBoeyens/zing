@@ -16,7 +16,10 @@ Encore
 
     .addEntry('js/avatar', './assets/js/avatar.js')
     .addEntry('js/voting', './assets/js/voting.js')
-    .addEntry('js/remove_admin', './assets/js/remove_admin.js');
+    .addEntry('js/admin', './assets/js/admin.js')
+    .addEntry('js/remove_admin', './assets/js/remove_admin.js')
+    .addEntry('js/ban_user', './assets/js/ban_user.js')
+    .addEntry('js/restore_user', './assets/js/restore_user.js');
 
 // uncomment if you use Sass/SCSS files
 // .enableSassLoader()

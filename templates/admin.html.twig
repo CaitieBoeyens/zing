@@ -8,8 +8,17 @@
 
     {% include 'components/navbar.html.twig' %}
 
-    <div class="notification is-primary hide-notification">
+    <div class="notification is-primary add-admin-success" id="hide-notification">
         New Administrator added <strong>successfully</strong>.
+    </div>
+    <div class="notification is-primary remove-admin-success" id="hide-notification">
+        Administrator removed <strong>successfully</strong>.
+    </div>
+    <div class="notification is-danger ban-member-success" id="hide-notification">
+        Member banned <strong>successfully</strong>.
+    </div>
+    <div class="notification is-warning restore-member-success" id="hide-notification">
+        Member restored <strong>successfully</strong>.
     </div>
 
     <section class="section">
@@ -72,83 +81,5 @@
             </div>
         </div>
     </section>
-
-    {% block script %}
-        <script>
-            $(function () {
-                $('.dashboard').show();
-                $('.add').hide();
-                $('.remove').hide();
-                $('.members').hide();
-                $('.banned-members').hide();
-
-                $('.dashboard-list').on('click', function () {
-                    $('.add-list').removeClass('is-active');
-                    $('.remove-list').removeClass('is-active');
-                    $('.members-list').removeClass('is-active');
-                    $('.banned-members-list').removeClass('is-active');
-                    $(this).addClass('is-active');
-                    $('.dashboard').show();
-                    $('.add').hide();
-                    $('.remove').hide();
-                    $('.members').hide();
-                    $('.banned-members').hide();
-                });
-
-                $('.add-list').on('click', function () {
-                    $('.dashboard-list').removeClass('is-active');
-                    $('.members-list').removeClass('is-active');
-                    $('.remove-list').removeClass('is-active');
-                    $('.banned-members-list').removeClass('is-active');
-                    $(this).addClass('is-active');
-                    $('.dashboard').hide();
-                    $('.add').show();
-                    $('.remove').hide();
-                    $('.members').hide();
-                    $('.banned-members').hide();
-                });
-                
-                $('.remove-list').on('click', function () {
-                    $('.dashboard-list').removeClass('is-active');
-                    $('.members-list').removeClass('is-active');
-                    $('.add-list').removeClass('is-active');
-                    $('.banned-members-list').removeClass('is-active');
-                    $(this).addClass('is-active');
-                    $('.dashboard').hide();
-                    $('.add').hide();
-                    $('.remove').show();
-                    $('.members').hide();
-                    $('.banned-members').hide();
-                });
-
-                $('.members-list').on('click', function () {
-                    $('.dashboard-list').removeClass('is-active');
-                    $('.add-list').removeClass('is-active');
-                    $('.remove-list').removeClass('is-active');
-                    $('.banned-members-list').removeClass('is-active');
-                    $(this).addClass('is-active');
-                    $('.dashboard').hide();
-                    $('.add').hide();
-                    $('.remove').hide();
-                    $('.members').show();
-                    $('.banned-members').hide();
-                });
-
-                $('.banned-members-list').on('click', function () {
-                    $('.dashboard-list').removeClass('is-active');
-                    $('.add-list').removeClass('is-active');
-                    $('.remove-list').removeClass('is-active');
-                    $('.members-list').removeClass('is-active');
-                    $(this).addClass('is-active');
-                    $('.dashboard').hide();
-                    $('.add').hide();
-                    $('.remove').hide();
-                    $('.members').hide();
-                    $('.banned-members').show();
-                });
-
-            })
-        </script>
-    {% endblock %}
-
+    <script src="{{asset('build/js/admin.js')}}"></script>
 {% endblock %}

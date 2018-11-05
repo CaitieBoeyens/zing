@@ -1,0 +1,49 @@
+<section class="section admin-list">
+
+    <h3 class="title is-3">Banned Members</h3>
+
+    <table class="table is-fullwidth is-hoverable member-list">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Email Address
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for user in users | sort %}
+                {% if 'BANNED' in user.roles[0] %}
+                    <tr id='{{ user.id }}'>
+                        <td>
+                            {% if user.avatar.first == null %}
+                                <img class='is-rounded user-avatar' alt='avatar' src="/img/placeholder-avatar.png" width="30" height="30">
+                            {% else %}
+                                <img class='is-rounded user-avatar' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}" width="30" height="30">
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ user.username }}
+                        </td>
+                        <td>
+                            {{ user.email }}
+                        </td>
+                        <td>
+                            <a onclick="restoreUser(this)">
+                                <i class="fas fa-user-plus user-icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</section>
+<script src="{{asset('build/js/restore_user.js')}}"></script>

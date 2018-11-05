@@ -296,6 +296,54 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @Route("/ban_user", name="banUser", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+
+    public function banUser(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $id = (int) $data['user_id'];
+
+            $bannedUser = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+
+            $bannedUser->setRoles(['BANNED']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($bannedUser);
+            $entityManager->flush();
+
+            $response = new JsonResponse($bannedUser);
+        }
+        return ($response);
+    }
+
+    /**
+     * @Route("/restore_user", name="restoreUser", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+
+    public function restoreUser(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $id = (int) $data['user_id'];
+
+            $restoredUser = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+
+            $restoredUser->setRoles(['ROLE_USER']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($restoredUser);
+            $entityManager->flush();
+
+            $response = new JsonResponse($restoredUser);
+        }
+        return ($response);
+    }
+
+    /**
      * @Route("/profile/{id}", name="show_profile")
      */
 
