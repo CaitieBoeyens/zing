@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Croppie } from 'croppie';
 
 const avatarCropper = new Croppie(document.getElementById('avatar_preview'), {

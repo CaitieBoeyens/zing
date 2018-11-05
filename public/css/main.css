@@ -169,7 +169,7 @@ p.is-yellow,
 ======================================================================= */
 
 ::-webkit-scrollbar {
-    width: 0px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -179,7 +179,7 @@ p.is-yellow,
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #a1a1a1;
+    background-color: #e4e4e4;
 }
 
 /* ====================================================================

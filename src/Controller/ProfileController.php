@@ -20,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ProfileController extends AbstractController
 {
@@ -150,9 +151,13 @@ class ProfileController extends AbstractController
             $user = $this->getUser();
             $avatars = $user -> getAvatar() -> toArray();
             foreach($avatars as $a) {
+                $fileSystem = new Filesystem();
                 $user -> removeAvatar($a);
+                /* 
                 $url = $a->getURL();
-                $fileSystem->remove(array('file', $this->getParameter('avatars_directory'), $url));
+                $folder = $this->getParameter('avatars_directory');
+                $oldfile = $folder.'/'.$url;
+                $fileSystem->remove('file', $url); */
             }
             $user -> addAvatar($avatar);
             $entityManager = $this->getDoctrine()->getManager();
