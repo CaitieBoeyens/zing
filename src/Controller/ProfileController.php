@@ -284,7 +284,7 @@ class ProfileController extends AbstractController
         }
 
 
-        $view = 'profile.html.twig';
+        $view = 'other_profile.html.twig';
         $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user);
         return $this->render($view, $model);
      }

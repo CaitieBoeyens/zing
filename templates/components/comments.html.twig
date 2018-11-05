@@ -1,7 +1,7 @@
 <div class="columns">
     <div class="column is-three-quarters">
         {% if user.replys | length is same as(0) %}
-            <p>You havent answered anything yet</p>
+            <p>Nothing answered yet</p>
         {% else %}
             {% for reply in user.replys %}
                 <div class="box is-clearfix">

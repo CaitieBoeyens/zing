@@ -1,0 +1,139 @@
+{% extends "base.html.twig"%}
+
+{% block title %}
+    {{ user.username }}'s Profile | zing.
+{% endblock %}
+
+{% block body %}
+
+    {% include 'components/navbar.html.twig' %}
+
+    <div class="container">
+        <div class='section profile-heading'>
+            <div class='columns is-multiline'>
+                <div class='column is-2'>
+                    <span class='header-icon user-profile-image'>
+
+                        <figure class='image profile-image'>
+                            {% if user.avatar.first == null %}
+                                <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
+                            {% else %}
+                                <img class='is-rounded' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}">
+                            {% endif %}
+
+                        </figure>
+
+                    </span>
+                </div>
+                <div class=' column="column" name' ="name'">
+                    <p>
+                        <span class='title is-bold'>{{ user.username }}</span>
+                        <br>
+                        <span class='tag is-primary is-outline status'>Pro</span>
+                    </p>
+                </div>
+                <div class='column has-text-centered'>
+                    <p class='stat-val'>{{user.questions | length}}</p>
+                    <p class='stat-key'>posts</p>
+                </div>
+                <div class='column has-text-centered'>
+                    <p class='stat-val'>{{upvotes}}</p>
+                    <p class='stat-key'>upvotes</p>
+                </div>
+                <div class='column has-text-centered'>
+                    <p class='stat-val'>{{downvotes * -1}}</p>
+                    <p class='stat-key'>downvotes</p>
+                </div>
+                <div class='column has-text-centered'>
+                    <p class='stat-val'>{{upvotes + downvotes}}</p>
+                    <p class='stat-key'>zings</p>
+                </div>
+            </div>
+        </div>
+        <div class='profile-options is-fullwidth'>
+            <div class='tabs is-fullwidth'>
+                <ul>
+                    <li class='link posts-tab is-active'>
+                        <a>
+                            <span class='icon'>
+                                <i class='fa fa-list'></i>
+                            </span>
+                            <span>Posts</span>
+                        </a>
+                    </li>
+                    <li class='link comments-tab'>
+                        <a>
+                            <span class='icon'>
+                                <i class='fa fa-comment'></i>
+                            </span>
+                            <span>Comments</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="main">
+            <div class="posts">
+                {% include 'components/posts.html.twig' %}
+            </div>
+            <div class="comments">
+                {% include 'components/comments.html.twig' %}
+            </div>
+
+        </div>
+    </div>
+
+    {% block script %}
+        <script>
+            $(function () {
+                $('.posts').show();
+                $('.comments').hide();
+                $('.profile').hide();
+
+                $('.posts-tab').on('click', function () {
+                    $('.comments-tab').removeClass('is-active');
+                    $('.profile-tab').removeClass('is-active');
+                    $(this).addClass('is-active');
+                    $('.posts').show();
+                    $('.profile').hide();
+                    $('.comments').hide();
+                });
+
+                $('.comments-tab').on('click', function () {
+                    $('.posts-tab').removeClass('is-active');
+                    $('.profile-tab').removeClass('is-active');
+                    $(this).addClass('is-active');
+                    $('.posts').hide();
+                    $('.profile').hide();
+                    $('.comments').show();
+                });
+
+                $('.profile-tab').on('click', function () {
+                    $('.posts-tab').removeClass('is-active');
+                    $('.comments-tab').removeClass('is-active');
+                    $(this).addClass('is-active');
+                    $('.posts').hide();
+                    $('.comments').hide();
+                    $('.profile').show();
+                });
+
+                $('.change-password').hide();
+                $('.cancel-update').hide();
+                $('.new-password-link').on('click', function () {
+                    $('.change-password').show();
+                    $('.cancel-update').show();
+                    // $('.new-password-input').attr('disabled', true);
+                    $('.new-password').hide();
+                })
+
+                $('.cancel-update').on('click', function () {
+                    $(this).hide();
+                    $('.change-password').hide();
+                    $('.new-password').show();
+                })
+            })
+        </script>
+    {% endblock %}
+
+{% endblock %}
