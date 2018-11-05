@@ -191,12 +191,22 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/userList", name="userList")
+     * @Route("/autocomplete", name="autocomplete")
      */
-    public function userList(Request $request)
+    public function autocompleteAction($name, Request $request)
     {
-        $users = $this->getDoctrine()->getRepository(UserProfile::class)->findAll();
-        return new JsonResponse($users);
+        $names = array();
+        $term = trim(strip_tags($request->get('term')));
+
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository(UserProfile::class)->createQueryBuilder('c')
+           ->where('c.username LIKE :name')
+           ->setParameter('name', '%'.$term.'%')
+           ->getQuery()
+           ->getResult();
+
+        $users = $this->userRepository->searchUserName($name);
     }
 
     /**

@@ -25,6 +25,10 @@
     },
     "dependencies": {
         "axios": "^0.18.0",
-        "croppie": "^2.6.2"
+        "croppie": "^2.6.2",
+        "jquery": "^3.3.1",
+        "jquery-ui": "^1.12.1",
+        "jquery-ui-bundle": "^1.12.1-migrate",
+        "jquery-ui-stable": "^1.12.1-final"
     }
 }
