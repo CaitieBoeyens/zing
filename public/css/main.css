@@ -218,15 +218,17 @@ p.is-yellow,
                                 5. Admin Console
 ======================================================================= */
 
-table.remove-admin .fa-user-times {
+table.remove-admin .user-icon,
+table.member-list .user-icon {
     visibility: hidden;
 }
 
-table.remove-admin tr:hover .fa-user-times {
+table.remove-admin tr:hover .user-icon,
+table.member-list tr:hover .user-icon {
     visibility: visible;
 }
 
-.hide-notification {
+#hide-notification {
     display: none;
 }
 
