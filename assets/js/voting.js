@@ -27,10 +27,26 @@ window.vote = function(el, value) {
         if (value === -1) {
             el.style.pointerEvents = 'none';
             el.nextElementSibling.style.pointerEvents = 'none';
+
+            el.nextElementSibling.nextElementSibling.style.color = '#ff4f6f';
+            el.nextElementSibling.nextElementSibling.classList.remove(
+                'is-inactive'
+            );
+            var votes = el.nextElementSibling.nextElementSibling.innerHTML;
+            votes = parseInt(votes) - 1;
+            console.log(votes);
+            el.nextElementSibling.nextElementSibling.innerHTML = votes;
         }
         if (value === 1) {
             el.style.pointerEvents = 'none';
             el.previousElementSibling.style.pointerEvents = 'none';
+
+            el.nextElementSibling.style.color = '#ff4f6f';
+            el.nextElementSibling.classList.remove('is-inactive');
+            var votes = el.nextElementSibling.innerHTML;
+            votes = parseInt(votes) + 1;
+            console.log(votes);
+            el.nextElementSibling.innerHTML = votes;
         }
     }
 };
