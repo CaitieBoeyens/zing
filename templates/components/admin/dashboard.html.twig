@@ -2,14 +2,38 @@
     <nav class="level">
         <div class="level-item has-text-centered">
             <div>
+                <p class="heading">Administrators</p>
+                {% set admins = 0 %}
+                {% for user in users %}
+                    {% if 'ROLE_ADMIN' in user.roles %}
+                        {% set admins = admins + 1 %}
+                    {% endif %}
+                {% endfor %}
+                <p class="title">{{ admins }}</p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered">
+            <div>
                 <p class="heading">Members</p>
-                <p class="title">{{users | length}}</p>
+                {% set members = 0 %}
+                {% for user in users %}
+                    {% if 'ROLE_USER' in user.roles[0] %}
+                        {% set members = members + 1 %}
+                    {% endif %}
+                {% endfor %}
+                <p class="title">{{ members }}</p>
             </div>
         </div>
         <div class="level-item has-text-centered">
             <div>
                 <p class="heading">Banned Members</p>
-                <p class="title">123</p>
+                {% set bannedUsers = 0 %}
+                {% for user in users %}
+                    {% if 'BANNED' in user.roles %}
+                        {% set bannedUsers = bannedUsers + 1 %}
+                    {% endif %}
+                {% endfor %}
+                <p class="title">{{ bannedUsers }}</p>
             </div>
         </div>
     </nav>
