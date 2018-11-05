@@ -229,7 +229,6 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
             $user = $form->getData();
 
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
