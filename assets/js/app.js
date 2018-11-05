@@ -1,36 +1,39 @@
-import axios from 'axios';
-import { request } from 'https';
-
-import jquery from 'jquery';
 import jqueryui from 'jquery-ui';
+import axios from 'axios';
 
-
-function test() {   
-    //$term = document.getElementById('userSearchBar').value;
-    //axios.get('/search', {term: document.getElementById('userSearchBar').value}).then(function(response){console.log(response.data);});
+function test() {
+    axios.get('/autocomplete', { test: "test" }).then(response => {console.log(response.data);});
 }
 
+/*
 $(function() {
     $("#userSearchBar").autocomplete({
         source: function(request, response){
-            axios.get('/search', {term: request.term}, function(data){
+            axios.post('/autocomplete', {term: this.value}),
+            {term:request.term},function(data){
                 response($.map(data, function(item){
-                    return {
+                    return{
                         label: item.username,
                         value: item,
                         id: item.id
                     }
                 }))
-            },"json");
+            }, "json";
+        },minLength: 1,
+        messages: {
+            noResults: '',
+            results: function(){}
         },
-        minLength: 1,
-        messages: {noResults: '', results: function(){}},
         dataType: "json",
         select: function(event, ui){
-            var render = `<a>${ui.item.label}</a>`;
-            alert(render);
+            var render = `<a href='/viewProfile/${ui.id}'>${ui.item.label}</a>`
+            $('#outputcontent').html(render);
         }
     });
 });
+*/
 
-document.getElementById('userSearchBar').onkeyup = test();
+document.getElementById('userSearchBar').onkeyup = function(){
+    var $data = this.value;
+    axios.post('/autocomplete',{term: this.value}).then(function (response) {console.log(response)}).catch(function (error){console.log(error);});
+}

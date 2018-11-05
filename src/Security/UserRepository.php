@@ -34,14 +34,23 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-    * @params $name
+        * @return UserProfile[] Returns an array of UserProfile objects
+ 
     */
-    public function searchUserName($name): array
+    public function searchUserName($name)
     {
-        $entityManager = $this->getEntityManager();
+        //$entityManager = $this->getEntityManager();
+        //$query = $entityManager->createQuery('SELECT user FROM App\Entity\UserProfile user WHERE user.username LIKE :name')->setParameter('name', '%'.$name.'%');
+        //returns an array of Product objects
+        //return $query->execute();
+        //$quieryBuilder = 
+        
+        $result = $this->createQueryBuilder('u')
+            ->where('u.username LIKE :term')
+            ->setParameter('term', $name.'%')
+            ->getQuery()
+            ->getResult();
 
-        $query = $entityManager->createQuery('SELECT user FROM App\Entity\UserProfile user WHERE user.username LIKE :name')->setParameter('name', '%'.$name.'%');
-        // returns an array of Product objects
-        return $query->execute();
+        return $result;
     }
 }

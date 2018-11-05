@@ -180,6 +180,18 @@ class ProfileController extends AbstractController
         return md5(uniqid());
 
     }
+
+    /**
+    * @Route("/profile/{id}", name="show_profile")
+    */
+    public function viewUser($id, Request $req){
+        //$results = $this->getDoctrine()->getRepository(UserProfile::class)->findBy(['id'=>$id]);
+        
+        $view = 'success.html.twig';
+        $model = array();
+        return $this->render($view, $model);
+    }
+
     /**
      * @Route("/profile", name="user_profile")
      */
@@ -212,20 +224,13 @@ class ProfileController extends AbstractController
     /**
      * @Route("/autocomplete", name="autocomplete")
      */
-    public function autocompleteAction($name, Request $request)
+    public function autocompleteAction(Request $request)
     {
-        $names = array();
-        $term = trim(strip_tags($request->get('term')));
-
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository(UserProfile::class)->createQueryBuilder('c')
-           ->where('c.username LIKE :name')
-           ->setParameter('name', '%'.$term.'%')
-           ->getQuery()
-           ->getResult();
-
-        $users = $this->userRepository->searchUserName($name);
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+        $searchTerm = $data['term'];
+        $results = $this->getDoctrine()->getRepository(UserProfile::class)->searchUserName($searchTerm);
+        return new JsonResponse($results);
     }
 
     /**
