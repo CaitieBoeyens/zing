@@ -19,9 +19,10 @@
 
     <h3 class="title is-3">Remove an Administrator</h3>
 
-    <table class="table is-fullwidth is-hoverable">
+    <table class="table is-fullwidth is-hoverable remove-admin">
         <thead>
             <tr>
+                <th></th>
                 <th>
                     Username
                 </th>
@@ -32,35 +33,33 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    {{ app.user.username }}
-                </td>
-                <td>
-                    {{ app.user.email }}
-                </td>
-                <td>
-                    <a>
-                        <i class="fas fa-user-times remove-admin hide"></i>
-                    </a>
-                </td>
-            </tr>
+
+            {% for user in users | sort %}
+                {% if 'ROLE_ADMIN' in user.roles %}
+                    <tr>
+                        <td>
+                            {% if user.avatar.first == null %}
+                                <img class='is-rounded user-avatar' alt='avatar' src="/img/placeholder-avatar.png" width="25" height="25">
+                            {% else %}
+                                <img class='is-rounded user-avatar' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}" width="25" height="25">
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ user.username }}
+                        </td>
+                        <td>
+                            {{ user.email }}
+                        </td>
+                        <td>
+                            <a>
+                                <i class="fas fa-user-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
         </tbody>
     </table>
 
 </section>
-
-{% block script %}
-
-    <script>
-
-        $(function () {
-            $("tr").mouseenter(function () {
-                $('.remove-admin').removeClass("hide");
-            }).mouseleave(function () {
-                $('.remove-admin').addClass("hide");
-            });
-        })
-    </script>
-
-{% endblock %}

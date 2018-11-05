@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Login;
 use App\Entity\UserProfile;
+use App\Entity\Question;
+use App\Entity\Reply;
 use App\Entity\Avatar;
 use App\Form\LoginInfoType;
 use App\Form\UserProfileType;
@@ -226,6 +228,11 @@ class ProfileController extends AbstractController
         $user = new UserProfile();
         $form = $this->createForm(AdminType::class, $user);
 
+        $users = $this->getDoctrine()->getRepository(UserProfile::class)->findAll();
+        $questions = $this->getDoctrine()->getRepository(Question::class)->findAll();
+
+        // return new JsonResponse($users);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -244,7 +251,7 @@ class ProfileController extends AbstractController
 
         $view = 'admin.html.twig';
 
-        $model = array('form' => $form->createView());
+        $model = array('form' => $form->createView(), 'users' => $users, 'questions' => $questions);
         return $this->render($view, $model);
     }
 
