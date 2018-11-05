@@ -9,10 +9,9 @@
         "doctrine/collections": "^1.5",
         "doctrine/common": "2.8.1",
         "friendsofsymfony/jsrouting-bundle": "^2.2",
-        "j0k3r/php-imgur-api-client": "^3.0",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/apache-pack": "^1.0",
-        "symfony/asset": "^4.1",
+        "symfony/asset": "*",
         "symfony/console": "*",
         "symfony/debug": "*",
         "symfony/debug-pack": "^1.0",
@@ -29,7 +28,9 @@
         "symfony/yaml": "*"
     },
     "require-dev": {
-        "symfony/dotenv": "*"
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "symfony/dotenv": "*",
+        "symfony/phpunit-bridge": "*"
     },
     "config": {
         "preferred-install": {

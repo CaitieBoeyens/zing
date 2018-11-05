@@ -15,7 +15,11 @@
                     <span class='header-icon user-profile-image'>
                         <a href="/upload/img">
                             <figure class='image profile-image'>
-                                <img class='is-rounded' alt='avatar' src="uploads/avatars/{{ app.user.avatar.first.url }}">
+                                {% if app.user.avatar.first == null %}
+                                    <img class='is-rounded' alt='avatar' src="img/placeholder-avatar.png">
+                                {% else %}
+                                    <img class='is-rounded' alt='avatar' src="uploads/avatars/{{ app.user.avatar.first.url }}">
+                                {% endif %}
                                 <div class="profile-image-overlay"></div>
                             </figure>
                         </a>

@@ -12,12 +12,12 @@ use App\Form\AvatarType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-
-
 
 class ProfileController extends AbstractController
 {
@@ -191,6 +191,15 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @Route("/userList", name="userList")
+     */
+    public function userList(Request $request)
+    {
+        $users = $this->getDoctrine()->getRepository(UserProfile::class)->findAll();
+        return new JsonResponse($users);
+    }
+
+    /**
      * @Route("/admin", name="admin_view", methods="GET|POST")
      */
     public function adminConsole(Request $request,  UserPasswordEncoderInterface $passwordEncoder)
@@ -212,14 +221,6 @@ class ProfileController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $user -> eraseCredentials();
-
-            echo '<script type="text/javascript"> 
-                
-                $(function(){
-                    $(".notification").removeClass("hide-notification");
-                })
-
-            </script>';
 
         }
 

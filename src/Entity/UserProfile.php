@@ -41,7 +41,8 @@ class UserProfile implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Assert\NotBlank()
+     * @Assert\NotBlank()
+     * @Assert\Email(message = "The email '{{ email }}' is not a valid email.")
      */
     private $email;
 
@@ -80,9 +81,9 @@ class UserProfile implements UserInterface
     private $followers;
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Reply", mappedBy="user", orphanRemoval=true)
      */
-    private $responses;
+    private $replys;
 
     public function getRoles(): array
     {
@@ -99,7 +100,8 @@ class UserProfile implements UserInterface
         $this->avatar = new ArrayCollection();
         $this->questions = new ArrayCollection();
         $this->following = new ArrayCollection();
-        $this->responses = new ArrayCollection();
+        $this->replys = new ArrayCollection();
+        $this->followers = new ArrayCollection();
     }
 
 
@@ -178,6 +180,16 @@ class UserProfile implements UserInterface
         $this->plainPassword = $plainPassword;
 
         return $this;
+    }
+
+    public function isPasswordSafe()
+    {
+        /**
+        * @Assert\IsTrue(message="The password cannot match your username")
+        */
+        if ($password === $username) {
+            return $this->username !== $this->password;
+        }
     }
 
     /**
@@ -303,35 +315,43 @@ class UserProfile implements UserInterface
     }
 
     /**
-     * @return Collection|Response[]
+     * @return Collection|Reply[]
      */
-    public function getResponses(): Collection
+    public function getReplys(): Collection
     {
-        return $this->responses;
+        return $this->replys;
     }
 
-    public function addResponse(Response $response): self
+    public function addReply(Reply $reply): self
     {
-        if (!$this->responses->contains($response)) {
-            $this->responses[] = $response;
-            $response->setUserName($this);
+        if (!$this->replys->contains($reply)) {
+            $this->replys[] = $reply;
+            $reply->setUserName($this);
         }
 
         return $this;
     }
 
 
-    public function removeResponse(Response $response): self
+    public function removeReply(Reply $reply): self
     {
-        if ($this->responses->contains($response)) {
-            $this->responses->removeElement($response);
+        if ($this->replys->contains($reply)) {
+            $this->replys->removeElement($reply);
             // set the owning side to null (unless already changed)
-            if ($response->getUserName() === $this) {
-                $response->setUserName(null);
+            if ($reply->getUserName() === $this) {
+                $reply->setUserName(null);
             }
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|UserProfile[]
+     */
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
     }
 
 }
