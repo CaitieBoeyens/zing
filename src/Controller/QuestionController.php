@@ -95,36 +95,45 @@
         }
 
         /**
-     * @Route("/vote", name="vote", methods={"POST"}, options={"expose"=true})
-     * @param Request $request
-     */
+         * @Route("/vote", name="vote", methods={"POST"}, options={"expose"=true})
+         * @param Request $request
+         */
 
-     public function vote (Request $request) {
-        if ($request->isXmlHttpRequest()){
-            $data = json_decode($request->getContent(), true);
-            $vote = $data['vote'];
-            $id = (int)$data['reply_id'];
+        public function vote (Request $request) {
+            if ($request->isXmlHttpRequest()){
+                $data = json_decode($request->getContent(), true);
+                $vote = $data['vote'];
+                $id = (int)$data['reply_id'];
 
-            $reply = $this->getDoctrine()->getRepository(Reply::class)->find($id);
+                $reply = $this->getDoctrine()->getRepository(Reply::class)->find($id);
 
-            if($vote === 1) {
-                $upvotes = $reply->getUpvotes();
-                $reply->setUpvotes((int)$upvotes + 1);
+                if($vote === 1) {
+                    $upvotes = $reply->getUpvotes();
+                    $reply->setUpvotes((int)$upvotes + 1);
+                }
+                else if($vote === -1) {
+                    $downvotes = $reply->getDownvotes();
+                    $reply->setDownvotes((int)$downvotes - 1);
+                }
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($reply);
+                $entityManager->flush();
+
+                $response = new JsonResponse($reply);
             }
-            else if($vote === -1) {
-                $downvotes = $reply->getDownvotes();
-                $reply->setDownvotes((int)$downvotes - 1);
-            }
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($reply);
-            $entityManager->flush();
-
-            $response = new JsonResponse($reply);
+            return ($response);
         }
-        return ($response);
-    }
 
+        /**
+        * @Route("/questions/{tag}", name="show_by_tag")
+        */
+        public function showByTag($tag, Request $request){
+            $questions = $this->getDoctrine()->getRepository(Question::class)->findByTag($tag);
+            $view = 'success.html.twig';
+            $model = array($questions);
+            return $this->render($view, $model);
+        }
         
     }
 ?>

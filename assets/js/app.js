@@ -2,13 +2,7 @@ import jqueryui from 'jquery-ui';
 import axios from 'axios';
 
 function test() {
-<<<<<<< HEAD
     axios.get('/autocomplete', { test: "test" }).then(response => {console.log(response.data);});
-=======
-    axios.get('/autocomplete', { test: 'test' }).then(response => {
-        console.log(response.data);
-    });
->>>>>>> 764fb15f14a49fd151440ceb269433e62c21ffd0
 }
 
 /*
@@ -41,10 +35,12 @@ $(function() {
 
 document.getElementById('userSearchBar').onkeyup = function() {
     var $data = this.value;
+    var $users;
     axios
         .post('/autocomplete', { term: this.value })
         .then(function(response) {
             console.log(response);
+            $users = response.data;
         })
         .catch(function(error) {
             console.log(error);
