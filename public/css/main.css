@@ -24,7 +24,8 @@ body {
 }
 
 body .signup-con,
-.login-con {
+.login-con,
+.upload-avatar {
     background: #474f70;
     height: 100vh;
 }
