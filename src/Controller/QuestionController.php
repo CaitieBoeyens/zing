@@ -125,7 +125,16 @@
             }
             return ($response);
         }
-
+        
+        /**
+        * @Route("/questions/{tag}", name="show_by_tag")
+        */
+        public function showByTag($tag, Request $request){
+            $questions = $this->getDoctrine()->getRepository(Question::class)->findByTag($tag);
+            $view = 'success.html.twig';
+            $model = array($questions);
+            return $this->render($view, $model);
+        }
     /**
      * @Route("/delete_reply", name="deleteReply", methods={"POST"}, options={"expose"=true})
      * @param Request $request

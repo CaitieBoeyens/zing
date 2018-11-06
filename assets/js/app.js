@@ -1,13 +1,6 @@
 import jqueryui from 'jquery-ui';
 import axios from 'axios';
 
-<<<<<<< HEAD
-function test() {
-    axios.get('/autocomplete', { test: "test" }).then(response => {console.log(response.data);});
-}
-
-=======
->>>>>>> f63ebea6a3a225aa842745628941b8790bc1e511
 /*
 $(function() {
     $("#userSearchBar").autocomplete({

@@ -22,7 +22,7 @@
         }
 
         /**
-        * @Route("/{tags}", name="home_view_tags")
+        * @Route("/questions/{tags}", name="home_view_tags")
         */
         public function showQuestionsByTag($tags){
             $questions = $this->getDoctrine()->getRepository(Question::class)->findByTag($tags);
