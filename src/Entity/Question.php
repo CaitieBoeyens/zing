@@ -41,6 +41,11 @@ class Question
      */
     private $tags;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tag;
+
     public function __construct()
     {
         $this->replys = new ArrayCollection();
@@ -133,6 +138,8 @@ class Question
             $this->tags[] = $tag;
         }
 
+        $this->tag = $tag;
+
         return $this;
     }
 
@@ -141,6 +148,18 @@ class Question
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
         }
+
+        return $this;
+    }
+
+    public function getTag(): ?string
+    {
+        return $this->tag;
+    }
+
+    public function setTag(?string $tag): self
+    {
+        $this->tag = $tag;
 
         return $this;
     }

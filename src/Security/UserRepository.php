@@ -45,12 +45,10 @@ class UserRepository extends ServiceEntityRepository
         //return $query->execute();
         //$quieryBuilder = 
         
-        $result = $this->createQueryBuilder('u')
+        return $this->createQueryBuilder('u')
             ->where('u.username LIKE :term')
             ->setParameter('term', $name.'%')
             ->getQuery()
             ->getResult();
-
-        return $result;
     }
 }
