@@ -13,11 +13,8 @@
         <div class="content">
             <p>
                 <br>
-
                 <a href="{{ path('show_profile', { 'id' : question.user.id }) }}">
-
-                    {{question.user.username}}
-
+                    @{{question.user.username}}
                 </a>
                 <br>
                 <br>
@@ -26,7 +23,6 @@
                 </strong>
                 <br>
                 {{question.body}}
-
             </p>
         </div>
 
@@ -42,16 +38,19 @@
             </div>
             <div class="level-right">
 
-                <a class="level-item" href="{{ path('show_question', { 'id' : question.id }) }}">
-                    <span class='tag is-yellow is-outline status is-uppercase'>
-                        {{question.replys|length}}
-                        Answers</span>
-                </a>
-                <a class="level-item" href="#reply">
-                    <span class="icon is-small is-blue">
-                        <i class="fas fa-reply"></i>
-                    </span>
-                </a>
+                {% if not app.user == null %}
+                    <a class="level-item" href="{{ path('show_question', { 'id' : question.id }) }}">
+                        <span class='tag is-yellow is-outline status is-uppercase'>
+                            {{question.replys|length}}
+                            Answers</span>
+                    </a>
+
+                    <a class="level-item" href="{{ path('show_question', { 'id' : question.id }) }}">
+                        <span class="icon is-small is-blue">
+                            <i class="fas fa-reply"></i>
+                        </span>
+                    </a>
+                {% endif %}
 
             </div>
         </nav>

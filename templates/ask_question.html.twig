@@ -7,29 +7,34 @@
 {% block body %}
     {% include 'components/navbar.html.twig'%}
 
-    <div class="container main">
-        <div id="question" href="">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-header-title">
-                        Ask a question
+    {% if app.user == null %}
+        {% include 'security/login.html.twig' %}
+    {% else %}
+        <div class="container main">
+            <div id="question" href="">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-title">
+                            Ask a question
+                        </div>
                     </div>
-                </div>
-                <div class="card-content">
-                    {{ form_start(form) }}
-                    {{ form_row(form.title) }}
-                    {{ form_row(form.body)}}
-                    <h3>Tags</h3>
-                    <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
-                        {% for tag in form.tags %}
-                            <li>{{ form_row(tag.name) }}</li>
-                        {% endfor %}
-                    </ul>
-                    {{ form_end(form) }}
+                    <div class="card-content">
+                        {{ form_start(form) }}
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.body)}}
+                        <h3>Tags</h3>
+                        <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
+                            {% for tag in form.tags %}
+                                <li>{{ form_row(tag.name) }}</li>
+                            {% endfor %}
+                        </ul>
+                        {{ form_end(form) }}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block script %}
