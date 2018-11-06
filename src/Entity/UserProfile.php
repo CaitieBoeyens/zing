@@ -223,6 +223,13 @@ class UserProfile implements UserInterface
         return $this;
     }
 
+    public function newUsername(array $username) 
+    {
+        if ($this->username->contains($username)) {
+            // make error is username aleady exists -> parse error to model
+        }
+    }
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
