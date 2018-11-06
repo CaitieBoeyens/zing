@@ -19,22 +19,19 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
-//    /**
-//     * @return Question[] Returns an array of Question objects
-//     */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Question[] Returns an array of Question objects
+     */
+    public function findByTag($tag)
     {
         return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('q.tag = :val')
+            ->setParameter('val', $tag)
             ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Question

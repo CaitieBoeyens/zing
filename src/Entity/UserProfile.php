@@ -242,7 +242,7 @@ class UserProfile implements UserInterface
     {
         if (!$this->questions->contains($question)) {
             $this->questions[] = $question;
-            $question->setUserId($this);
+            $question->setUser($this);
         }
 
         return $this;
@@ -253,8 +253,8 @@ class UserProfile implements UserInterface
         if ($this->questions->contains($question)) {
             $this->questions->removeElement($question);
             // set the owning side to null (unless already changed)
-            if ($question->getUserId() === $this) {
-                $question->setUserId(null);
+            if ($question->getUser() === $this) {
+                $question->setUser(null);
             }
         }
 
@@ -326,7 +326,7 @@ class UserProfile implements UserInterface
     {
         if (!$this->replys->contains($reply)) {
             $this->replys[] = $reply;
-            $reply->setUserName($this);
+            $reply->setUser($this);
         }
 
         return $this;
@@ -338,8 +338,8 @@ class UserProfile implements UserInterface
         if ($this->replys->contains($reply)) {
             $this->replys->removeElement($reply);
             // set the owning side to null (unless already changed)
-            if ($reply->getUserName() === $this) {
-                $reply->setUserName(null);
+            if ($reply->getUser() === $this) {
+                $reply->setUser(null);
             }
         }
 

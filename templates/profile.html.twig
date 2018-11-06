@@ -8,90 +8,114 @@
 
     {% include 'components/navbar.html.twig' %}
 
-    <div class="container">
-        <div class='section profile-heading'>
-            <div class='columns is-multiline'>
-                <div class='column is-2'>
-                    <span class='header-icon user-profile-image'>
-                        <a href="/upload/img">
-                            <figure class='image profile-image'>
-                                {% if user.avatar.first == null %}
-                                    <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
-                                {% else %}
-                                    <img class='is-rounded' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}">
-                                {% endif %}
-                                <div class="profile-image-overlay"></div>
-                            </figure>
-                        </a>
-                    </span>
+    {% if 'BANNED' in user.roles %}
+
+        {% include 'components/banned.html.twig' %}
+
+    {% else %}
+
+        <div class="container">
+            <div class='section profile-heading'>
+                <div class='columns is-multiline'>
+                    <div class='column is-2'>
+                        <span class='header-icon user-profile-image'>
+                            <a href="/upload/img">
+                                <figure class='image profile-image'>
+                                    {% if user.avatar.first == null %}
+                                        <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
+                                    {% else %}
+                                        <img class='is-rounded' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}">
+                                    {% endif %}
+                                    <div class="profile-image-overlay"></div>
+                                </figure>
+                            </a>
+                        </span>
+                    </div>
+                    <div class=' column="column" name' ="name'">
+                        <p>
+                            <span class='title is-bold'>{{ user.username }}</span>
+                            <br>
+
+                            {% set zings = upvotes - downvotes %}
+
+                            {% if zings <= 10 %}
+                                <span class='tag is-info is-outline status'>Fresh Spawn</span>
+                            {% elseif zings <= 20 %}
+                                <span class='tag is-link is-outline status'>Pro Member</span>
+                            {% elseif zings <= 30 %}
+                                <span class='tag is-primary is-outline status'>Veteran</span>
+                            {% elseif zings <= 40 %}
+                                <span class='tag is-success is-outline status'>Elder</span>
+                            {% elseif zings <= 50 %}
+                                <span class='tag is-warning is-outline status'>Champion</span>
+                            {% else %}
+                                <span class='tag is-danger is-outline status'>Celestial</span>
+                            {% endif %}
+
+                        </p>
+                    </div>
+                    <div class='column has-text-centered'>
+                        <p class='stat-val'>{{user.questions | length}}</p>
+                        <p class='stat-key'>posts</p>
+                    </div>
+                    <div class='column has-text-centered'>
+                        <p class='stat-val'>{{upvotes}}</p>
+                        <p class='stat-key'>upvotes</p>
+                    </div>
+                    <div class='column has-text-centered'>
+                        <p class='stat-val'>{{downvotes * -1}}</p>
+                        <p class='stat-key'>downvotes</p>
+                    </div>
+                    <div class='column has-text-centered'>
+                        <p class='stat-val'>{{upvotes - downvotes}}</p>
+                        <p class='stat-key'>zings</p>
+                    </div>
                 </div>
-                <div class=' column="column" name' ="name'">
-                    <p>
-                        <span class='title is-bold'>{{ user.username }}</span>
-                        <br>
-                        <span class='tag is-primary is-outline status'>Pro</span>
-                    </p>
+            </div>
+            <div class='profile-options is-fullwidth'>
+                <div class='tabs is-fullwidth'>
+                    <ul>
+                        <li class='link posts-tab is-active'>
+                            <a>
+                                <span class='icon'>
+                                    <i class='fa fa-list'></i>
+                                </span>
+                                <span>My Posts</span>
+                            </a>
+                        </li>
+                        <li class='link comments-tab'>
+                            <a>
+                                <span class='icon'>
+                                    <i class='fa fa-comment'></i>
+                                </span>
+                                <span>My Comments</span>
+                            </a>
+                        </li>
+                        <li class='link profile-tab'>
+                            <a>
+                                <span class='icon'>
+                                    <i class='fa fa-user'></i>
+                                </span>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class='column has-text-centered'>
-                    <p class='stat-val'>{{user.questions | length}}</p>
-                    <p class='stat-key'>posts</p>
+            </div>
+            <div class="main">
+                <div class="posts">
+                    {% include 'components/posts.html.twig' %}
                 </div>
-                <div class='column has-text-centered'>
-                    <p class='stat-val'>{{upvotes}}</p>
-                    <p class='stat-key'>upvotes</p>
+                <div class="comments">
+                    {% include 'components/comments.html.twig' %}
                 </div>
-                <div class='column has-text-centered'>
-                    <p class='stat-val'>{{downvotes * -1}}</p>
-                    <p class='stat-key'>downvotes</p>
-                </div>
-                <div class='column has-text-centered'>
-                    <p class='stat-val'>{{upvotes + downvotes}}</p>
-                    <p class='stat-key'>zings</p>
+                <div class="profile">
+                    {% include 'components/profile.html.twig' %}
                 </div>
             </div>
         </div>
-        <div class='profile-options is-fullwidth'>
-            <div class='tabs is-fullwidth'>
-                <ul>
-                    <li class='link posts-tab is-active'>
-                        <a>
-                            <span class='icon'>
-                                <i class='fa fa-list'></i>
-                            </span>
-                            <span>My Posts</span>
-                        </a>
-                    </li>
-                    <li class='link comments-tab'>
-                        <a>
-                            <span class='icon'>
-                                <i class='fa fa-comment'></i>
-                            </span>
-                            <span>My Comments</span>
-                        </a>
-                    </li>
-                    <li class='link profile-tab'>
-                        <a>
-                            <span class='icon'>
-                                <i class='fa fa-user'></i>
-                            </span>
-                            <span>My Profile</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="main">
-            <div class="posts">
-                {% include 'components/posts.html.twig' %}
-            </div>
-            <div class="comments">
-                {% include 'components/comments.html.twig' %}
-            </div>
-            <div class="profile">
-                {% include 'components/profile.html.twig' %}
-            </div>
-        </div>
-    </div>
+
+    {% endif %}
 
     {% block script %}
         <script>

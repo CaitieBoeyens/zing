@@ -24,7 +24,8 @@ body {
 }
 
 body .signup-con,
-.login-con {
+.login-con,
+.upload-avatar {
     background: #474f70;
     height: 100vh;
 }
@@ -92,6 +93,10 @@ a {
 .profile-image:hover .profile-image-overlay {
     visibility: visible;
     opacity: 1;
+}
+
+.banned-text {
+    margin-top: 20rem;
 }
 
 /* ====================================================================
@@ -218,15 +223,17 @@ p.is-yellow,
                                 5. Admin Console
 ======================================================================= */
 
-table.remove-admin .fa-user-times {
+table.remove-admin .user-icon,
+table.member-list .user-icon {
     visibility: hidden;
 }
 
-table.remove-admin tr:hover .fa-user-times {
+table.remove-admin tr:hover .user-icon,
+table.member-list tr:hover .user-icon {
     visibility: visible;
 }
 
-.hide-notification {
+#hide-notification {
     display: none;
 }
 

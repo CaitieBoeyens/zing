@@ -105,29 +105,6 @@ button.reply {
     margin-bottom: 1.5rem;
 }
 
-/* .login-card button {
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: #474f70;
-    border-radius: 4rem;
-    display: block;
-    width: 100%;
-    background: transparent;
-    border: 2px solid #474f70;
-    padding: 0.9rem 0 1.1rem;
-    transition: color 0.5s, border-color 0.5s;
-}
-
-.login-card button:hover,
-.login-card button:focus {
-    color: rgb(42, 48, 68);
-    border-color: rgb(42, 48, 68);
-}
-
-.login-card button:active {
-    transform: translateY(1px);
-} */
-
 label {
     cursor: pointer;
 }

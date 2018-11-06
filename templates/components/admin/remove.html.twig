@@ -22,9 +22,9 @@
                     <tr id='{{ user.id }}'>
                         <td>
                             {% if user.avatar.first == null %}
-                                <img class='is-rounded user-avatar' alt='avatar' src="/img/placeholder-avatar.png" width="25" height="25">
+                                <img class='is-rounded user-avatar' alt='avatar' src="/img/placeholder-avatar.png" width="30" height="30">
                             {% else %}
-                                <img class='is-rounded user-avatar' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}" width="25" height="25">
+                                <img class='is-rounded user-avatar' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}" width="30" height="30">
                             {% endif %}
                         </td>
                         <td>
@@ -38,7 +38,7 @@
 
                             {% else %}
                                 <a onclick="removeAdmin(this)">
-                                    <i class="fas fa-user-times"></i>
+                                    <i class="fas fa-user-times user-icon"></i>
                                 </a>
                             {% endif %}
                         </td>

@@ -185,6 +185,18 @@ class ProfileController extends AbstractController
         return md5(uniqid());
 
     }
+
+    /**
+    * @Route("/profile/{id}", name="show_profile")
+    */
+    public function viewUser($id, Request $req){
+        //$results = $this->getDoctrine()->getRepository(UserProfile::class)->findBy(['id'=>$id]);
+        
+        $view = 'success.html.twig';
+        $model = array();
+        return $this->render($view, $model);
+    }
+
     /**
      * @Route("/profile", name="user_profile")
      */
@@ -213,12 +225,16 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/userList", name="userList")
+     * @Route("/autocomplete", name="autocomplete")
      */
-    public function userList(Request $request)
+    public function autocompleteAction(Request $request)
     {
-        $users = $this->getDoctrine()->getRepository(UserProfile::class)->findAll();
-        return new JsonResponse($users);
+        $users = array();
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+        $searchTerm = $data['term'];
+        $results = $this->getDoctrine()->getRepository(UserProfile::class)->searchUserName($searchTerm);
+        return new JsonResponse($results);
     }
 
     /**
@@ -281,6 +297,54 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @Route("/ban_user", name="banUser", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+
+    public function banUser(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $id = (int) $data['user_id'];
+
+            $bannedUser = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+
+            $bannedUser->setRoles(['BANNED']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($bannedUser);
+            $entityManager->flush();
+
+            $response = new JsonResponse($bannedUser);
+        }
+        return ($response);
+    }
+
+    /**
+     * @Route("/restore_user", name="restoreUser", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+
+    public function restoreUser(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $id = (int) $data['user_id'];
+
+            $restoredUser = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+
+            $restoredUser->setRoles(['ROLE_USER']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($restoredUser);
+            $entityManager->flush();
+
+            $response = new JsonResponse($restoredUser);
+        }
+        return ($response);
+    }
+
+    /**
      * @Route("/profile/{id}", name="show_profile")
      */
 
@@ -304,7 +368,7 @@ class ProfileController extends AbstractController
         }
 
 
-        $view = 'other_profile.html.twig';
+        $view = 'profile.html.twig';
         $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user);
         return $this->render($view, $model);
     }

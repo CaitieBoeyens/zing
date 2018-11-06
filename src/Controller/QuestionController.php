@@ -8,6 +8,7 @@
     use Symfony\Component\Routing\Annotation\Route;
     use App\Entity\Question;
     use App\Entity\Reply;
+    use App\Entity\UserProfile;
     use App\Form\QuestionType;
     use App\Form\ReplyType;
     use App\Entity\Tag;
@@ -95,32 +96,67 @@
         }
 
         /**
-     * @Route("/vote", name="vote", methods={"POST"}, options={"expose"=true})
+         * @Route("/vote", name="vote", methods={"POST"}, options={"expose"=true})
+         * @param Request $request
+         */
+
+        public function vote (Request $request) {
+            if ($request->isXmlHttpRequest()){
+                $data = json_decode($request->getContent(), true);
+                $vote = $data['vote'];
+                $id = (int)$data['reply_id'];
+
+                $reply = $this->getDoctrine()->getRepository(Reply::class)->find($id);
+
+                if($vote === 1) {
+                    $upvotes = $reply->getUpvotes();
+                    $reply->setUpvotes((int)$upvotes + 1);
+                }
+                else if($vote === -1) {
+                    $downvotes = $reply->getDownvotes();
+                    $reply->setDownvotes((int)$downvotes - 1);
+                }
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($reply);
+                $entityManager->flush();
+
+                $response = new JsonResponse($reply);
+            }
+            return ($response);
+        }
+        
+        /**
+        * @Route("/questions/{tag}", name="show_by_tag")
+        */
+        public function showByTag($tag, Request $request){
+            $questions = $this->getDoctrine()->getRepository(Question::class)->findByTag($tag);
+            $view = 'success.html.twig';
+            $model = array($questions);
+            return $this->render($view, $model);
+        }
+    /**
+     * @Route("/delete_reply", name="deleteReply", methods={"POST"}, options={"expose"=true})
      * @param Request $request
      */
 
-     public function vote (Request $request) {
-        if ($request->isXmlHttpRequest()){
+    public function deleteReply(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
             $data = json_decode($request->getContent(), true);
-            $vote = $data['vote'];
-            $id = (int)$data['reply_id'];
+            $id = (int) $data['reply_id'];
 
-            $reply = $this->getDoctrine()->getRepository(Reply::class)->find($id);
+            $removedReply = $this->getDoctrine()->getRepository(Reply::class)->find($id);
 
-            if($vote === 1) {
-                $upvotes = $reply->getUpvotes();
-                $reply->setUpvotes((int)$upvotes + 1);
-            }
-            else if($vote === -1) {
-                $downvotes = $reply->getDownvotes();
-                $reply->setDownvotes((int)$downvotes - 1);
-            }
+            $user = $removedReply->getUser();
+
+            $user->removeReply($removedReply);
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($reply);
+            $entityManager->persist($user);
             $entityManager->flush();
 
-            $response = new JsonResponse($reply);
+            $response = new JsonResponse($user);
         }
         return ($response);
     }
