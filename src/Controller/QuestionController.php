@@ -139,13 +139,15 @@
 
             $removedReply = $this->getDoctrine()->getRepository(Reply::class)->find($id);
 
-            $removedReply->removeReply($id);
+            $user = $removedReply->getUser();
+
+            $user->removeReply($removedReply);
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($removedReply);
+            $entityManager->persist($user);
             $entityManager->flush();
 
-            $response = new JsonResponse($removedReply);
+            $response = new JsonResponse($user);
         }
         return ($response);
     }

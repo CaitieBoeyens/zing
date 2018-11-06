@@ -19,4 +19,5 @@ window.deleteReply = function (el) {
         .catch(error => {
             console.error(error);
         });
+        location.reload(); 
 };

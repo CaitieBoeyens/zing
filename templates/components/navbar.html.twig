@@ -26,14 +26,13 @@
     {% if app.user == null %}
         <div class="navbar-item">
             <div class="buttons">
-                <a class="button is-blue is-rounded" href="{{ path('signup_view') }}"><strong>Sign up</strong></a>
+                <a class="button is-blue is-rounded" href="{{ path('signup_view') }}">
+                    <strong>Sign up</strong>
+                </a>
                 <a href="{{ path('login_view') }}" class="button is-blue is-inverted is-rounded">Log in</a>
             </div>
         </div>
     {% else %}
-        {% if 'ROLE_ADMIN' in app.user.roles %}
-            <a class="navbar-item" href="{{ path('admin_view')}}">Admin</a>
-        {% endif %}
         <div class=" navbar-item  has-dropdown is-hoverable">
             <a class="navbar-link user-details">
                 {% if app.user.avatar.first == null %}
@@ -45,7 +44,9 @@
             </a>
             <div class="navbar-dropdown">
                 <a class="navbar-item" href="{{ path('user_profile') }}">My Profile</a>
-                <a class="navbar-item">Settings</a>
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    <a class="navbar-item" href="{{ path('admin_view')}}">Admin</a>
+                {% endif %}
                 <hr class="navbar-divider">
                 <a class="navbar-item" href="{{ path('logout') }}">Log out</a>
             </div>
