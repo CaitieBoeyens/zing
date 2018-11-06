@@ -19,7 +19,8 @@ Encore
     .addEntry('js/admin', './assets/js/admin.js')
     .addEntry('js/remove_admin', './assets/js/remove_admin.js')
     .addEntry('js/ban_user', './assets/js/ban_user.js')
-    .addEntry('js/restore_user', './assets/js/restore_user.js');
+    .addEntry('js/restore_user', './assets/js/restore_user.js')
+    .addEntry('js/delete_reply', './assets/js/delete_reply.js');
 
 // uncomment if you use Sass/SCSS files
 // .enableSassLoader()
