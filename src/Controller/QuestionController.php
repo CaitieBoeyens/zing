@@ -137,7 +137,7 @@
             $data = json_decode($request->getContent(), true);
             $id = (int) $data['reply_id'];
 
-            $removedReply = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+            $removedReply = $this->getDoctrine()->getRepository(Reply::class)->find($id);
 
             $removedReply->removeReply($id);
 

@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 window.deleteReply = function (el) {
-    console.log(el.parentElement);
+    console.log(el.parentElement.id);
     const url = '/delete_reply';
     const data = {
-        admin_id: el.parentElement.id
+        reply_id: el.parentElement.id
     };
 
     axios({
@@ -19,5 +19,4 @@ window.deleteReply = function (el) {
         .catch(error => {
             console.error(error);
         });
-        location.reload();
 };

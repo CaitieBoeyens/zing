@@ -107,4 +107,17 @@ class Reply
 
         return $this;
     }
+
+    public function removeReply(int $reply): self
+    {
+        if ($this->replys->contains($reply)) {
+            $this->replys->removeElement($reply);
+            // set the owning side to null (unless already changed)
+            // if ($reply->getUserName() === $this) {
+            //     $reply->setUserName(null);
+            // }
+        }
+
+        return $this;
+    }
 }
