@@ -126,7 +126,6 @@
             return ($response);
         }
 
-<<<<<<< HEAD
         /**
         * @Route("/questions/{tag}", name="show_by_tag")
         */
@@ -136,32 +135,6 @@
             $model = array($questions);
             return $this->render($view, $model);
         }
-=======
-    /**
-     * @Route("/delete_reply", name="deleteReply", methods={"POST"}, options={"expose"=true})
-     * @param Request $request
-     */
-
-    public function deleteReply(Request $request)
-    {
-        if ($request->isXmlHttpRequest()) {
-            $data = json_decode($request->getContent(), true);
-            $id = (int) $data['reply_id'];
-
-            $removedReply = $this->getDoctrine()->getRepository(Reply::class)->find($id);
-
-            $removedReply->removeReply($id);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($removedReply);
-            $entityManager->flush();
-
-            $response = new JsonResponse($removedReply);
-        }
-        return ($response);
-    }
-
->>>>>>> 9a06bc69f2a2f775cb194552ed8da55785b6c056
         
     }
 ?>

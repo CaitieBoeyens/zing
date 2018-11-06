@@ -234,10 +234,7 @@ class ProfileController extends AbstractController
         $data = json_decode($data, true);
         $searchTerm = $data['term'];
         $results = $this->getDoctrine()->getRepository(UserProfile::class)->searchUserName($searchTerm);
-        foreach ($results as $result){
-            array_push($users, $result);
-        }
-        return new JsonResponse($this->getDoctrine()->getRepository(UserProfile::class)->searchUserName($searchTerm));
+        return new JsonResponse($results);
     }
 
     /**
