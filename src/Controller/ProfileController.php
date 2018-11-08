@@ -225,16 +225,19 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/autocomplete", name="autocomplete")
+     * @Route("/autocomplete/{term}", name="autocomplete")
      */
-    public function autocompleteAction(Request $request)
+    public function autocompleteAction($term, Request $request)
     {
         $users = array();
-        $data = $request->getContent();
-        $data = json_decode($data, true);
-        $searchTerm = $data['term'];
-        $results = $this->getDoctrine()->getRepository(UserProfile::class)->searchUserName($searchTerm);
-        return new JsonResponse($results);
+        $searchTerm = $term;
+        $results = $this->getDoctrine()->getRepository(UserProfile::class)->searchUserName(strtolower($searchTerm));
+        
+        foreach ($results as $result){
+            array_push($users, $result->getUsername());
+        }
+        
+        return $this->json($users);
     }
 
     /**
