@@ -36,9 +36,11 @@
                             <span class='title is-bold'>{{ user.username }}</span>
                             <br>
 
-                            {% set zings = upvotes - downvotes %}
+                            {% set zings = upvotes + downvotes %}
 
-                            {% if zings <= 10 %}
+                            {% if zings <= 0 %}
+                                <span class='tag is-danger is-outline status'>Savage</span>
+                            {% elseif zings <= 10 %}
                                 <span class='tag is-info is-outline status'>Fresh Spawn</span>
                             {% elseif zings <= 20 %}
                                 <span class='tag is-link is-outline status'>Pro Member</span>
@@ -59,15 +61,15 @@
                         <p class='stat-key'>posts</p>
                     </div>
                     <div class='column has-text-centered'>
-                        <p class='stat-val'>{{upvotes}}</p>
-                        <p class='stat-key'>upvotes</p>
+                        <p class='stat-val'>{{followers | length}}</p>
+                        <p class='stat-key'>followers</p>
                     </div>
                     <div class='column has-text-centered'>
-                        <p class='stat-val'>{{downvotes * -1}}</p>
-                        <p class='stat-key'>downvotes</p>
+                        <p class='stat-val'>{{following | length}}</p>
+                        <p class='stat-key'>following</p>
                     </div>
                     <div class='column has-text-centered'>
-                        <p class='stat-val'>{{upvotes - downvotes}}</p>
+                        <p class='stat-val'>{{upvotes + downvotes}}</p>
                         <p class='stat-key'>zings</p>
                     </div>
                 </div>
@@ -103,14 +105,39 @@
                 </div>
             </div>
             <div class="main">
-                <div class="posts">
-                    {% include 'components/posts.html.twig' %}
-                </div>
-                <div class="comments">
-                    {% include 'components/comments.html.twig' %}
-                </div>
-                <div class="profile">
-                    {% include 'components/profile.html.twig' %}
+                <div class="columns">
+                    <div class="column is-three-quarters">
+                        <div class="posts">
+                            {% include 'components/posts.html.twig' %}
+                        </div>
+                        <div class="comments">
+                            {% include 'components/comments.html.twig' %}
+                        </div>
+                        <div class="profile">
+                            {% include 'components/profile.html.twig' %}
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="box">
+                            <p class='subtitle is-bold has-text-centered'>Followers</p>
+                            {% if followers | length > 0 %}
+                                {% for follower in followers %}
+                                    {% include 'components/user.html.twig' with {'user': follower}%}
+                                {% endfor %}
+                            {% endif %}
+
+                        </div>
+                        <div class="box">
+                            <p class='subtitle is-bold has-text-centered'>Following</p>
+                            {% if following | length > 0 %}
+
+                                {% for followin in following %}
+                                    {% include 'components/user.html.twig' with {'user': followin}%}
+                                {% endfor %}
+                            {% endif %}
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

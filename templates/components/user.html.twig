@@ -1,0 +1,21 @@
+<div class="level">
+    <div class="level-left">
+
+        <div class="level-item">
+            <p class="image is-64x64">
+                {% if user.avatar.first == null %}
+                    <img class='is-rounded' alt='avatar' src="/img/placeholder-avatar.png">
+                {% else %}
+                    <img class='is-rounded' alt='avatar' src="/uploads/avatars/{{ user.avatar.first.url }}">
+                {% endif %}
+            </p>
+        </div>
+        <div class="level-item">
+            <p>
+                <a href="{{ path('show_profile', { 'id' : user.id }) }}">
+                    <strong>{{user.username}}</strong>
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

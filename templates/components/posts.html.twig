@@ -1,18 +1,14 @@
-<div class="columns">
-    <div class="column is-three-quarters">
-        {% if user.questions | length is same as(0) %}
-            <p>Nothing asked yet</p>
-        {% else %}
+{% if user.questions | length is same as(0) %}
+    <p>Nothing asked yet</p>
+{% else %}
 
-            {% for question in user.questions %}
-                <div class="box is-clearfix">
-                    {% include 'components/question.html.twig'
-                    with {
-                        'question' : question
-                    } %}
+    {% for question in user.questions %}
+        <div class="box is-clearfix">
+            {% include 'components/question.html.twig'
+            with {
+                'question' : question
+            } %}
 
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-</div>
+        </div>
+    {% endfor %}
+{% endif %}

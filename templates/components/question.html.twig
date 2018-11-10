@@ -13,9 +13,15 @@
         <div class="content">
             <p>
                 <br>
-                <a href="{{ path('show_profile', { 'id' : question.user.id }) }}">
-                    @{{question.user.username}}
-                </a>
+                {% if app.user == null %}
+                    <a href="{{ path('login_view') }}">
+                        @{{question.user.username}}
+                    </a>
+                {% else %}
+                    <a href="{{ path('show_profile', { 'id' : question.user.id }) }}">
+                        @{{question.user.username}}
+                    </a>
+                {% endif %}
                 <br>
                 <br>
                 <strong>

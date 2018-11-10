@@ -1,16 +1,12 @@
-<div class="columns">
-    <div class="column is-three-quarters">
-        {% if user.replys | length is same as(0) %}
-            <p>Nothing answered yet</p>
-        {% else %}
-            {% for reply in user.replys %}
-                <div class="box is-clearfix">
+{% if user.replys | length is same as(0) %}
+    <p>Nothing answered yet</p>
+{% else %}
+    {% for reply in user.replys %}
+        <div class="box is-clearfix">
 
-                    {% include 'components/reply.html.twig' with {
-                        'reply' : reply
-                    } %}
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-</div>
+            {% include 'components/reply.html.twig' with {
+                'reply' : reply
+            } %}
+        </div>
+    {% endfor %}
+{% endif %}

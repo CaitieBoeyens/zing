@@ -63,7 +63,7 @@ class UserProfile implements UserInterface
     private $questions;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UserProfile", mappedBy="followers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\UserProfile", mappedBy="follower")
      */
     private $following;
 
@@ -78,7 +78,7 @@ class UserProfile implements UserInterface
         *   }
      * )
      */
-    private $followers;
+    private $follower;
     
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reply", mappedBy="user", orphanRemoval=true)
@@ -282,6 +282,7 @@ class UserProfile implements UserInterface
             $this->following[] = $following;
             $following->addFollower($this);
         }
+        return $this;
     }
 
     public function removeFollowing(UserProfile $following): self
@@ -319,6 +320,7 @@ class UserProfile implements UserInterface
             $follower->removeFollowing($this);
 
         }
+        return $this;
     }
 
     /**
