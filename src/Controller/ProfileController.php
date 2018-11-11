@@ -221,15 +221,21 @@ class ProfileController extends AbstractController
      */
     public function autocompleteAction($term, Request $request)
     {
+        $names = array();
+        $userIDs = array();
         $users = array();
         $searchTerm = $term;
         $results = $this->getDoctrine()->getRepository(UserProfile::class)->searchUserName(strtolower($searchTerm));
         
         foreach ($results as $result){
-            array_push($users, $result->getUsername());
+            array_push($names, $result->getUsername());
+            array_push($userIDs, $result->getId());
+            array_push($users, array($result->getUsername(), $result->getId()));
         }
+
+        //$users = array_combine($names, $userIDs);
         
-        return $this->json($users);
+        return new JsonResponse($users);
     }
 
     /**
