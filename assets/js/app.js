@@ -15,7 +15,7 @@ document.getElementById('userSearchBar').onkeyup = function() {
         });
 };
 
-function autocomplete(inp, arr) {
+function autocomplete(inputElement, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
