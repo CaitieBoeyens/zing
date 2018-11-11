@@ -13,11 +13,16 @@
         <div class="content column is-7">
 
             <p>
-                <a href="{{ path('show_profile', { 'id' : reply.user.id }) }}">
-                    <strong>
-                        {{reply.user.username}}
-                    </strong>
-                </a>
+                {% if app.user.id is same as(reply.user.id) %}
+                    <a href="{{ path('user_profile') }}">
+                        <strong>{{reply.user.username}}</strong>
+                    </a>
+                {% else %}
+                    <a href="{{ path('show_profile', { 'id' : reply.user.id }) }}">
+                        <strong>{{reply.user.username}}</strong>
+                    </a>
+
+                {% endif %}
 
                 <br>
                 {{reply.body}}

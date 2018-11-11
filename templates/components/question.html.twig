@@ -18,9 +18,18 @@
                         @{{question.user.username}}
                     </a>
                 {% else %}
-                    <a href="{{ path('show_profile', { 'id' : question.user.id }) }}">
-                        @{{question.user.username}}
-                    </a>
+
+                    {% if app.user.id is same as(question.user.id) %}
+                        <a href="{{ path('user_profile') }}">
+                            @{{question.user.username}}
+                        </a>
+                    {% else %}
+                        <a href="{{ path('show_profile', { 'id' : question.user.id }) }}">
+                            @{{question.user.username}}
+                        </a>
+
+                    {% endif %}
+
                 {% endif %}
                 <br>
                 <br>

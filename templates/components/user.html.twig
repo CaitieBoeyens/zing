@@ -12,9 +12,17 @@
         </div>
         <div class="level-item">
             <p>
-                <a href="{{ path('show_profile', { 'id' : user.id }) }}">
-                    <strong>{{user.username}}</strong>
-                </a>
+                {% if app.user.id is same as(user.id) %}
+                    <a href="{{ path('user_profile') }}">
+                        <strong>{{user.username}}</strong>
+                    </a>
+                {% else %}
+                    <a href="{{ path('show_profile', { 'id' : user.id }) }}">
+                        <strong>{{user.username}}</strong>
+                    </a>
+
+                {% endif %}
+
             </p>
         </div>
     </div>
