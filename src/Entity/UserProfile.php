@@ -8,9 +8,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Security\UserRepository")
+ * @UniqueEntity(fields={"username"}, message="That username is taken")
  */
 class UserProfile implements UserInterface
 {
@@ -24,6 +26,7 @@ class UserProfile implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
+     * 
      */
     private $username;
 
