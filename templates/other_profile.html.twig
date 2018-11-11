@@ -25,11 +25,47 @@
 
                     </span>
                 </div>
-                <div class=' column="column" name' ="name'">
+                <div class='column name'>
                     <p>
                         <span class='title is-bold'>{{ user.username }}</span>
                         <br>
-                        <span class='tag is-primary is-outline status'>Pro</span>
+
+                        {% set zings = upvotes + downvotes %}
+                        {% if zings < 0 %}
+                            <span class='tag is-danger is-outline status'>Savage</span>
+                        {% elseif zings <= 10 %}
+                            <span class='tag is-info is-outline status'>Fresh Spawn</span>
+                        {% elseif zings <= 20 %}
+                            <span class='tag is-link is-outline status'>Pro Member</span>
+                        {% elseif zings <= 30 %}
+                            <span class='tag is-primary is-outline status'>Veteran</span>
+                        {% elseif zings <= 40 %}
+                            <span class='tag is-success is-outline status'>Elder</span>
+                        {% elseif zings <= 50 %}
+                            <span class='tag is-warning is-outline status'>Champion</span>
+                        {% else %}
+                            <span class='tag is-danger is-outline status'>Celestial</span>
+                        {% endif %}
+                        <br>
+                        <br>
+                        {% if app.user in followers %}
+                            <a class="button is-pink is-rounded" id="following" onclick="unfollow(this, {{ user.id }} )">
+                                <strong>Following</strong>
+                            </a>
+                            <a class="button is-pink is-inverted is-rounded" id="follow" style="display:none" onclick="follow(this, {{ user.id }} )">
+                                <strong>Follow</strong>
+                            </a>
+
+                        {% else %}
+                            <a class="button is-pink is-rounded" id="following" style="display:none" onclick="unfollow(this, {{ user.id }} )">
+                                <strong>Following</strong>
+                            </a>
+                            <a class="button is-pink is-inverted is-rounded" id="follow" onclick="follow(this, {{ user.id }} )">
+                                <strong>Follow</strong>
+                            </a>
+
+                        {% endif %}
+
                     </p>
                 </div>
                 <div class='column has-text-centered'>
@@ -37,18 +73,19 @@
                     <p class='stat-key'>posts</p>
                 </div>
                 <div class='column has-text-centered'>
-                    <p class='stat-val'>{{upvotes}}</p>
-                    <p class='stat-key'>upvotes</p>
+                    <p class='stat-val'>{{followers | length}}</p>
+                    <p class='stat-key'>followers</p>
                 </div>
                 <div class='column has-text-centered'>
-                    <p class='stat-val'>{{downvotes * -1}}</p>
-                    <p class='stat-key'>downvotes</p>
+                    <p class='stat-val'>{{following | length}}</p>
+                    <p class='stat-key'>following</p>
                 </div>
                 <div class='column has-text-centered'>
                     <p class='stat-val'>{{upvotes + downvotes}}</p>
                     <p class='stat-key'>zings</p>
                 </div>
             </div>
+
         </div>
         <div class='profile-options is-fullwidth'>
             <div class='tabs is-fullwidth'>
@@ -74,17 +111,43 @@
             </div>
         </div>
         <div class="main">
-            <div class="posts">
-                {% include 'components/posts.html.twig' %}
-            </div>
-            <div class="comments">
-                {% include 'components/comments.html.twig' %}
+            <div class="columns">
+                <div class="column is-three-quarters">
+                    <div class="posts">
+                        {% include 'components/posts.html.twig' %}
+                    </div>
+                    <div class="comments">
+                        {% include 'components/comments.html.twig' %}
+                    </div>
+                </div>
+                <div class="column is-one-quarter">
+                    <div class="box">
+                        <p class='subtitle is-bold has-text-centered'>Followers</p>
+                        {% if followers | length > 0 %}
+                            {% for follower in followers %}
+                                {% include 'components/user.html.twig' with {'user': follower}%}
+                            {% endfor %}
+                        {% endif %}
+
+                    </div>
+                    <div class="box">
+                        <p class='subtitle is-bold has-text-centered'>Following</p>
+                        {% if following | length > 0 %}
+
+                            {% for followin in following %}
+                                {% include 'components/user.html.twig' with {'user': followin}%}
+                            {% endfor %}
+                        {% endif %}
+
+                    </div>
+                </div>
             </div>
 
         </div>
     </div>
 
     {% block script %}
+        <script src="{{asset('build/js/follow.js')}}"></script>
         <script>
             $(function () {
                 $('.posts').show();

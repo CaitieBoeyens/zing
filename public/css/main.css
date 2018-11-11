@@ -21,6 +21,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
     background: #f7f7f7;
+    padding-bottom: 4em;
 }
 
 body .signup-con,

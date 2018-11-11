@@ -187,23 +187,15 @@ class ProfileController extends AbstractController
     }
 
     /**
-    * @Route("/profile/{id}", name="show_profile")
-    */
-    public function viewUser($id, Request $req){
-        //$results = $this->getDoctrine()->getRepository(UserProfile::class)->findBy(['id'=>$id]);
-        
-        $view = 'success.html.twig';
-        $model = array();
-        return $this->render($view, $model);
-    }
-
-    /**
      * @Route("/profile", name="user_profile")
      */
     public function viewProfile(Request $request)
     {
         $user = $this->getUser();
         $replies = $user->getReplys();
+
+        $followers = $user->getFollower();
+        $following = $user->getFollowing();
 
         $upvotes = 0;
         foreach ($replies as $r) {
@@ -220,7 +212,7 @@ class ProfileController extends AbstractController
         }
 
         $view = 'profile.html.twig';
-        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user);
+        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user, 'followers' => $followers, 'following' => $following);
         return $this->render($view, $model);
     }
 
@@ -356,6 +348,9 @@ class ProfileController extends AbstractController
         $user = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
         $replies = $user->getReplys();
 
+        $followers = $user->getFollower();
+        $following = $user->getFollowing();
+
         $upvotes = 0;
         foreach ($replies as $r) {
             $num = $r->getUpvotes();
@@ -371,9 +366,66 @@ class ProfileController extends AbstractController
         }
 
 
-        $view = 'profile.html.twig';
-        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user);
+
+
+        $view = 'other_profile.html.twig';
+        $model = array('upvotes' => $upvotes, 'downvotes' => $downvotes, 'user' => $user, 'followers' => $followers, 'following' => $following);
         return $this->render($view, $model);
     }
 
+    /**
+     * @Route("/follow", name="follow", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+    public function follow(Request $request){
+
+         if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $id = (int) $data['user_id'];
+
+            $user = $this->getUser();
+
+            $followUser = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+
+            $followUser -> addFollower($user);
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->persist($followUser);
+            $entityManager->flush();
+
+            $response = new JsonResponse($followUser);
+        }
+        return ($response);
+
+    }
+
+    /**
+     * @Route("/unfollow", name="unfollow", methods={"POST"}, options={"expose"=true})
+     * @param Request $request
+     */
+    public function unfollow(Request $request){
+
+         if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $id = (int) $data['user_id'];
+
+            $user = $this->getUser();
+
+            $followUser = $this->getDoctrine()->getRepository(UserProfile::class)->find($id);
+
+            $followUser -> removeFollower($user);
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->persist($followUser);
+            $entityManager->flush();
+
+            $response = new JsonResponse($followUser);
+        }
+        return ($response);
+
+    }
 }
