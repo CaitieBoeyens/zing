@@ -38,7 +38,7 @@
 
                             {% set zings = upvotes + downvotes %}
 
-                            {% if zings <= 0 %}
+                            {% if zings < 0 %}
                                 <span class='tag is-danger is-outline status'>Savage</span>
                             {% elseif zings <= 10 %}
                                 <span class='tag is-info is-outline status'>Fresh Spawn</span>
