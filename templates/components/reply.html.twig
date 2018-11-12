@@ -30,9 +30,11 @@
         </div>
 
         <div class="media-right column is-3 is-clearfix" id='{{reply.id}}'>
-            <span class="is-pulled-right icon is-medium is-inactive" onclick="deleteReply(this)">
-                <i class="fas fa-lg fa-trash-alt"></i>
-            </span>
+            {% if 'ROLE_ADMIN' in app.user.roles %}
+                <span class="is-pulled-right icon is-medium is-inactive" onclick="deleteReply(this)">
+                    <i class="fas fa-lg fa-trash-alt"></i>
+                </span>
+            {% endif %}
             {% if app.user.id is same as(reply.user.id) %}
 
             {% else %}
