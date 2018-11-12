@@ -9,6 +9,7 @@
 .signup-card input {
     color: #fff;
     margin-top: 1rem;
+    background-color: #ffffff00;
 }
 
 .signup-card,
@@ -45,7 +46,7 @@ input {
     margin-bottom: 1.75rem;
     padding: 0.25rem 0;
     transition: all 0.5s;
-    background: transparent;
+
     border: none;
     border-bottom: 1px solid #dbdbdb;
     text-transform: none !important;
